@@ -96,9 +96,12 @@ d3.csv("data/combined.csv").then (function(data) {
   console.log (minY,maxY)
   
  // set the dimensions and margins of the graph
-var margin = {top: 50, right: 30, bottom: 60, left: 40},
-    width = 1000 - margin.left - margin.right,
+var margin = {top: 50, right: 0, bottom: 60, left: 40},
+    width = d3.select("#my_dataviz").node().clientWidth - margin.left - margin.right,
     height = 800 - margin.top - margin.bottom;
+
+
+console.log (d3.select("#my_dataviz").node())
 
 // append sthe svg object to the body of the page
 var svg = d3.select("#my_dataviz")
@@ -142,7 +145,8 @@ var svg = d3.select("#my_dataviz")
   console.log (minY, maxY);
   
   
-  var boxtip = d3.tip().attr('class', 'd3-tip').direction('e').offset([0,5])
+  //var boxtip = d3.tip().attr('class', 'd3-tip').direction('e').offset([0,5])
+  var boxtip = d3.tip().attr('class', 'd3-tip').direction(function(d) {if (x(d.key) < width/2) return 'e'; return 'w'}).offset(function(d) {if (x(d.key) < width/2) return [0,5]; return [0,-5]})
             .html(function(d) {
                 var content = "<span style='margin-left: 2.5px;'><b>" + d.key + "</b></span><br>";
                 content +=`
@@ -157,7 +161,7 @@ var svg = d3.select("#my_dataviz")
                 return content;
             });
         svg.call(boxtip);
-  var outliertip = d3.tip().attr('class', 'd3-tip').direction('e').offset([0,5])
+  var outliertip = d3.tip().attr('class', 'd3-tip').direction(function(d) {if (x(d.key) < width/2) return 'e'; return 'w'}).offset(function(d) {if (x(d.key) < width/2) return [0,5]; return [0,-5]})
             .html(function(d) {
                 var content = "<span style='margin-left: 2.5px;'><b>" + d.n + "</b></span><br>";
                 content += "<span style='margin-left: 2.5px;'>Value: " + d3.format(".2f")(d.p) + "</span><br>";
@@ -375,7 +379,7 @@ var svg = d3.select("#my_dataviz")
     .attr("transform", "translate(0," + height + ")")
     .call(d3.axisBottom(x))
       .selectAll("text")
-        .attr("transform", "translate(-10,10)rotate(-90)")
+        .attr("transform", "translate(-12,10)rotate(-90)")
         .style("text-anchor", "end")
         .style("font-size", 28)
     .each(function(d, i){
