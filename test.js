@@ -141,6 +141,31 @@ var svg = d3.select("#my_dataviz")
   }
   console.log (minY, maxY);
   
+  
+  var boxtip = d3.tip().attr('class', 'd3-tip').direction('e').offset([0,5])
+            .html(function(d) {
+                var content = "<span style='margin-left: 2.5px;'><b>" + d.key + "</b></span><br>";
+                content +=`
+                    <table style="margin-top: 2.5px;">
+                            <tr><td>Max: </td><td style="text-align: right">` + d3.format(".2f")(d.value.max) + `</td></tr>
+                            <tr><td>Q3: </td><td style="text-align: right">` + d3.format(".2f")(d.value.q3) + `</td></tr>
+                            <tr><td>Median: </td><td style="text-align: right">` + d3.format(".2f")(d.value.median) + `</td></tr>
+                            <tr><td>Q1: </td><td style="text-align: right">` + d3.format(".2f")(d.value.q1) + `</td></tr>
+                            <tr><td>Min: </td><td style="text-align: right">` + d3.format(".2f")(d.value.min) + `</td></tr>
+                    </table>
+                    `;
+                return content;
+            });
+        svg.call(boxtip);
+  var outliertip = d3.tip().attr('class', 'd3-tip').direction('e').offset([0,5])
+            .html(function(d) {
+                var content = "<span style='margin-left: 2.5px;'><b>" + d.n + "</b></span><br>";
+                content += "<span style='margin-left: 2.5px;'>Value: " + d3.format(".2f")(d.p) + "</span><br>";
+                return content;
+            });
+        svg.call(outliertip);
+  
+  
   //var btm = undefined
   
   xdomain = xdomain.sort(function(a, b) { return d3.ascending(a, b); })
@@ -187,6 +212,8 @@ var svg = d3.select("#my_dataviz")
         .attr("r", 1)
         .attr("cx", function(d){return(x(d.n) + 2 * (Math.random () - .5))})
         .attr("cy", function(d){return(y(d.p))})
+        .on('mouseover', outliertip.show)
+        .on('mouseout', outliertip.hide);
         //.attr("stroke", "black")
         //.style("width", 40)
   }
@@ -205,6 +232,12 @@ var svg = d3.select("#my_dataviz")
   
   
   
+
+  
+  
+  
+  
+  
   // rectangle for the main box
   var boxWidth = width / sumstat.length - 20
   svg
@@ -219,6 +252,8 @@ var svg = d3.select("#my_dataviz")
         //.attr("stroke", function(d){return boxColor(d.key)})
       .attr("stroke", "black")
         .style("fill", function(d){return boxColor(d.key)})
+        .on('mouseover', boxtip.show)
+        .on('mouseout', boxtip.hide);
   
   //var boxWidth = width / sumstat.length - 10
   svg
