@@ -29,7 +29,7 @@ function getMeth () {
   marr = {};
   for (i = 0; i < imethods.length; i++)
     marr[imethods[i]] = {
-      "points": [],
+      "samples": [],
       "q1": 0,
       "median": 0,
       "q3": 0,
@@ -47,22 +47,41 @@ function getType () {
   };
 };
 
-boxplots = {
+function getTypeType () {
+	return {
 "Patient Data": getType (),
 "Cell Line": getType ()
-};
+}};
+boxplots = {}
 minY = 10000000;
 maxY = 0;
 
-var xdomain = [];
+var xdomain = new Set ();
 
-d3.csv("data/combined.csv").then (function(data) {
+class Sample {
+	constructor (name) {
+		this.name = name
+		this.scores = {}
+	}
+	setScore (measure, method, value) {
+		this.scores[measure + "_" + method] = value
+	}
+}
+function SampleSorter (scoreId) {
+ return (a, b) => {return a.scores[scoreId]-b.scores[scoreId]}	
+}
+samples = {}
+MEASURE = "AFR"
+MEASURE = "EOR"
+//~ MEASURE = "Hallmark"
+
+d3.csv("data/combined-afr-eor-hallmark.csv").then (function(data) {
   // console.log(data)
   for (row=0; row < data.length; row++){
     t=undefined;
     b=undefined;
-    switch (data[row]["DS"]) {
-      case "EMTAB37":
+    switch (data[row]["Dataset"]) {
+      case "EMTAB-37":
         t = "Microarray";
         b = "Cell Line";
         break;
@@ -74,7 +93,7 @@ d3.csv("data/combined.csv").then (function(data) {
         t = "MS Proteomics";
         b = "Cell Line";
         break;
-      case "GSE2019":
+      case "GSE2109":
         t = "Microarray";
         b = "Patient Data";
         break;
@@ -87,12 +106,22 @@ d3.csv("data/combined.csv").then (function(data) {
         b = "Patient Data";
         break;
     }
+    console.log (data[row]["Dataset"],t)
+		if (!samples[data[row]["Sample"]]) {
+			samples[data[row]["Sample"]] = new Sample (data[row]["Sample"])
+		}
+		s = samples[data[row]["Sample"]]
+		if (!boxplots[data[row]["Score"]])
+			boxplots[data[row]["Score"]] = getTypeType ();
     for (i = 0; i < imethods.length; i++) {
-      boxplots[b][t][imethods[i]]["points"].push (parseInt (data[row][imethods[i]]));
-      xdomain.push (b+"-"+t+"-"+imethods[i]);
+		boxplots[data[row]["Score"]][b][t][imethods[i]]["samples"].push (s);
+		s.setScore (data[row]["Score"], imethods[i], parseInt (data[row][imethods[i]]))
+      
+      xdomain.add (b+"-"+t+"-"+imethods[i]);
     }
   }
-  
+  console.log(samples)
+  console.log(boxplots)
   console.log (minY,maxY)
   
  // set the dimensions and margins of the graph
@@ -118,23 +147,36 @@ var svg = d3.select("#my_dataviz")
     //width = 160/4,
     //height = 400;
   var sumstat = []
-  for (const [type1key, type1value] of Object.entries(boxplots)) {
+  for (const [type1key, type1value] of Object.entries(boxplots[MEASURE])) {
     for (const [type2key, type2value] of Object.entries(type1value)) {
       for (const [methkey, methvalue] of Object.entries(type2value)) {
-        q1 = d3.quantile(methvalue["points"].sort(d3.ascending),.25);
-        median = d3.quantile(methvalue["points"].sort(d3.ascending),.5);
-        q3 = d3.quantile(methvalue["points"].sort(d3.ascending),.75);
+		 scoreId = MEASURE + "_" + methkey;
+		 vals = []
+		 for (i = 0; i< methvalue["samples"].length; i++)
+			vals.push (methvalue["samples"][i].scores[scoreId])
+		vals = vals.sort(d3.ascending)
+        q1 = d3.quantile(vals,.25);
+        median = d3.quantile(vals,.5);
+        q3 = d3.quantile(vals,.75);
         interQuantileRange = q3 - q1;
-        min = Math.min(...methvalue["points"])
-        max = Math.max(...methvalue["points"])
+        min = vals[0]
+        max = vals[vals.length - 1]
+        //~ for (i = 1; i < methvalue["samples"].length; i++) {
+			//~ if (min > methvalue["samples"][0].scores[scoreId])
+			//~ min = methvalue["samples"][0].scores[scoreId]
+			//~ if (max < methvalue["samples"][0].scores[scoreId])
+			//~ max = methvalue["samples"][0].scores[scoreId]
+		//~ }
+        //~ min = Math.min(...methvalue["samples"])
+        //~ max = Math.max(...methvalue["samples"])
         //min = q1 - 1.5 * interQuantileRange;
         //max = q3 + 1.5 * interQuantileRange;
         whiskersMin = Math.max(min, q1 - interQuantileRange * 1.5);
         whiskersMax = Math.min(max, q3 + interQuantileRange * 1.5);
-        outliers = methvalue["points"].filter (x => x < whiskersMin || x > whiskersMax);
+        outliers = methvalue["samples"].filter (x => x.scores[scoreId] < whiskersMin || x.scores[scoreId] > whiskersMax);
         sumstat.push ({
           "key": type1key+"-"+type2key+"-"+methkey,
-          "value": {q1: q1, median: median, q3: q3, interQuantileRange: interQuantileRange, min: min, max: max, whiskersMin: whiskersMin, whiskersMax: whiskersMax, outliers: outliers}});
+          "value": {q1: q1, median: median, q3: q3, interQuantileRange: interQuantileRange, min: min, max: max, whiskersMin: whiskersMin, whiskersMax: whiskersMax, outliers: outliers, scoreId: scoreId}});
         if (minY > min)
           minY = min;
         if (maxY < max)
@@ -161,9 +203,10 @@ var svg = d3.select("#my_dataviz")
                 return content;
             });
         svg.call(boxtip);
-  var outliertip = d3.tip().attr('class', 'd3-tip').direction(function(d) {if (x(d.key) < width/2) return 'e'; return 'w'}).offset(function(d) {if (x(d.key) < width/2) return [0,5]; return [0,-5]})
+  var outliertip = d3.tip().attr('class', 'd3-tip').direction(function(d) {if (x(d.n) < width/2) return 'e'; return 'w'}).offset(function(d) {if (x(d.n) < width/2) return [0,5]; return [0,-5]})
             .html(function(d) {
                 var content = "<span style='margin-left: 2.5px;'><b>" + d.n + "</b></span><br>";
+                content += "<span style='margin-left: 2.5px;'>Sample: " + d.s + "</span><br>";
                 content += "<span style='margin-left: 2.5px;'>Value: " + d3.format(".2f")(d.p) + "</span><br>";
                 return content;
             });
@@ -172,7 +215,7 @@ var svg = d3.select("#my_dataviz")
   
   //var btm = undefined
   
-  xdomain = xdomain.sort(function(a, b) { return d3.ascending(a, b); })
+  xdomain = Array.from(xdomain).sort(function(a, b) { return d3.ascending(a, b); })
   var x = d3.scaleBand()
     .range([ 0, width ])
     .domain(xdomain)
@@ -206,7 +249,7 @@ var svg = d3.select("#my_dataviz")
   for (i = 0; i < sumstat.length; i++) {
     const arr = []
     for (j = 0; j < sumstat[i].value.outliers.length; j++)
-      arr.push ({n: sumstat[i].key, p: sumstat[i].value.outliers[j]})
+      arr.push ({n: sumstat[i].key, s:sumstat[i].value.outliers[j].name, p: sumstat[i].value.outliers[j].scores[sumstat[i].value.scoreId]})
     console.log (arr)
     svg
       .selectAll("outliers")
