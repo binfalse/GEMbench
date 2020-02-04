@@ -72,8 +72,8 @@ function SampleSorter (scoreId) {
 }
 samples = {}
 MEASURE = "AFR"
-MEASURE = "EOR"
-//~ MEASURE = "Hallmark"
+//~ MEASURE = "EOR"
+MEASURE = "Hallmark"
 
 d3.csv("data/combined-afr-eor-hallmark.csv").then (function(data) {
   // console.log(data)
@@ -224,7 +224,7 @@ var svg = d3.select("#my_dataviz")
         
   
   var y = d3.scaleLinear()
-    .domain([.9*minY,maxY*1.1])
+    .domain([minY - .1*(maxY-minY),maxY + .1*(maxY-minY)])
     .range([height, 0])
   
   
@@ -236,8 +236,8 @@ var svg = d3.select("#my_dataviz")
     .enter()
     .append("rect")
         .attr("x", function(d){return(x(d.key)-boxWidth/2)})
-        .attr("y", y(maxY*1.1))
-        .attr("height", y(.9*minY))
+        .attr("y", y(maxY + .1*(maxY-minY)))
+        .attr("height", y(minY - .1*(maxY-minY)))
         .attr("width", boxWidth )
         .style("opacity", ".2")
         .style("fill", function(d){return datacolor(d.key)})
