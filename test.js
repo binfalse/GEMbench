@@ -71,9 +71,11 @@ function SampleSorter (scoreId) {
  return (a, b) => {return a.scores[scoreId]-b.scores[scoreId]}	
 }
 samples = {}
-MEASURE = "AFR"
-//~ MEASURE = "EOR"
-MEASURE = "Hallmark"
+infinites_p = false
+infinites_m = false
+//MEASURE = "AFR"
+MEASURE = "EOR"
+//MEASURE = "Hallmark"
 
 d3.csv("data/combined-afr-eor-hallmark.csv").then (function(data) {
   // console.log(data)
@@ -152,15 +154,28 @@ var svg = d3.select("#my_dataviz")
       for (const [methkey, methvalue] of Object.entries(type2value)) {
 		 scoreId = MEASURE + "_" + methkey;
 		 vals = []
+     inf_p = []
+     inf_m = []
 		 for (i = 0; i< methvalue["samples"].length; i++)
-			vals.push (methvalue["samples"][i].scores[scoreId])
-		vals = vals.sort(d3.ascending)
-        q1 = d3.quantile(vals,.25);
-        median = d3.quantile(vals,.5);
-        q3 = d3.quantile(vals,.75);
-        interQuantileRange = q3 - q1;
-        min = vals[0]
-        max = vals[vals.length - 1]
+     {
+       v= methvalue["samples"][i].scores[scoreId]
+       if (v == 1000) {
+         infinites_p = true
+         inf_p.push (methvalue["samples"][i])
+       } else if (v == -1000) {
+         infinites_m = true
+         inf_m.push (methvalue["samples"][i])
+       } else {
+         vals.push (v)
+       }
+     }
+		 vals = vals.sort(d3.ascending)
+     q1 = d3.quantile(vals,.25);
+     median = d3.quantile(vals,.5);
+     q3 = d3.quantile(vals,.75);
+     interQuantileRange = q3 - q1;
+     min = vals[0]
+     max = vals[vals.length - 1]
         //~ for (i = 1; i < methvalue["samples"].length; i++) {
 			//~ if (min > methvalue["samples"][0].scores[scoreId])
 			//~ min = methvalue["samples"][0].scores[scoreId]
@@ -173,13 +188,13 @@ var svg = d3.select("#my_dataviz")
         //max = q3 + 1.5 * interQuantileRange;
         whiskersMin = Math.max(min, q1 - interQuantileRange * 1.5);
         whiskersMax = Math.min(max, q3 + interQuantileRange * 1.5);
-        outliers = methvalue["samples"].filter (x => x.scores[scoreId] < whiskersMin || x.scores[scoreId] > whiskersMax);
+        outliers = methvalue["samples"].filter (x => (x.scores[scoreId] < whiskersMin || x.scores[scoreId] > whiskersMax) && vals.includes (x.scores[scoreId]));
         sumstat.push ({
           "key": type1key+"-"+type2key+"-"+methkey,
-          "value": {q1: q1, median: median, q3: q3, interQuantileRange: interQuantileRange, min: min, max: max, whiskersMin: whiskersMin, whiskersMax: whiskersMax, outliers: outliers, scoreId: scoreId}});
-        if (minY > min)
+          "value": {q1: q1, median: median, q3: q3, interQuantileRange: interQuantileRange, min: min, max: max, whiskersMin: whiskersMin, whiskersMax: whiskersMax, outliers: outliers, scoreId: scoreId, inf_p: inf_p, inf_m: inf_m}});
+        if (minY > min && min != -1000 && min != 1000)
           minY = min;
-        if (maxY < max)
+        if (maxY < max && max != 1000 && max != -1000)
           maxY = max;
       }
     }
@@ -222,12 +237,22 @@ var svg = d3.select("#my_dataviz")
     .paddingInner(1)
     .paddingOuter(.5)
         
+  chart_top = 0
+  chart_bottom = height
+  
+  r_u = chart_top
+  r_b = chart_bottom
+  
+  if (infinites_p || infinites_m)
+    r_u = r_u + 50
+  if (infinites_p && infinites_m)
+    r_u = r_u + 30
   
   var y = d3.scaleLinear()
     .domain([minY - .1*(maxY-minY),maxY + .1*(maxY-minY)])
-    .range([height, 0])
+    .range([r_b, r_u])
   
-  
+    
   
   var boxWidth = width / sumstat.length
   svg
@@ -236,8 +261,8 @@ var svg = d3.select("#my_dataviz")
     .enter()
     .append("rect")
         .attr("x", function(d){return(x(d.key)-boxWidth/2)})
-        .attr("y", y(maxY + .1*(maxY-minY)))
-        .attr("height", y(minY - .1*(maxY-minY)))
+        .attr("y", chart_top)
+        .attr("height", chart_bottom)
         .attr("width", boxWidth )
         .style("opacity", ".2")
         .style("fill", function(d){return datacolor(d.key)})
@@ -264,6 +289,83 @@ var svg = d3.select("#my_dataviz")
         //.attr("stroke", "black")
         //.style("width", 40)
   }
+  
+  inf_y = r_u
+  if (infinites_p) {
+    svg.append("text")
+    .attr("x", 0)
+    .attr("y", inf_y - 10)
+    .attr("text-anchor","end")
+    .attr("font-size","10px")
+    .text("Infinity");
+    svg
+      .append("line")
+        .attr("x1", 0)
+        .attr("x2", width)
+        .attr("y1", inf_y - 5)
+        .attr("y2", inf_y - 5)
+        .attr("stroke", "black")
+        .style("width", 10)
+          .style("opacity", ".2")
+    
+    for (i = 0; i < sumstat.length; i++) {
+    const arr = []
+    for (j = 0; j < sumstat[i].value.inf_p.length; j++)
+      arr.push ({n: sumstat[i].key, s:sumstat[i].value.inf_p[j].name, p: Infinity})
+    console.log (arr)
+    svg
+      .selectAll("inf_p")
+      .data(arr)
+      .enter()
+      .append("circle")
+        .attr("r", 1)
+        .attr("cx", function(d){return(x(d.n) + 2 * (Math.random () - .5))})
+        .attr("cy", inf_y - 13)
+        .on('mouseover', outliertip.show)
+        .on('mouseout', outliertip.hide);
+        //.attr("stroke", "black")
+        //.style("width", 40)
+  }
+    inf_y = inf_y - 30
+  }
+  
+  if (infinites_m) {
+    svg.append("text")
+    .attr("x", 0)
+    .attr("y", inf_y - 10)
+    .attr("text-anchor","end")
+    .attr("font-size","10px")
+    .text("-Infinity");
+    svg
+      .append("line")
+        .attr("x1", 0)
+        .attr("x2", width)
+        .attr("y1", inf_y - 5)
+        .attr("y2", inf_y - 5)
+        .attr("stroke", "black")
+        .style("width", 10)
+          .style("opacity", ".2")
+    
+    for (i = 0; i < sumstat.length; i++) {
+    const arr = []
+    for (j = 0; j < sumstat[i].value.inf_m.length; j++)
+      arr.push ({n: sumstat[i].key, s:sumstat[i].value.inf_m[j].name, p: -Infinity})
+    console.log (arr)
+    svg
+      .selectAll("inf_m")
+      .data(arr)
+      .enter()
+      .append("circle")
+        .attr("r", 1)
+        .attr("cx", function(d){return(x(d.n) + 2 * (Math.random () - .5))})
+        .attr("cy", inf_y - 13)
+        .on('mouseover', outliertip.show)
+        .on('mouseout', outliertip.hide);
+        //.attr("stroke", "black")
+        //.style("width", 40)
+  }
+  }
+  
   
   svg
     .selectAll("vertLines")
