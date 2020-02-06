@@ -1,30 +1,41 @@
 
-
-//run ()
-
-
-
-  
-  function boxColor (str) {
-    if (str.includes ("GIMME")) {
-      return "#377eb8"
-    } else if (str.includes ("FASTCORE")) {
-      return "#4daf4a"
-    } else if (str.includes ("INIT")) {
-      return "#984ea3"
-    }
-    return "#ff7f00"
+function boxColor (str) {
+  if (str.includes ("GIMME")) {
+    return "#377eb8"
+  } else if (str.includes ("FASTCORE")) {
+    return "#4daf4a"
+  } else if (str.includes ("INIT")) {
+    return "#984ea3"
   }
-  function datacolor (str) {
-    if (str.includes ("Microarray")) {
-      return "#fef0d9"
-    } else if (str.includes ("MS Proteomics")) {
-      return "#fdcc8a"
-    }
-    return "#fc8d59"
+  return "#ff7f00"
+}
+function datacolor (str) {
+  if (str.includes ("Microarray")) {
+    return "#fef0d9"
+  } else if (str.includes ("MS Proteomics")) {
+    return "#fdcc8a"
   }
+  return "#fc8d59"
+}
+
+
+class Sample {
+	constructor (name) {
+		this.name = name
+		this.scores = {}
+	}
+	setScore (measure, method, value) {
+		this.scores[measure + "_" + method] = value
+	}
+}
+function SampleSorter (scoreId) {
+ return (a, b) => {return a.scores[scoreId]-b.scores[scoreId]}	
+}
+
+
 
 imethods = ["GIMME","FASTCORE","INIT","iMAT"];
+
 function getMeth () {
   marr = {};
   for (i = 0; i < imethods.length; i++)
@@ -41,99 +52,52 @@ function getMeth () {
 };
 function getType () {
   return {
-  "RNA Seq": getMeth (),
-  "Microarray": getMeth (),
-  "MS Proteomics": getMeth ()
+    "RNA Seq": getMeth (),
+    "Microarray": getMeth (),
+    "MS Proteomics": getMeth ()
   };
 };
 
-function getTypeType () {
+function getSourceData () {
 	return {
-"Patient Data": getType (),
-"Cell Line": getType ()
-}};
-boxplots = {}
-minY = 10000000;
-maxY = 0;
-
-var xdomain = new Set ();
-
-class Sample {
-	constructor (name) {
-		this.name = name
-		this.scores = {}
-	}
-	setScore (measure, method, value) {
-		this.scores[measure + "_" + method] = value
-	}
-}
-function SampleSorter (scoreId) {
- return (a, b) => {return a.scores[scoreId]-b.scores[scoreId]}	
-}
-samples = {}
-infinites_p = false
-infinites_m = false
-//MEASURE = "AFR"
-MEASURE = "EOR"
-//MEASURE = "Hallmark"
-
-d3.csv("data/combined-afr-eor-hallmark.csv").then (function(data) {
-  // console.log(data)
-  for (row=0; row < data.length; row++){
-    t=undefined;
-    b=undefined;
-    switch (data[row]["Dataset"]) {
-      case "EMTAB-37":
-        t = "Microarray";
-        b = "Cell Line";
-        break;
-      case "HPA":
-        t = "RNA Seq";
-        b = "Cell Line";
-        break;
-      case "ProteomeNCI60":
-        t = "MS Proteomics";
-        b = "Cell Line";
-        break;
-      case "GSE2109":
-        t = "Microarray";
-        b = "Patient Data";
-        break;
-      case "TCGA":
-        t = "RNA Seq";
-        b = "Patient Data";
-        break;
-      case "ProteomePatients":
-        t = "MS Proteomics";
-        b = "Patient Data";
-        break;
-    }
-    console.log (data[row]["Dataset"],t)
-		if (!samples[data[row]["Sample"]]) {
-			samples[data[row]["Sample"]] = new Sample (data[row]["Sample"])
-		}
-		s = samples[data[row]["Sample"]]
-		if (!boxplots[data[row]["Score"]])
-			boxplots[data[row]["Score"]] = getTypeType ();
-    for (i = 0; i < imethods.length; i++) {
-		boxplots[data[row]["Score"]][b][t][imethods[i]]["samples"].push (s);
-		s.setScore (data[row]["Score"], imethods[i], parseInt (data[row][imethods[i]]))
-      
-      xdomain.add (b+"-"+t+"-"+imethods[i]);
-    }
+    "Patient Data": getType (),
+    "Cell Line": getType ()
   }
-  console.log(samples)
-  console.log(boxplots)
-  console.log (minY,maxY)
-  
- // set the dimensions and margins of the graph
+};
+
+
+
+
 var margin = {top: 50, right: 0, bottom: 60, left: 40},
     width = d3.select("#my_dataviz").node().clientWidth - margin.left - margin.right,
     height = 800 - margin.top - margin.bottom;
 
 
-console.log (d3.select("#my_dataviz").node())
+boxplots = {}
 
+//var xdomain = new Set ();
+
+samples = {}
+MEASURE = "AFR"
+//MEASURE = "EOR"
+MEASURE = "Hallmark"
+
+
+
+
+
+function draw_boxplots () {
+sqrtscale = document.getElementById('sqrt').checked
+infinites_p = false
+infinites_m = false
+minY = 10000000;
+maxY = 0;
+  MEASURE = document.getElementById("metric")
+  MEASURE = MEASURE.options[MEASURE.selectedIndex].value
+  xdomain = new Set ();
+      
+      d3.select("#my_dataviz svg").remove();
+      
 // append sthe svg object to the body of the page
 var svg = d3.select("#my_dataviz")
   .append("svg")
@@ -143,49 +107,35 @@ var svg = d3.select("#my_dataviz")
     .attr("transform",
           "translate(" + margin.left + "," + margin.top + ")");
 
-// Read the data and compute summary statistics for each specie
-// d3.csv("iris.csv").then (function(data) {
-
-    //width = 160/4,
-    //height = 400;
   var sumstat = []
   for (const [type1key, type1value] of Object.entries(boxplots[MEASURE])) {
     for (const [type2key, type2value] of Object.entries(type1value)) {
       for (const [methkey, methvalue] of Object.entries(type2value)) {
-		 scoreId = MEASURE + "_" + methkey;
-		 vals = []
-     inf_p = []
-     inf_m = []
-		 for (i = 0; i< methvalue["samples"].length; i++)
-     {
-       v= methvalue["samples"][i].scores[scoreId]
-       if (v == 1000) {
-         infinites_p = true
-         inf_p.push (methvalue["samples"][i])
-       } else if (v == -1000) {
-         infinites_m = true
-         inf_m.push (methvalue["samples"][i])
-       } else {
-         vals.push (v)
-       }
-     }
-		 vals = vals.sort(d3.ascending)
-     q1 = d3.quantile(vals,.25);
-     median = d3.quantile(vals,.5);
-     q3 = d3.quantile(vals,.75);
-     interQuantileRange = q3 - q1;
-     min = vals[0]
-     max = vals[vals.length - 1]
-        //~ for (i = 1; i < methvalue["samples"].length; i++) {
-			//~ if (min > methvalue["samples"][0].scores[scoreId])
-			//~ min = methvalue["samples"][0].scores[scoreId]
-			//~ if (max < methvalue["samples"][0].scores[scoreId])
-			//~ max = methvalue["samples"][0].scores[scoreId]
-		//~ }
-        //~ min = Math.min(...methvalue["samples"])
-        //~ max = Math.max(...methvalue["samples"])
-        //min = q1 - 1.5 * interQuantileRange;
-        //max = q3 + 1.5 * interQuantileRange;
+         xdomain.add (type1key+"-"+type2key+"-"+methkey);
+         scoreId = MEASURE + "_" + methkey;
+         vals = []
+         inf_p = []
+         inf_m = []
+         for (i = 0; i< methvalue["samples"].length; i++)
+         {
+           v= methvalue["samples"][i].scores[scoreId]
+           if (v == 1000) {
+             infinites_p = true
+             inf_p.push (methvalue["samples"][i])
+           } else if (v == -1000) {
+             infinites_m = true
+             inf_m.push (methvalue["samples"][i])
+           } else {
+             vals.push (v)
+           }
+         }
+         vals = vals.sort(d3.ascending)
+         q1 = d3.quantile(vals,.25);
+         median = d3.quantile(vals,.5);
+         q3 = d3.quantile(vals,.75);
+         interQuantileRange = q3 - q1;
+         min = vals[0]
+         max = vals[vals.length - 1]
         whiskersMin = Math.max(min, q1 - interQuantileRange * 1.5);
         whiskersMax = Math.min(max, q3 + interQuantileRange * 1.5);
         outliers = methvalue["samples"].filter (x => (x.scores[scoreId] < whiskersMin || x.scores[scoreId] > whiskersMax) && vals.includes (x.scores[scoreId]));
@@ -240,17 +190,26 @@ var svg = d3.select("#my_dataviz")
   chart_top = 0
   chart_bottom = height
   
-  r_u = chart_top
+  r_u = chart_top + 20
   r_b = chart_bottom
   
   if (infinites_p || infinites_m)
-    r_u = r_u + 50
+    r_u = r_u +30
   if (infinites_p && infinites_m)
     r_u = r_u + 30
   
+  
+  if (sqrtscale) {
+    extra =  Math.sqrt (.1*(maxY-minY))
+  var y = d3.scaleSqrt()
+    .domain([minY - extra,maxY + extra])
+    .range([r_b, r_u])
+  } else {
   var y = d3.scaleLinear()
     .domain([minY - .1*(maxY-minY),maxY + .1*(maxY-minY)])
     .range([r_b, r_u])
+    
+  }
   
     
   
@@ -404,7 +363,6 @@ var svg = d3.select("#my_dataviz")
         .on('mouseover', boxtip.show)
         .on('mouseout', boxtip.hide);
   
-  //var boxWidth = width / sumstat.length - 10
   svg
     .selectAll("medianLines")
     .data(sumstat)
@@ -416,16 +374,6 @@ var svg = d3.select("#my_dataviz")
       .attr("y2", function(d){return(y(d.value.median))})
       .attr("stroke", "black")
       .style("width", 80)
-  //svg
-    //.selectAll("medianCircles")
-    //.data(sumstat)
-    //.enter()
-    //.append("circle")
-      //.attr("cx", function(d){return(x(d.key)) })
-      //.attr("cy", function(d){return(y(d.value.median))})
-      //.attr("r", boxWidth/2)
-      //.attr("stroke", "black")
-      //.style("fill", function(d){return boxColor(d.key)})
   
   
   types1 = []
@@ -467,49 +415,21 @@ var svg = d3.select("#my_dataviz")
         types1.push (ctypes1)
   
   
-  //console.log (xg)
-  //console.log (xg.node ().getBBox ())
   for (i =0; i < types1.length; i++) {
     console.log (types1[i]);
     txt = svg.append("text")
     .attr("x", (x(types1[i]["start"]) + x(types1[i]["end"]))/2)
     .attr("text-anchor","middle")
     .attr("y", -margin.top + 30)
-    //.attr("y", height + xg.node ().getBBox ().width + 80)
-    //.attr("stroke","black")
     .text(types1[i]["name"]);
-    //bb = txt.node ().getBBox ()
-    //oben = bb.y - 10
-    //unten = 0//bb.y + bb.height + 20
-    //left = x (types1[i]["start"]) - width / (2*sumstat.length)
-    //right = x (types1[i]["end"]) + width / (2*sumstat.length)
-    //svg.append("path")
-    //.attr("d", d3.line()([[left, unten], [left, oben], [right,oben], [right,unten]]))
-    //.attr("stroke","black")
-    //.style("fill", "none")
-    //.style("stroke-opacity", ".3")
-    //.attr("stroke-width", ".3")
   }
   for (i =0; i < types2.length; i++) {
     console.log (types2[i]);
     txt = svg.append("text")
     .attr("x", (x(types2[i]["start"]) + x(types2[i]["end"]))/2)
     .attr("text-anchor","middle")
-    //.attr("y", y (minY*.9)-10)
     .attr("y", 20)
-    //.attr("y", height + xg.node ().getBBox ().width + 40)
-    //.attr("stroke","black")
     .text(types2[i]["name"]);
-    //bb = txt.node ().getBBox ()
-    //oben = bb.y - 10
-    //unten = bb.y + bb.height + 5
-    //left = x (types2[i]["start"]) - width / (2*sumstat.length)
-    //right = x (types2[i]["end"]) + width / (2*sumstat.length)
-    //svg.append("path")
-    //.attr("d", d3.line()([[left, oben], [left, unten], [right,unten], [right,oben]]))
-    //.attr("stroke","black")
-    //.style("fill", "none")
-    //.style("stroke-opacity", "1")
   }
   
   
@@ -538,63 +458,62 @@ var svg = d3.select("#my_dataviz")
   
   
   
-  
-console.log(xdomain)
+};
+
+
+d3.select("#download").on("click", function(){
+  d3.select(this)
+    .attr("href", 'data:application/octet-stream;base64,' + btoa(d3.select("#my_dataviz").html()))
+    .attr("download", "plot.svg") 
+})
+
+
+d3.csv("data/combined-afr-eor-hallmark.csv").then (function(data) {
+  for (row=0; row < data.length; row++){
+    type=undefined;
+    source=undefined;
+    switch (data[row]["Dataset"]) {
+      case "EMTAB-37":
+        type = "Microarray";
+        source = "Cell Line";
+        break;
+      case "HPA":
+        type = "RNA Seq";
+        source = "Cell Line";
+        break;
+      case "ProteomeNCI60":
+        type = "MS Proteomics";
+        source = "Cell Line";
+        break;
+      case "GSE2109":
+        type = "Microarray";
+        source = "Patient Data";
+        break;
+      case "TCGA":
+        type = "RNA Seq";
+        source = "Patient Data";
+        break;
+      case "ProteomePatients":
+        type = "MS Proteomics";
+        source = "Patient Data";
+        break;
+    }
+		if (!samples[data[row]["Sample"]]) {
+			samples[data[row]["Sample"]] = new Sample (data[row]["Sample"])
+		}
+		
+    s = samples[data[row]["Sample"]]
+		if (!boxplots[data[row]["Score"]]) {
+			boxplots[data[row]["Score"]] = getSourceData ();
+    }
+    
+    for (i = 0; i < imethods.length; i++) {
+      boxplots[data[row]["Score"]][source][type][imethods[i]]["samples"].push (s);
+      s.setScore (data[row]["Score"], imethods[i], parseInt (data[row][imethods[i]]))
+      
+      //xdomain.add (b+"-"+t+"-"+imethods[i]);
+    }
+  }
+  draw_boxplots ();
 });
-
-
-    d3.select("#download").on("click", function(){
-      d3.select(this)
-        .attr("href", 'data:application/octet-stream;base64,' + btoa(d3.select("#my_dataviz").html()))
-        .attr("download", "plot.svg") 
-    })
-//var type1 = d3.select("#my_dataviz").append ("div").attr("class", "row");
-//var type2 = d3.select("#my_dataviz").append ("div").attr("class", "row");
-//var method = d3.select("#my_dataviz").append ("div").attr("class", "row");
-//var bp = d3.select("#my_dataviz").append ("div").attr("class", "row");
-////for (b = 0; b < boxplots.length; b++) {
-//for (const [type1key, type1value] of Object.entries(boxplots)) {
-  //type1.append ("div").attr("class", "text-center col-sm-" + (12/Object.entries(boxplots).length)).text (type1key);
-  //for (const [type2key, type2value] of Object.entries(type1value)) {
-    //type2.append ("div").attr("class", "text-center col-sm-" + (6/Object.entries(type1value).length)).text (type2key);
-    //meth = method.append ("div").attr("class", "text-center col-sm-" + (6/Object.entries(type1value).length)).append ("div").attr("class", "row");
-    //bp = method.append ("div").attr("class", "text-center col-sm-" + (6/Object.entries(type1value).length)).append ("div").attr("class", "row");
-    //for (const [methkey, methvalue] of Object.entries(type2value)) {
-      //meth.append ("div").attr("class", "method col-sm-" + (12/Object.entries(type2value).length)).text (methkey);
-      //var svg = bp.append("svg")
-                  //.attr("width", width + margin.left + margin.right)
-                  //.attr("height", height + margin.top + margin.bottom)
-                //.append("g")
-                  //.attr("transform",
-                        //"translate(" + margin.left + "," + margin.top + ")");
-      
-      
-      
-      
-      
-    //}
-  //}
-//}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

@@ -9,33 +9,40 @@
 
 <!-- Tooltip style -->
 <style>
-
 .method {
-  
-    -webkit-transform: rotate(90deg);
-    -moz-transform: rotate(90deg);
-    -o-transform: rotate(90deg);
-    -ms-transform: rotate(90deg);
-    transform: rotate(90deg);
+  -webkit-transform: rotate(90deg);
+  -moz-transform: rotate(90deg);
+  -o-transform: rotate(90deg);
+  -ms-transform: rotate(90deg);
+  transform: rotate(90deg);
 }
-    .d3-tip {
-      line-height: 1;
-      padding: 6px;
-      background: rgba(0, 0, 0, 0.7);
-      color: #fff;
-      border-radius: 4px;
-      font-size: 12px;
-    }
+.d3-tip {
+  line-height: 1;
+  padding: 6px;
+  background: rgba(0, 0, 0, 0.7);
+  color: #fff;
+  border-radius: 4px;
+  font-size: 12px;
+}
 </style>
 </head>
 <body>
   <div class="container mt-5">
-<h1>Hallmarks of Data or what...</h1>
+<h1>Comparison of Methods for Data Integration</h1>
+<p>Metric to display:  <select id='metric' onChange="draw_boxplots()">
+  <option value="AFR">AFR</option>
+  <option value="EOR">EOR</option>
+  <option value="Hallmark">Hallmark</option>
+</select>
+
+Scaled y by sqrt: <input type="checkbox" id="sqrt" name="sqrt" onclick="draw_boxplots();"/>
+
+<br>A bit more information about the current metric.. </p>
 <!-- Create a div where the graph will take place -->
 <div id="my_dataviz"></div>
+<p class="my-5 p-2">Disclaimer: The boxplots where computed while neglecting infinite values</p>
 <a id="download" class="btn btn-success btn-block my-5 p-2" href="#">Download SVG</a>
 </div>
-<p>boxplots computed while neglecting infinite values</p>
 <script src="test.js"></script>
 </body>
 </html>
