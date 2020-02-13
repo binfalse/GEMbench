@@ -35,7 +35,15 @@
 svg {
   color:black;
 }
-
+#outliers {
+  display:none
+}
+.outliers tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
+.outliers tr:hover {
+  background-color: #ddd;
+}
 </style>
 </head>
 <body>
@@ -52,7 +60,7 @@ Scale y: <input type="range" min=".1" max="1" value="1" step="0.1" class="slider
 
 <!-- Create a div where the graph will take place -->
 <div id="my_dataviz"></div>
-<p class="my-5 p-2">Disclaimer: The boxplots where computed while neglecting infinite values</p>
+<p class="my-5 p-2">Disclaimer: The boxplots where computed while neglecting infinite values. A wavy line indicates a lot of outliers. Drawing them would be a torture for your browser and probably wouldn't help much. Click any box to get a list of outliers.</p>
 <a id="download" class="btn btn-success btn-block my-5 p-2" href="#">Download SVG</a>
 <h3>Correlation of integration methods.</h3>
 <p>Click the title to get a larger version of the plot.</p>
@@ -69,5 +77,7 @@ Scale y: <input type="range" min=".1" max="1" value="1" step="0.1" class="slider
   <p>cool website. isn't it?</p>
 </footer>
 <script src="test.js"></script>
+
+<div id="outliers"></div>
 </body>
 </html>

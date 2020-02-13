@@ -147,6 +147,9 @@ function update_slider_value () {
   document.getElementById("slider_value").innerHTML = slider.value
 }
 
+function get_outlier_table_id (metric, data_id) {
+  return "outlier__" + metric + "__" + data_id.replace(/[\W_]+/g,"_")
+}
 
 var margin = {top: 50, right: 0, bottom: 65, left: 40},
     width = d3.select("#my_dataviz").node().clientWidth - margin.left - margin.right,
@@ -718,6 +721,23 @@ var svg = d3.select("#my_dataviz")
     for (j = 0; j < sumstat[i].value.outliers_max.length; j++)
       arr_max.push ({n: sumstat[i].key, s:sumstat[i].value.outliers_max[j].name, p: sumstat[i].value.outliers_max[j].scores[sumstat[i].value.scoreId]})
     
+    arr_min.sort(function (a, b) {return a.p < b.p ? -1 : 1});
+    arr_max.sort(function (a, b) {return a.p < b.p ? -1 : 1});
+    const outlier_table = get_outlier_table_id (MEASURE, sumstat[i].key)
+    if($("#" + outlier_table).length == 0) {
+      $("#outliers").append ("<div id='" + outlier_table + "'><h3>Outliers for the "+
+      MEASURE + " metric of " + sumstat[i].key
+      +"</h3><table class='outliers'><thead><tr><th>Sample</th><th>Value</th></tr></thead><tbody id='"+outlier_table+"_body'></tbody></table>")
+    }
+    const outlier_table_body = $("#" + outlier_table+"_body");
+    for (var o = 0; o < arr_min.length; o++) {
+      outlier_table_body.append ("<tr><td>"+arr_min[o].s+"</td><td>"+arr_min[o].p+"</td></tr>")
+    }
+    outlier_table_body.append ("<tr><th>--- MEDIAN ---</td><th>"+sumstat[i].value.median+"</th></tr>")
+    for (var o = 0; o < arr_max.length; o++) {
+      outlier_table_body.append ("<tr><td>"+arr_max[o].s+"</td><td>"+arr_max[o].p+"</td></tr>")
+    }
+    
     
     function draw_outliers (outliers) {
       
@@ -731,10 +751,12 @@ var svg = d3.select("#my_dataviz")
             .attr("cx", function(d){return(x(d.n) + 3 * (Math.random () - .5))})
             .attr("cy", function(d){return(y(d.p))})
             .on('mouseover', outliertip.show)
-            .on('mouseout', outliertip.hide);
+            .on('mouseout', outliertip.hide)
+            .on("click", function(){
+              $.fancybox( "#" + outlier_table );
+            });
       } else {
         console.log ("too many outliers to draw", outliers.length)
-        outliers.sort(function (a, b) {return a.p < b.p ? -1 : 1});
         
         xval = x(outliers[0].n)
         min = y(outliers[outliers.length - 1].p)
@@ -748,7 +770,7 @@ var svg = d3.select("#my_dataviz")
         //console.log (min, min + 10, max)
         for (var cur = min + 10; cur < max; cur += Math.floor(3+7*Math.random())) {
           //console.log (cur)
-          points.push ([left ? xval - boxWidth/4 : xval + boxWidth/4, cur])
+          points.push ([left ? xval - boxWidth/10 : xval + boxWidth/10, cur])
           left = !left;
         }
         points.push ([xval,max])
@@ -763,7 +785,10 @@ svg.append('path')
 	.attr('d', pathData)
         .attr("stroke", "#666")
         //.style("opacity", ".2")
-        .style("fill", "none");
+        .style("fill", "none")    
+	.on("click", function(){
+    $.fancybox( "#" + outlier_table );
+	});
   
       }
     }
@@ -881,7 +906,10 @@ svg.append('path')
       .attr("stroke", "black")
         .style("fill", function(d){return boxColor(d.key)})
         .on('mouseover', boxtip.show)
-        .on('mouseout', boxtip.hide);
+        .on('mouseout', boxtip.hide)
+            .on("click", function(d){
+              $.fancybox( "#" +  get_outlier_table_id (MEASURE, d.key));
+            });
   
   svg
     .selectAll("medianLines")
@@ -895,7 +923,10 @@ svg.append('path')
       .attr("stroke", "black")
       .style("width", 80)
         .on('mouseover', boxtip.show)
-        .on('mouseout', boxtip.hide);
+        .on('mouseout', boxtip.hide)
+            .on("click", function(d){
+              $.fancybox( "#" +  get_outlier_table_id (MEASURE, d.key));
+            });
   
   
   types1 = []
