@@ -608,10 +608,11 @@ var svg = d3.select("#my_dataviz")
          max = vals[vals.length - 1]
         whiskersMin = Math.max(min, q1 - interQuantileRange * 1.5);
         whiskersMax = Math.min(max, q3 + interQuantileRange * 1.5);
-        outliers = methvalue["samples"].filter (x => (x.scores[scoreId] < whiskersMin || x.scores[scoreId] > whiskersMax) && vals.includes (x.scores[scoreId]));
+        outliers_min = methvalue["samples"].filter (x => (x.scores[scoreId] < whiskersMin) && vals.includes (x.scores[scoreId]));
+        outliers_max = methvalue["samples"].filter (x => (x.scores[scoreId] > whiskersMax) && vals.includes (x.scores[scoreId]));
         sumstat.push ({
           "key": type1key+"-"+type2key+"-"+methkey,
-          "value": {q1: q1, median: median, q3: q3, interQuantileRange: interQuantileRange, min: min, max: max, whiskersMin: whiskersMin, whiskersMax: whiskersMax, outliers: outliers, scoreId: scoreId, inf_p: inf_p, inf_m: inf_m}});
+          "value": {q1: q1, median: median, q3: q3, interQuantileRange: interQuantileRange, min: min, max: max, whiskersMin: whiskersMin, whiskersMax: whiskersMax, outliers_min: outliers_min, outliers_max: outliers_max, scoreId: scoreId, inf_p: inf_p, inf_m: inf_m}});
         if (minY > min && min != -1000 && min != 1000)
           minY = min;
         if (maxY < max && max != 1000 && max != -1000)
@@ -620,6 +621,9 @@ var svg = d3.select("#my_dataviz")
     }
   }
   console.log (minY, maxY);
+  var columnWidth = width / sumstat.length
+  // rectangle for the main box
+  var boxWidth = width / sumstat.length - 20
   
   
   //var boxtip = d3.tip().attr('class', 'd3-tip').direction('e').offset([0,5])
@@ -674,7 +678,6 @@ var svg = d3.select("#my_dataviz")
   
     
   
-  var columnWidth = width / sumstat.length
   svg
     .selectAll("databackground")
     .data(sumstat)
@@ -707,22 +710,64 @@ var svg = d3.select("#my_dataviz")
   console.log (sumstat);
   
   for (i = 0; i < sumstat.length; i++) {
-    const arr = []
-    for (j = 0; j < sumstat[i].value.outliers.length; j++)
-      arr.push ({n: sumstat[i].key, s:sumstat[i].value.outliers[j].name, p: sumstat[i].value.outliers[j].scores[sumstat[i].value.scoreId]})
-    console.log (arr)
-    svg
-      .selectAll("outliers")
-      .data(arr)
-      .enter()
-      .append("circle")
-        .attr("r", 1)
-        .attr("cx", function(d){return(x(d.n) + 3 * (Math.random () - .5))})
-        .attr("cy", function(d){return(y(d.p))})
-        .on('mouseover', outliertip.show)
-        .on('mouseout', outliertip.hide);
-        //.attr("stroke", "black")
-        //.style("width", 40)
+    const arr_min = []
+    const arr_max = []
+    for (j = 0; j < sumstat[i].value.outliers_min.length; j++)
+      arr_min.push ({n: sumstat[i].key, s:sumstat[i].value.outliers_min[j].name, p: sumstat[i].value.outliers_min[j].scores[sumstat[i].value.scoreId]})
+    for (j = 0; j < sumstat[i].value.outliers_max.length; j++)
+      arr_max.push ({n: sumstat[i].key, s:sumstat[i].value.outliers_max[j].name, p: sumstat[i].value.outliers_max[j].scores[sumstat[i].value.scoreId]})
+    
+    
+    function draw_outliers (outliers) {
+      
+      if (outliers.length < 70) {
+        svg
+          .selectAll("outliers")
+          .data(outliers)
+          .enter()
+          .append("circle")
+            .attr("r", 1)
+            .attr("cx", function(d){return(x(d.n) + 3 * (Math.random () - .5))})
+            .attr("cy", function(d){return(y(d.p))})
+            .on('mouseover', outliertip.show)
+            .on('mouseout', outliertip.hide);
+      } else {
+        console.log ("too many outliers to draw", outliers.length)
+        outliers.sort(function (a, b) {return a.p < b.p ? -1 : 1});
+        
+        xval = x(outliers[0].n)
+        min = y(outliers[outliers.length - 1].p)
+        max = y(outliers[0].p)
+        
+        points = [[xval,min]]
+        
+        left = true
+        //cur = min
+        
+        //console.log (min, min + 10, max)
+        for (var cur = min + 10; cur < max; cur += Math.floor(3+7*Math.random())) {
+          //console.log (cur)
+          points.push ([left ? xval - boxWidth/4 : xval + boxWidth/4, cur])
+          left = !left;
+        }
+        points.push ([xval,max])
+        
+        //console.log (points)
+        
+        var lineGenerator = d3.line()
+	.curve(d3.curveCardinal);
+        var pathData = lineGenerator(points);
+
+svg.append('path')
+	.attr('d', pathData)
+        .attr("stroke", "#666")
+        //.style("opacity", ".2")
+        .style("fill", "none");
+  
+      }
+    }
+    draw_outliers (arr_min)
+    draw_outliers (arr_max)
   }
   
   inf_y = r_u
@@ -822,8 +867,6 @@ var svg = d3.select("#my_dataviz")
   
   
   
-  // rectangle for the main box
-  var boxWidth = width / sumstat.length - 20
   svg
     .selectAll("boxes")
     .data(sumstat)
