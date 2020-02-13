@@ -261,63 +261,6 @@ var svg = d3.select("#" + domnode + " p a")
   var position = d3.scalePoint()
     .domain(allVar)
     .range([0, sizeWhole-size])
-
-  // Color scale: give me a specie name, I return a color
-  //var color = d3.scaleOrdinal()
-    //.domain(["setosa", "versicolor", "virginica" ])
-    //.range([ "#402D54", "#D18975", "#8FD175"])
-    
-  
-  //var data = []
-  //for (const [type1key, type1value] of Object.entries(boxplots[MEASURE])) {
-    //for (const [type2key, type2value] of Object.entries(type1value)) {
-      //d = {
-          
-        //}
-      //for (const [methkey, methvalue] of Object.entries(type2value)) {
-        
-      //}
-      //data.push (d)
-        
-        
-         //xdomain.add (type1key+"-"+type2key+"-"+methkey);
-         //scoreId = MEASURE + "_" + methkey;
-         //vals = []
-         //inf_p = []
-         //inf_m = []
-         //for (i = 0; i< methvalue["samples"].length; i++)
-         //{
-           //v= methvalue["samples"][i].scores[scoreId]
-           //if (v == 1000) {
-             //infinites_p = true
-             //inf_p.push (methvalue["samples"][i])
-           //} else if (v == -1000) {
-             //infinites_m = true
-             //inf_m.push (methvalue["samples"][i])
-           //} else {
-             //vals.push (v)
-           //}
-         //}
-         //vals = vals.sort(d3.ascending)
-         //q1 = d3.quantile(vals,.25);
-         //median = d3.quantile(vals,.5);
-         //q3 = d3.quantile(vals,.75);
-         //interQuantileRange = q3 - q1;
-         //min = vals[0]
-         //max = vals[vals.length - 1]
-        //whiskersMin = Math.max(min, q1 - interQuantileRange * 1.5);
-        //whiskersMax = Math.min(max, q3 + interQuantileRange * 1.5);
-        //outliers = methvalue["samples"].filter (x => (x.scores[scoreId] < whiskersMin || x.scores[scoreId] > whiskersMax) && vals.includes (x.scores[scoreId]));
-        //sumstat.push ({
-          //"key": type1key+"-"+type2key+"-"+methkey,
-          //"value": {q1: q1, median: median, q3: q3, interQuantileRange: interQuantileRange, min: min, max: max, whiskersMin: whiskersMin, whiskersMax: whiskersMax, outliers: outliers, scoreId: scoreId, inf_p: inf_p, inf_m: inf_m}});
-        //if (minY > min && min != -1000 && min != 1000)
-          //minY = min;
-        //if (maxY < max && max != 1000 && max != -1000)
-          //maxY = max;
-      //}
-    //}
-  //}
   
   var cur_samples = undefined
   if (MEASURE == "BlandAltman" || MEASURE == "Jaccard")
@@ -519,20 +462,6 @@ var svg = d3.select("#" + domnode + " p a")
     .style("text-anchor","middle")
     }
   }
-  
-  
-    
-    
-    
-//var svg = d3.select(domnode + "svg")
-    //.attr("width", 150)
-    //.attr("height", 150)
-    ////.attr("width", sizeWhole  + marginWhole.left + marginWhole.right)
-    ////.attr("height", sizeWhole  + marginWhole.top + marginWhole.bottom)
-  //.attr ("viewbox", "0 0 " + (sizeWhole  + marginWhole.left + marginWhole.right) + " " + (sizeWhole  + marginWhole.left + marginWhole.right))
-    //console.log (svg)
-    
-//})
 };
 
 
@@ -582,6 +511,7 @@ var svg = d3.select("#my_dataviz")
           "translate(" + margin.left + "," + margin.top + ")");
 
   var sumstat = []
+  console.log ("starting sumstat")
   for (const [type1key, type1value] of Object.entries(boxplots[MEASURE])) {
     for (const [type2key, type2value] of Object.entries(type1value)) {
       for (const [methkey, methvalue] of Object.entries(type2value)) {
@@ -624,6 +554,7 @@ var svg = d3.select("#my_dataviz")
       }
     }
   }
+  console.log ("done sumstat")
   console.log (minY, maxY);
   var columnWidth = width / sumstat.length
   // rectangle for the main box
