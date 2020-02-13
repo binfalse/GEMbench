@@ -53,6 +53,17 @@ function sortSelect(selDom) {
     }
     return;
 }
+function addSelect (metric) {
+  
+  var opt = document.createElement('option');
+  opt.value = metric;
+  opt.innerHTML = metric;
+  
+  var m_select = document.getElementById("metric");
+  m_select.appendChild(opt);
+  
+  sortSelect (m_select)
+}
 
 class Sample {
 	constructor (name, source, type) {
@@ -477,7 +488,7 @@ var svg = d3.select("#" + domnode + " p a")
 
 
 
-
+const global_sumstat = {}
 
 
 
@@ -486,17 +497,12 @@ var svg = d3.select("#" + domnode + " p a")
 
 function draw_boxplots () {
   update_slider_value ()
-drawn = true
+  drawn = true
   //sqrtscale = document.getElementById('sqrt').checked
-  infinites_p = false
-  infinites_m = false
-  minY = 10000000;
-  maxY = 0;
   MEASURE = document.getElementById("metric")
   MEASURE = MEASURE.options[MEASURE.selectedIndex].value
 $(".metric_expl").hide ()
   $("#" + MEASURE + "_expl").show ();
-  var xdomain = new Set ();
       
       d3.select("#my_dataviz svg").remove();
       
@@ -509,51 +515,12 @@ var svg = d3.select("#my_dataviz")
     .attr("transform",
           "translate(" + margin.left + "," + margin.top + ")");
 
-  var sumstat = []
-  console.log ("starting sumstat")
-  for (const [type1key, type1value] of Object.entries(boxplots[MEASURE])) {
-    for (const [type2key, type2value] of Object.entries(type1value)) {
-      for (const [methkey, methvalue] of Object.entries(type2value)) {
-         xdomain.add (type1key+"-"+type2key+"-"+methkey);
-         scoreId = MEASURE + "_" + methkey;
-         vals = []
-         inf_p = []
-         inf_m = []
-         for (i = 0; i< methvalue["samples"].length; i++)
-         {
-           v= methvalue["samples"][i].scores[scoreId]
-           if (v == 1000) {
-             infinites_p = true
-             inf_p.push (methvalue["samples"][i])
-           } else if (v == -1000) {
-             infinites_m = true
-             inf_m.push (methvalue["samples"][i])
-           } else {
-             vals.push (v)
-           }
-         }
-         vals = vals.sort(d3.ascending)
-         q1 = d3.quantile(vals,.25);
-         median = d3.quantile(vals,.5);
-         q3 = d3.quantile(vals,.75);
-         interQuantileRange = q3 - q1;
-         min = vals[0]
-         max = vals[vals.length - 1]
-        whiskersMin = Math.max(min, q1 - interQuantileRange * 1.5);
-        whiskersMax = Math.min(max, q3 + interQuantileRange * 1.5);
-        outliers_min = methvalue["samples"].filter (x => (x.scores[scoreId] < whiskersMin) && vals.includes (x.scores[scoreId]));
-        outliers_max = methvalue["samples"].filter (x => (x.scores[scoreId] > whiskersMax) && vals.includes (x.scores[scoreId]));
-        sumstat.push ({
-          "key": type1key+"-"+type2key+"-"+methkey,
-          "value": {q1: q1, median: median, q3: q3, interQuantileRange: interQuantileRange, min: min, max: max, whiskersMin: whiskersMin, whiskersMax: whiskersMax, outliers_min: outliers_min, outliers_max: outliers_max, scoreId: scoreId, inf_p: inf_p, inf_m: inf_m}});
-        if (minY > min && min != -1000 && min != 1000)
-          minY = min;
-        if (maxY < max && max != 1000 && max != -1000)
-          maxY = max;
-      }
-    }
-  }
-  console.log ("done sumstat")
+  var sumstat = global_sumstat[MEASURE]["sumstat"]
+  var minY  = global_sumstat[MEASURE]["minY"]
+  var maxY  = global_sumstat[MEASURE]["maxY"]
+  var infinites_p = global_sumstat[MEASURE]["infinites_p"]
+  var infinites_m = global_sumstat[MEASURE]["infinites_m"]
+  var xdomain = global_sumstat[MEASURE]["xdomain"];
   console.log (minY, maxY);
   var columnWidth = width / sumstat.length
   // rectangle for the main box
@@ -658,14 +625,14 @@ var svg = d3.select("#my_dataviz")
       $("#outliers").append ("<div id='" + outlier_table + "'><h3>Outliers for the "+
       MEASURE + " metric of " + sumstat[i].key
       +"</h3><table class='outliers table'><thead><tr><th>Sample</th><th>Value</th></tr></thead><tbody id='"+outlier_table+"_body'></tbody></table>")
-    }
-    const outlier_table_body = $("#" + outlier_table+"_body");
-    for (var o = 0; o < arr_min.length; o++) {
-      outlier_table_body.append ("<tr><td>"+arr_min[o].s+"</td><td>"+arr_min[o].p+"</td></tr>")
-    }
-    outlier_table_body.append ("<tr><th>--- MEDIAN ---</td><th>"+sumstat[i].value.median+"</th></tr>")
-    for (var o = 0; o < arr_max.length; o++) {
-      outlier_table_body.append ("<tr><td>"+arr_max[o].s+"</td><td>"+arr_max[o].p+"</td></tr>")
+      const outlier_table_body = $("#" + outlier_table+"_body");
+      for (var o = 0; o < arr_min.length; o++) {
+        outlier_table_body.append ("<tr><td>"+arr_min[o].s+"</td><td>"+arr_min[o].p+"</td></tr>")
+      }
+      outlier_table_body.append ("<tr><th>--- MEDIAN ---</td><th>"+sumstat[i].value.median+"</th></tr>")
+      for (var o = 0; o < arr_max.length; o++) {
+        outlier_table_body.append ("<tr><td>"+arr_max[o].s+"</td><td>"+arr_max[o].p+"</td></tr>")
+      }
     }
     
     
@@ -708,17 +675,17 @@ var svg = d3.select("#my_dataviz")
         //console.log (points)
         
         var lineGenerator = d3.line()
-	.curve(d3.curveCardinal);
+                              .curve(d3.curveCardinal);
         var pathData = lineGenerator(points);
 
-svg.append('path')
-	.attr('d', pathData)
-        .attr("stroke", "#666")
-        //.style("opacity", ".2")
-        .style("fill", "none")    
-	.on("click", function(){
-    $.fancybox( "#" + outlier_table );
-	});
+        svg.append('path')
+          .attr('d', pathData)
+                .attr("stroke", "#666")
+                //.style("opacity", ".2")
+                .style("fill", "none")    
+          .on("click", function(){
+            $.fancybox( "#" + outlier_table );
+          });
   
       }
     }
@@ -893,7 +860,7 @@ svg.append('path')
       
       console.log ("drawing:", t1, t2, "cor" + corId)
       const tmpCorId = corId
-      setTimeout (function () {draw_correlation (t1, t2, "cor" + tmpCorId)}, 1000* Math.random ());
+      //setTimeout (function () {draw_correlation (t1, t2, "cor" + tmpCorId)}, 1000* Math.random ());
       corId = corId + 1
       console.log ("drawn")
     }
@@ -984,8 +951,107 @@ d3.select("#download").on("click", function(){
 })
 
 
+
+function do_sumstat (metric) {
+  
+    
+    
+    
+    
+    
+  console.log ("starting sumstat")
+  var sumstat = []
+  var minY = 10000000;
+  var maxY = 0;
+  var infinites_p = false
+  var infinites_m = false
+  var xdomain = new Set ();
+  for (const [type1key, type1value] of Object.entries(boxplots[metric])) {
+    for (const [type2key, type2value] of Object.entries(type1value)) {
+      for (const [methkey, methvalue] of Object.entries(type2value)) {
+        var key = type1key+"-"+type2key+"-"+methkey
+         xdomain.add (key);
+         scoreId = metric + "_" + methkey;
+         vals = []
+         inf_p = []
+         inf_m = []
+         for (i = 0; i< methvalue["samples"].length; i++)
+         {
+           v= methvalue["samples"][i].scores[scoreId]
+           if (v == 1000) {
+             infinites_p = true
+             inf_p.push (methvalue["samples"][i])
+           } else if (v == -1000) {
+             infinites_m = true
+             inf_m.push (methvalue["samples"][i])
+           } else {
+             vals.push (v)
+           }
+         }
+         vals = vals.sort(d3.ascending)
+         q1 = d3.quantile(vals,.25);
+         median = d3.quantile(vals,.5);
+         q3 = d3.quantile(vals,.75);
+         interQuantileRange = q3 - q1;
+         min = vals[0]
+         max = vals[vals.length - 1]
+        whiskersMin = Math.max(min, q1 - interQuantileRange * 1.5);
+        whiskersMax = Math.min(max, q3 + interQuantileRange * 1.5);
+        outliers_min = methvalue["samples"].filter (x => (x.scores[scoreId] < whiskersMin) && vals.includes (x.scores[scoreId]));
+        outliers_max = methvalue["samples"].filter (x => (x.scores[scoreId] > whiskersMax) && vals.includes (x.scores[scoreId]));
+        outliers_min.sort (function (a, b) {return a.scores[scoreId] < b.scores[scoreId] ? -1 : 1});
+        outliers_max.sort (function (a, b) {return a.scores[scoreId] < b.scores[scoreId] ? -1 : 1});
+        
+        const outlier_table = get_outlier_table_id (metric, key)
+        $("#outliers").append ("<div><div id='" + outlier_table + "'><h3>"+(outliers_min.length+outliers_max.length)+" outliers for the "+
+        metric + " metric of " + key
+        +"</h3><table class='outliers table'><thead><tr><th>Sample</th><th>Value</th></tr></thead><tbody id='"+outlier_table+"_body'></tbody></table></div></div>")
+        const outlier_table_body = $("#" + outlier_table+"_body");
+        for (var o = 0; o < outliers_min.length; o++) {
+          outlier_table_body.append ("<tr><td>"+outliers_min[o].name+"</td><td>"+outliers_min[o].scores[scoreId]+"</td></tr>")
+        }
+        outlier_table_body.append ("<tr><th>--- MEDIAN ---</td><th>"+median+"</th></tr>")
+        for (var o = 0; o < outliers_max.length; o++) {
+          outlier_table_body.append ("<tr><td>"+outliers_max[o].name+"</td><td>"+outliers_max[o].scores[scoreId]+"</td></tr>")
+        }
+        
+        
+        sumstat.push ({
+          "key": key,
+          "value": {q1: q1, median: median, q3: q3, interQuantileRange: interQuantileRange, min: min, max: max, whiskersMin: whiskersMin, whiskersMax: whiskersMax, outliers_min: outliers_min, outliers_max: outliers_max, scoreId: scoreId, inf_p: inf_p, inf_m: inf_m}});
+        if (minY > min && min != -1000 && min != 1000)
+          minY = min;
+        if (maxY < max && max != 1000 && max != -1000)
+          maxY = max;
+      }
+    }
+  }
+  console.log ("done sumstat")
+  
+  global_sumstat[metric] = {
+    "sumstat": sumstat,
+    "minY": minY,
+    "maxY": maxY,
+    "infinites_p": infinites_p,
+    "infinites_m": infinites_m,
+    "xdomain": xdomain
+  }
+  
+  addSelect (metric)
+  
+  if (!drawn)
+    draw_boxplots ();
+  
+}
+
+
+
+
+
+
+
 d3.csv("data/combined-afr-eor-hallmark.csv").then (function(data) {
-  metrics = new Set ()
+  var metrics = new Set ()
   for (row=0; row < data.length; row++){
     metrics.add (data[row]["Score"])
     var [source, type] = dataset2sourcetype (data[row]["Dataset"])
@@ -1004,24 +1070,13 @@ d3.csv("data/combined-afr-eor-hallmark.csv").then (function(data) {
       sample.setScore (data[row]["Score"], imethods[i], parseFloat (data[row][imethods[i]]))
     }
   }
-  
-  m_select = document.getElementById("metric")
-  for (let metric of metrics) {
-    var opt = document.createElement('option');
-    opt.value = metric;
-    opt.innerHTML = metric;
-    m_select.appendChild(opt);
-  }
-  
-  sortSelect (m_select)
-  
-  if (!drawn)
-    draw_boxplots ();
+  for (let metric of metrics)
+    setTimeout (function () {do_sumstat (metric)}, 10);
 });
 
 
 d3.csv("data/combined-jaccard-ba.csv").then (function(data) {
-  metrics = new Set ()
+  var metrics = new Set ()
   for (row=0; row < data.length; row++){
     metrics.add (data[row]["Score"])
     var [source, type] = dataset2sourcetype (data[row]["Dataset"])
@@ -1043,7 +1098,10 @@ d3.csv("data/combined-jaccard-ba.csv").then (function(data) {
     }
   }
   
-  m_select = document.getElementById("metric")
+  for (let metric of metrics)
+    setTimeout (function () {do_sumstat (metric)}, 1000*Math.random ());
+  
+  /*m_select = document.getElementById("metric")
   for (let metric of metrics) {
     var opt = document.createElement('option');
     opt.value = metric;
@@ -1054,6 +1112,6 @@ d3.csv("data/combined-jaccard-ba.csv").then (function(data) {
   sortSelect (m_select)
   
   if (!drawn)
-    draw_boxplots ();
+    draw_boxplots ();*/
 });
 
