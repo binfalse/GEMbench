@@ -240,12 +240,13 @@ var svg = d3.select("#" + domnode + " p a")
       e.attr("height", 150);
       e.attr("width", 150);
       e.show ()
-      $("#" + domnode).append (e)
+      $("#" + domnode + " p a").append (e)
       console.log ("test", domnode)
     },
     title: "<h5>Correlation of "+MEASURE+" scores for "+ source + " &mdash; " + type + "</h5>",
 		helpers		: {
-			title	: { type : 'inside' },
+			title	: { type : 'inside',
+                position : 'top' },
     }
 	});
     
