@@ -216,7 +216,7 @@ var marginWhole = {top: 10, right: 10, bottom: 10, left: 10},
     sizeWhole = 600 - marginWhole.left - marginWhole.right
 
 // Create the svg area
-var svg = d3.select("#" + domnode)
+var svg = d3.select("#" + domnode + " p a")
   .append("svg")
   //.attr ("preserveAspectRatio", "xMinYMin meet")
     .attr("width", 150)
