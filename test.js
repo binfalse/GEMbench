@@ -141,9 +141,14 @@ function getSourceData () {
 };
 
 
+function update_slider_value () {
+  slider = document.getElementById("slider")
+  //console.log (slider)
+  document.getElementById("slider_value").innerHTML = slider.value
+}
 
 
-var margin = {top: 50, right: 0, bottom: 60, left: 40},
+var margin = {top: 50, right: 0, bottom: 65, left: 40},
     width = d3.select("#my_dataviz").node().clientWidth - margin.left - margin.right,
     height = 800 - margin.top - margin.bottom;
 
@@ -170,38 +175,84 @@ for (var j = 0; j < types.length; j++) {
   console.log (this.value);
 } */
 
-function draw_boxplots2 () {
+$(".metric_expl").hide ()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+function draw_correlation (source, type, domnode) {
+  //return new Promise (resolve => {
+ 
+  //source = sources[0]
+  //type = types[0] 
+  
+  //update_slider_value ()
 drawn = true
   //sqrtscale = document.getElementById('sqrt').checked
-  infinites_p = false
-  infinites_m = false
-  minY = 10000000;
-  maxY = 0;
-  MEASURE = document.getElementById("metric")
-  MEASURE = MEASURE.options[MEASURE.selectedIndex].value
-  xdomain = new Set ();
+  var infinites_p = false
+  var infinites_m = false
+  var minY = 10000000;
+  var maxY = 0;
+  var MEASURE = document.getElementById("metric")
+  var MEASURE = MEASURE.options[MEASURE.selectedIndex].value
+  var xdomain = new Set ();
       
-      d3.select("#my_dataviz svg").remove();
-  
-  
-  
+  $("#" + domnode).empty ();
+  $("#" + domnode).append ("<p><a title='Correlation of "+MEASURE+" scores for "+ source + " &mdash; " + type + "' id='"+domnode+"_a' href='#"+domnode+"_svg'>" + source + "<br>" + type + "</a></p>");
   
 var marginWhole = {top: 10, right: 10, bottom: 10, left: 10},
-    sizeWhole = 640 - marginWhole.left - marginWhole.right
+    sizeWhole = 600 - marginWhole.left - marginWhole.right
 
 // Create the svg area
-var svg = d3.select("#my_dataviz")
+var svg = d3.select("#" + domnode)
   .append("svg")
-    .attr("width", sizeWhole  + marginWhole.left + marginWhole.right)
-    .attr("height", sizeWhole  + marginWhole.top + marginWhole.bottom)
+  //.attr ("preserveAspectRatio", "xMinYMin meet")
+    .attr("width", 150)
+    .attr("height", 150)
+    .attr("id", domnode+"_svg")
+    //.attr("width", sizeWhole  + marginWhole.left + marginWhole.right)
+    //.attr("height", sizeWhole  + marginWhole.top + marginWhole.bottom)
+  .attr ("viewBox", "0 0 " + (sizeWhole  + marginWhole.left + marginWhole.right) + " " + (sizeWhole  + marginWhole.left + marginWhole.right))
+  //.classed("svg-content", true)
   .append("g")
     .attr("transform", "translate(" + marginWhole.left + "," + marginWhole.top + ")");
     
+  $("#" + domnode+"_a").fancybox ({
+    beforeLoad: function ()  {
+      var e = $("#" + domnode+"_svg")
+      e.attr("height", 600);
+      e.attr("width", 600);
+    },
+    afterClose: function ()  {
+      var e = $("#" + domnode+"_svg")
+      e.attr("height", 150);
+      e.attr("width", 150);
+      e.show ()
+      $("#" + domnode).append (e)
+      console.log ("test", domnode)
+    },
+    title: "<h5>Correlation of "+MEASURE+" scores for "+ source + " &mdash; " + type + "</h5>",
+		helpers		: {
+			title	: { type : 'inside' },
+    }
+	});
     
     var allVar = imethods
   var numVar = allVar.length
-    mar = 20
-  size = sizeWhole / numVar
+    var mar = 20
+  var size = sizeWhole / numVar
   
   var position = d3.scalePoint()
     .domain(allVar)
@@ -264,9 +315,7 @@ var svg = d3.select("#my_dataviz")
     //}
   //}
   
-  source = sources[0]
-  type = types[0]
-  cur_samples = undefined
+  var cur_samples = undefined
   if (MEASURE == "BlandAltman" || MEASURE == "Jaccard")
     cur_samples = samples[source + "__" + type + "__double"]
   else
@@ -296,13 +345,13 @@ var svg = d3.select("#my_dataviz")
       // If var1 == var2 i'm on the diagonal, I skip that
       if (var1 === var2) { continue; }
 
-console.log (source,type,var_i,var_j,var1,var2,scoreId_x,scoreId_y)
+//console.log (source,type,var_i,var_j,var1,var2,scoreId_x,scoreId_y)
 
     if (var_i < var_j) {
       
       // Add X Scale of each graph
       xextent = d3.extent(Object.values (cur_samples), function(d) { return +d.scores[scoreId_x] })
-console.log (xextent)
+//console.log (xextent)
       var x = d3.scaleLinear()
         .domain(xextent).nice()
         .range([ 0, size-2*mar ]);
@@ -370,7 +419,7 @@ console.log (xextent)
     else {
       
       corr = pearson (Object.values (cur_samples), scoreId_x, scoreId_y)
-console.log (source,type,var_i,var_j,var1,var2,scoreId_x,scoreId_y,corr)
+//console.log (source,type,var_i,var_j,var1,var2,scoreId_x,scoreId_y,corr)
       
       var tmp = svg
         .append('g')
@@ -401,8 +450,8 @@ console.log (source,type,var_i,var_j,var1,var2,scoreId_x,scoreId_y,corr)
   // ------------------------------- //
   // Add histograms = diagonal
   // ------------------------------- //
-  for (i in allVar){
-    for (j in allVar){
+  for (var i in allVar){
+    for (var j in allVar){
 
       // variable names
       var var1 = allVar[i]
@@ -470,7 +519,17 @@ console.log (source,type,var_i,var_j,var1,var2,scoreId_x,scoreId_y,corr)
   
     
     
-}
+    
+//var svg = d3.select(domnode + "svg")
+    //.attr("width", 150)
+    //.attr("height", 150)
+    ////.attr("width", sizeWhole  + marginWhole.left + marginWhole.right)
+    ////.attr("height", sizeWhole  + marginWhole.top + marginWhole.bottom)
+  //.attr ("viewbox", "0 0 " + (sizeWhole  + marginWhole.left + marginWhole.right) + " " + (sizeWhole  + marginWhole.left + marginWhole.right))
+    //console.log (svg)
+    
+//})
+};
 
 
 
@@ -494,15 +553,18 @@ console.log (source,type,var_i,var_j,var1,var2,scoreId_x,scoreId_y,corr)
 
 
 function draw_boxplots () {
+  update_slider_value ()
 drawn = true
-  sqrtscale = document.getElementById('sqrt').checked
+  //sqrtscale = document.getElementById('sqrt').checked
   infinites_p = false
   infinites_m = false
   minY = 10000000;
   maxY = 0;
   MEASURE = document.getElementById("metric")
   MEASURE = MEASURE.options[MEASURE.selectedIndex].value
-  xdomain = new Set ();
+$(".metric_expl").hide ()
+  $("#" + MEASURE + "_expl").show ();
+  var xdomain = new Set ();
       
       d3.select("#my_dataviz svg").remove();
       
@@ -606,36 +668,39 @@ var svg = d3.select("#my_dataviz")
   if (infinites_p && infinites_m)
     r_u = r_u + 30
   
-  sqrtscale = true
-  if (sqrtscale) {
-    extra = 0
-    //extra = Math.pow (.01*(maxY-minY), document.getElementById("myRange").value)
-    //console.log (extra, .01*(maxY-min), document.getElementById("myRange").value)
-  //var y = d3.scaleSqrt()
-  var y = d3.scalePow().exponent(document.getElementById("myRange").value)
-    .domain([minY - extra,maxY + extra])
+  var y = d3.scalePow().exponent(document.getElementById("slider").value)
+    .domain([minY,maxY])
     .range([r_b, r_u])
-  } else {
-  var y = d3.scaleLinear()
-    .domain([minY - .1*(maxY-minY),maxY + .1*(maxY-minY)])
-    .range([r_b, r_u])
-    
-  }
   
     
   
-  var boxWidth = width / sumstat.length
+  var columnWidth = width / sumstat.length
   svg
     .selectAll("databackground")
     .data(sumstat)
     .enter()
     .append("rect")
-        .attr("x", function(d){return(x(d.key)-boxWidth/2)})
+        .attr("x", function(d){return(x(d.key)-columnWidth/2)})
         .attr("y", chart_top)
         .attr("height", chart_bottom + 5)
-        .attr("width", boxWidth )
+        .attr("width", columnWidth )
         .style("opacity", ".2")
         .style("fill", function(d){return datacolor(d.key)})
+  svg
+    .append("rect")
+        .attr("x", 0)
+        .attr("y", chart_top - 50)
+        .attr("height", 50)
+        .attr("width", width )
+        //.style("opacity", ".1")
+        .style("fill", "#fafafa")
+  svg
+    .append("line")
+        .attr("x1", 0)
+        .attr("x2", width)
+        .attr("y1", chart_top - 50)
+        .attr("y2", chart_top - 50)
+        .attr("stroke", "black")
         
         
         
@@ -652,7 +717,7 @@ var svg = d3.select("#my_dataviz")
       .enter()
       .append("circle")
         .attr("r", 1)
-        .attr("cx", function(d){return(x(d.n) + 2 * (Math.random () - .5))})
+        .attr("cx", function(d){return(x(d.n) + 3 * (Math.random () - .5))})
         .attr("cy", function(d){return(y(d.p))})
         .on('mouseover', outliertip.show)
         .on('mouseout', outliertip.hide);
@@ -793,32 +858,40 @@ var svg = d3.select("#my_dataviz")
   types2 = []
   ctypes1 = {"name": undefined}
   ctypes2 = {"name": undefined}
-  for (i =0; i < xdomain.length; i++) {
-    t1 = xdomain[i].replace (/([a-zA-Z ]+)-.*-.*/g, '$1')
-    t2 = xdomain[i].replace (/.*-([a-zA-Z ]+)-.*/g, '$1')
+  corId = 1
+  for (var x_i =0; x_i < xdomain.length; x_i++) {
+    t1 = xdomain[x_i].replace (/([a-zA-Z ]+)-.*-.*/g, '$1')
+    t2 = xdomain[x_i].replace (/.*-([a-zA-Z ]+)-.*/g, '$1')
     
     if (t1 == ctypes1["name"])
-      ctypes1["end"] = xdomain[i]
+      ctypes1["end"] = xdomain[x_i]
     else {
       if (ctypes1["name"])
         types1.push (ctypes1)
       ctypes1 = {
-        "start": xdomain[i],
-        "end": xdomain[i],
+        "start": xdomain[x_i],
+        "end": xdomain[x_i],
         "name": t1
       }
     }
     
     if (t2 == ctypes2["name"])
-      ctypes2["end"] = xdomain[i]
+      ctypes2["end"] = xdomain[x_i]
     else {
       if (ctypes2["name"])
         types2.push (ctypes2)
       ctypes2 = {
-        "start": xdomain[i],
-        "end": xdomain[i],
+        "start": xdomain[x_i],
+        "end": xdomain[x_i],
         "name": t2
       }
+      
+      console.log ("drawing:", t1, t2, "cor" + corId)
+      draw_correlation (t1, t2, "cor" + corId)
+      //dc = draw_correlation (t1, t2, "cor" + corId)
+      //await dc
+      corId = corId + 1
+      console.log ("drawn")
     }
     
   }
@@ -829,15 +902,34 @@ var svg = d3.select("#my_dataviz")
   
   
   for (i =0; i < types1.length; i++) {
-    console.log (types1[i]);
+    //console.log (types1[i]);
+    //svg.append("rect")
+        //.attr("x", x(types1[i]["start"]))
+        //.attr("y", -margin.top + 30)
+        //.attr("height", 30)
+        //.attr("width",  (x(types1[i]["start"]) + x(types1[i]["end"])))
+        ////.attr("stroke", function(d){return boxColor(d.key)})
+      //.attr("stroke", "black")
+        ////.style("fill", function(d){return boxColor(d.key)})
+        //.style("fill", "red")
+        
     txt = svg.append("text")
     .attr("x", (x(types1[i]["start"]) + x(types1[i]["end"]))/2)
     .attr("text-anchor","middle")
     .attr("y", -margin.top + 30)
-    .text(types1[i]["name"]);
+    .text(types1[i]["name"])
+    
+  svg
+    .append("line")
+      .attr("x1", x(types1[i]["end"])+columnWidth/2)
+      .attr("x2", x(types1[i]["end"])+columnWidth/2)
+      .attr("y1", chart_top - 50)
+      .attr("y2", chart_bottom + 5)
+      .attr("stroke", "black")
+      //.style("width", 10)
   }
   for (i =0; i < types2.length; i++) {
-    console.log (types2[i]);
+    //console.log (types2[i]);
     txt = svg.append("text")
     .attr("x", (x(types2[i]["start"]) + x(types2[i]["end"]))/2)
     .attr("text-anchor","middle")
@@ -869,7 +961,14 @@ var svg = d3.select("#my_dataviz")
   
   
   
-  
+  //for (var i = 0; i < 6; i++) {
+    
+    //var svg = d3.select("#cor" + (i+1) + " svg").node ()//svg.node ()//document.getElementById(domnode + "svg");
+    //console.log (svg)
+    //svg.setAttribute("viewBox", "0 0 600 600")
+    //svg.setAttribute("width",  "150")
+    //svg.setAttribute("height", "150")
+  //}
   
 };
 

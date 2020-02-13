@@ -3,10 +3,15 @@
 <head>
 <meta charset="utf-8">
 <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
+<link rel="stylesheet" href="magnific-popup.css">
+<link rel="stylesheet" href="v2.1.7/fancybox-2.1.7/source/jquery.fancybox.css">
 <!-- Load d3.js -->
 <script src="d3/d3.min.js"></script>
 <script src="d3-tip.js"></script>
-
+<script src="jquery-3.4.1.min.js"></script>
+<script src="v2.1.7/fancybox-2.1.7/source/jquery.fancybox.pack.js"></script>
+<script src="v2.1.7/fancybox-2.1.7/lib/jquery.mousewheel.pack.js"></script>
+<script src="magnifypopup.js"></script>
 <!-- Tooltip style -->
 <style>
 .method {
@@ -24,64 +29,42 @@
   border-radius: 4px;
   font-size: 12px;
 }
-slidecontainer {
-  width: 100px; /* Width of the outside container */
-}
-
-/* The slider itself */
 .slider {
-  -webkit-appearance: none;  /* Override default CSS styles */
-  appearance: none;
-  width: 100%; /* Full-width */
-  height: 25px; /* Specified height */
-  background: #d3d3d3; /* Grey background */
-  outline: none; /* Remove outline */
-  opacity: 0.7; /* Set transparency (for mouse-over effects on hover) */
-  -webkit-transition: .2s; /* 0.2 seconds transition on hover */
-  transition: opacity .2s;
+  width: 100px;
 }
 
-/* Mouse-over effects */
-.slider:hover {
-  opacity: 1; /* Fully shown on mouse-over */
-}
-
-/* The slider handle (use -webkit- (Chrome, Opera, Safari, Edge) and -moz- (Firefox) to override default look) */
-.slider::-webkit-slider-thumb {
-  -webkit-appearance: none; /* Override default look */
-  appearance: none;
-  width: 25px; /* Set a specific slider handle width */
-  height: 25px; /* Slider handle height */
-  background: #4CAF50; /* Green background */
-  cursor: pointer; /* Cursor on hover */
-}
-
-.slider::-moz-range-thumb {
-  width: 25px; /* Set a specific slider handle width */
-  height: 25px; /* Slider handle height */
-  background: #4CAF50; /* Green background */
-  cursor: pointer; /* Cursor on hover */
-}
 </style>
 </head>
 <body>
   <div class="container mt-5">
 <h1>Comparison of Methods for Data Integration</h1>
-<p>Metric to display:  <select id='metric' onChange="draw_boxplots()">
-</select>
+<p>Metric to display:  <select id='metric' onChange="draw_boxplots()"></select><br>
+Scale y: <input type="range" min=".1" max="1" value="1" step="0.1" class="slider" id="slider" oninput="update_slider_value()" onmouseup="draw_boxplots()" ontouchend="draw_boxplots()"> <span id="slider_value"></span></p>
 
-Scaled y by sqrt: <input type="checkbox" id="sqrt" name="sqrt" onclick="draw_boxplots();"/>
+<p id="AFR_expl" class="metric_expl"><strong>This AFR score represents the ratio of glycolytic to oxidative ATP flux.</strong> It was proposed by https://www.embopress.org/doi/full/10.15252/msb.20134993 in 2014. In fact, AFR measures the extent of the Warburg effect, which is found to be highly positively associated with cancer cell migration.</p>
+<p id="EOR_expl" class="metric_expl"><strong>The EOR score represents the ratio of the glycolytic versus oxidative capacity.</strong> It computes the fraction of extracellular acidification rate (i.e. lactate secretion flux value), over the oxygen consumption rate (i.e. oxygen consumption flux value) which was proposed by https://www.embopress.org/doi/full/10.15252/msb.20134993 in 2014. </p>
+<p id="Hallmark_expl" class="metric_expl"><strong>The Hallmark represents a set of genes, whose resence is considered as a signature of cancer.</strong> It is a collection of 197 genes proposed by https://pubmed.ncbi.nlm.nih.gov/26771021-the-molecular-signatures-database-msigdb-hallmark-gene-set-collection/ in 2015.</p>
+<p id="BlandAltman_expl" class="metric_expl"><strong>BlandAltman..?</strong></p>
+<p id="Jaccard_expl" class="metric_expl"><strong>The Jaccard similarity coefficient...?</strong></p>
 
-<br>A bit more information about the current metric.. </p>
-<div class="slidecontainer">
-  <input type="range" min=".1" max="1" value="1" step="0.1" class="slider" id="myRange" onmouseup="draw_boxplots()" 
-       ontouchend="draw_boxplots()">
-</div>
 <!-- Create a div where the graph will take place -->
 <div id="my_dataviz"></div>
 <p class="my-5 p-2">Disclaimer: The boxplots where computed while neglecting infinite values</p>
 <a id="download" class="btn btn-success btn-block my-5 p-2" href="#">Download SVG</a>
+<h3>Correlation of integration methods.</h3>
+<p>Click the title to get a larger version of the plot.</p>
+<div class="row" id="cor">
+  <div id="cor1" class="col-md-2"></div>
+  <div id="cor2" class="col-md-2"></div>
+  <div id="cor3" class="col-md-2"></div>
+  <div id="cor4" class="col-md-2"></div>
+  <div id="cor5" class="col-md-2"></div>
+  <div id="cor6" class="col-md-2"></div>
 </div>
+</div>
+<footer class="container-fluid text-center my-5 p-2">
+  <p>cool website. isn't it?</p>
+</footer>
 <script src="test.js"></script>
 </body>
 </html>
