@@ -727,7 +727,7 @@ var svg = d3.select("#my_dataviz")
     if($("#" + outlier_table).length == 0) {
       $("#outliers").append ("<div id='" + outlier_table + "'><h3>Outliers for the "+
       MEASURE + " metric of " + sumstat[i].key
-      +"</h3><table class='outliers'><thead><tr><th>Sample</th><th>Value</th></tr></thead><tbody id='"+outlier_table+"_body'></tbody></table>")
+      +"</h3><table class='outliers table'><thead><tr><th>Sample</th><th>Value</th></tr></thead><tbody id='"+outlier_table+"_body'></tbody></table>")
     }
     const outlier_table_body = $("#" + outlier_table+"_body");
     for (var o = 0; o < arr_min.length; o++) {
