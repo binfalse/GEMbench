@@ -196,7 +196,6 @@ $(".metric_expl").hide ()
 
 
 function draw_correlation (source, type, domnode) {
-  //return new Promise (resolve => {
  
   //source = sources[0]
   //type = types[0] 
@@ -866,8 +865,8 @@ svg.append('path')
   ctypes2 = {"name": undefined}
   corId = 1
   for (var x_i =0; x_i < xdomain.length; x_i++) {
-    t1 = xdomain[x_i].replace (/([a-zA-Z ]+)-.*-.*/g, '$1')
-    t2 = xdomain[x_i].replace (/.*-([a-zA-Z ]+)-.*/g, '$1')
+    const t1 = xdomain[x_i].replace (/([a-zA-Z ]+)-.*-.*/g, '$1')
+    const t2 = xdomain[x_i].replace (/.*-([a-zA-Z ]+)-.*/g, '$1')
     
     if (t1 == ctypes1["name"])
       ctypes1["end"] = xdomain[x_i]
@@ -893,9 +892,8 @@ svg.append('path')
       }
       
       console.log ("drawing:", t1, t2, "cor" + corId)
-      draw_correlation (t1, t2, "cor" + corId)
-      //dc = draw_correlation (t1, t2, "cor" + corId)
-      //await dc
+      const tmpCorId = corId
+      setTimeout (function () {draw_correlation (t1, t2, "cor" + tmpCorId)}, 1000* Math.random ());
       corId = corId + 1
       console.log ("drawn")
     }
