@@ -162,7 +162,7 @@ function get_outlier_table_id (metric, data_id) {
   return "outlier__" + metric + "__" + data_id.replace(/[\W_]+/g,"_")
 }
 
-var margin = {top: 50, right: 0, bottom: 65, left: 40},
+var margin = {top: 50, right: 0, bottom: 70, left: 40},
     width = d3.select("#my_dataviz").node().clientWidth - margin.left - margin.right,
     height = 800 - margin.top - margin.bottom;
 
