@@ -620,7 +620,7 @@ var svg = d3.select("#my_dataviz")
     
     arr_min.sort(function (a, b) {return a.p < b.p ? -1 : 1});
     arr_max.sort(function (a, b) {return a.p < b.p ? -1 : 1});
-    const outlier_table = get_outlier_table_id (MEASURE, sumstat[i].key)
+    /*const outlier_table = get_outlier_table_id (MEASURE, sumstat[i].key)
     if($("#" + outlier_table).length == 0) {
       $("#outliers").append ("<div id='" + outlier_table + "'><h3>Outliers for the "+
       MEASURE + " metric of " + sumstat[i].key
@@ -633,8 +633,8 @@ var svg = d3.select("#my_dataviz")
       for (var o = 0; o < arr_max.length; o++) {
         outlier_table_body.append ("<tr><td>"+arr_max[o].s+"</td><td>"+arr_max[o].p+"</td></tr>")
       }
-    }
-    
+    }*/
+    const outlier_table = sumstat[i].value.outlier_table
     
     function draw_outliers (outliers) {
       
@@ -650,7 +650,9 @@ var svg = d3.select("#my_dataviz")
             .on('mouseover', outliertip.show)
             .on('mouseout', outliertip.hide)
             .on("click", function(){
-              $.fancybox( "#" + outlier_table );
+				console.log ("not too many outliers to draw")
+				console.log (outlier_table)
+              $.fancybox( $(outlier_table) );
             });
       } else {
         console.log ("too many outliers to draw", outliers.length)
@@ -684,7 +686,10 @@ var svg = d3.select("#my_dataviz")
                 //.style("opacity", ".2")
                 .style("fill", "none")    
           .on("click", function(){
-            $.fancybox( "#" + outlier_table );
+				console.log ("too many outliers to draw")
+				console.log (outlier_table)
+              $.fancybox( $(outlier_table) );
+            //~ $.fancybox( "#" + outlier_table );
           });
   
       }
@@ -805,7 +810,7 @@ var svg = d3.select("#my_dataviz")
         .on('mouseover', boxtip.show)
         .on('mouseout', boxtip.hide)
             .on("click", function(d){
-              $.fancybox( "#" +  get_outlier_table_id (MEASURE, d.key));
+              $.fancybox( $(d.value.outlier_table));
             });
   
   svg
@@ -822,7 +827,7 @@ var svg = d3.select("#my_dataviz")
         .on('mouseover', boxtip.show)
         .on('mouseout', boxtip.hide)
             .on("click", function(d){
-              $.fancybox( "#" +  get_outlier_table_id (MEASURE, d.key));
+              $.fancybox( $(d.value.outlier_table));
             });
   
   
@@ -1002,23 +1007,20 @@ function do_sumstat (metric) {
         outliers_min.sort (function (a, b) {return a.scores[scoreId] < b.scores[scoreId] ? -1 : 1});
         outliers_max.sort (function (a, b) {return a.scores[scoreId] < b.scores[scoreId] ? -1 : 1});
         
-        const outlier_table = get_outlier_table_id (metric, key)
-        $("#outliers").append ("<div><div id='" + outlier_table + "'><h3>"+(outliers_min.length+outliers_max.length)+" outliers for the "+
-        metric + " metric of " + key
-        +"</h3><table class='outliers table'><thead><tr><th>Sample</th><th>Value</th></tr></thead><tbody id='"+outlier_table+"_body'></tbody></table></div></div>")
-        const outlier_table_body = $("#" + outlier_table+"_body");
+        var outlier_table = "<div><h3>"+(outliers_min.length+outliers_max.length)+" outliers for "+ metric + " of " + key +"</h3><table class='outliers table'><thead><tr><th>Sample</th><th>Value</th></tr></thead><tbody>";
+
         for (var o = 0; o < outliers_min.length; o++) {
-          outlier_table_body.append ("<tr><td>"+outliers_min[o].name+"</td><td>"+outliers_min[o].scores[scoreId]+"</td></tr>")
+          outlier_table += "<tr><td>"+outliers_min[o].name+"</td><td>"+outliers_min[o].scores[scoreId]+"</td></tr>";
         }
-        outlier_table_body.append ("<tr><th>--- MEDIAN ---</td><th>"+median+"</th></tr>")
+        outlier_table += "<tr><th>--- MEDIAN ---</td><th>"+median+"</th></tr>";
         for (var o = 0; o < outliers_max.length; o++) {
-          outlier_table_body.append ("<tr><td>"+outliers_max[o].name+"</td><td>"+outliers_max[o].scores[scoreId]+"</td></tr>")
+          outlier_table += "<tr><td>"+outliers_max[o].name+"</td><td>"+outliers_max[o].scores[scoreId]+"</td></tr>";
         }
-        
+        outlier_table += "</tbody></table></div>"
         
         sumstat.push ({
           "key": key,
-          "value": {q1: q1, median: median, q3: q3, interQuantileRange: interQuantileRange, min: min, max: max, whiskersMin: whiskersMin, whiskersMax: whiskersMax, outliers_min: outliers_min, outliers_max: outliers_max, scoreId: scoreId, inf_p: inf_p, inf_m: inf_m}});
+          "value": {q1: q1, median: median, q3: q3, interQuantileRange: interQuantileRange, min: min, max: max, whiskersMin: whiskersMin, whiskersMax: whiskersMax, outliers_min: outliers_min, outliers_max: outliers_max, scoreId: scoreId, inf_p: inf_p, inf_m: inf_m, outlier_table: outlier_table}});
         if (minY > min && min != -1000 && min != 1000)
           minY = min;
         if (maxY < max && max != 1000 && max != -1000)
