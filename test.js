@@ -1077,43 +1077,43 @@ d3.csv("data/combined-afr-eor-hallmark.csv").then (function(data) {
 });
 
 
-d3.csv("data/combined-jaccard-ba.csv").then (function(data) {
-  var metrics = new Set ()
-  for (row=0; row < data.length; row++){
-    metrics.add (data[row]["Score"])
-    var [source, type] = dataset2sourcetype (data[row]["Dataset"])
+//d3.csv("data/combined-jaccard-ba.csv").then (function(data) {
+  //var metrics = new Set ()
+  //for (row=0; row < data.length; row++){
+    //metrics.add (data[row]["Score"])
+    //var [source, type] = dataset2sourcetype (data[row]["Dataset"])
 		
-    sid = data[row]["Dx1"] + " -vs- " + data[row]["Dx2"]
+    //sid = data[row]["Dx1"] + " -vs- " + data[row]["Dx2"]
     
-		if (!samples[source + "__" + type + "__double"][sid]) {
-			samples[source + "__" + type + "__double"][sid] = new Sample (sid, source, type)
-		}
+		//if (!samples[source + "__" + type + "__double"][sid]) {
+			//samples[source + "__" + type + "__double"][sid] = new Sample (sid, source, type)
+		//}
     
-    const sample = samples[source + "__" + type + "__double"][sid]
-		if (!boxplots[data[row]["Score"]]) {
-			boxplots[data[row]["Score"]] = getSourceData ();
-    }
+    //const sample = samples[source + "__" + type + "__double"][sid]
+		//if (!boxplots[data[row]["Score"]]) {
+			//boxplots[data[row]["Score"]] = getSourceData ();
+    //}
     
-    for (i = 0; i < imethods.length; i++) {
-      boxplots[data[row]["Score"]][source][type][imethods[i]]["samples"].push (sample);
-      sample.setScore (data[row]["Score"], imethods[i], parseFloat (data[row][imethods[i]]))
-    }
-  }
+    //for (i = 0; i < imethods.length; i++) {
+      //boxplots[data[row]["Score"]][source][type][imethods[i]]["samples"].push (sample);
+      //sample.setScore (data[row]["Score"], imethods[i], parseFloat (data[row][imethods[i]]))
+    //}
+  //}
   
-  for (let metric of metrics)
-    setTimeout (function () {do_sumstat (metric)}, 1000*Math.random ());
+  //for (let metric of metrics)
+    //setTimeout (function () {do_sumstat (metric)}, 1000*Math.random ());
   
-  /*m_select = document.getElementById("metric")
-  for (let metric of metrics) {
-    var opt = document.createElement('option');
-    opt.value = metric;
-    opt.innerHTML = metric;
-    m_select.appendChild(opt);
-  }
+  ///*m_select = document.getElementById("metric")
+  //for (let metric of metrics) {
+    //var opt = document.createElement('option');
+    //opt.value = metric;
+    //opt.innerHTML = metric;
+    //m_select.appendChild(opt);
+  //}
   
-  sortSelect (m_select)
+  //sortSelect (m_select)
   
-  if (!drawn)
-    draw_boxplots ();*/
-});
+  //if (!drawn)
+    //draw_boxplots ();*/
+//});
 

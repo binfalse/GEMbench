@@ -58,9 +58,17 @@ Scale y: <input type="range" min=".1" max="1" value="1" step="0.1" class="slider
 
 <p id="AFR_expl" class="metric_expl"><strong>This AFR score represents the ratio of glycolytic to oxidative ATP flux.</strong> It was proposed by https://www.embopress.org/doi/full/10.15252/msb.20134993 in 2014. In fact, AFR measures the extent of the Warburg effect, which is found to be highly positively associated with cancer cell migration.</p>
 <p id="EOR_expl" class="metric_expl"><strong>The EOR score represents the ratio of the glycolytic versus oxidative capacity.</strong> It computes the fraction of extracellular acidification rate (i.e. lactate secretion flux value), over the oxygen consumption rate (i.e. oxygen consumption flux value) which was proposed by https://www.embopress.org/doi/full/10.15252/msb.20134993 in 2014. </p>
-<p id="Hallmark_expl" class="metric_expl"><strong>The Hallmark represents a set of genes, whose resence is considered as a signature of cancer.</strong> It is a collection of 197 genes proposed by https://pubmed.ncbi.nlm.nih.gov/26771021-the-molecular-signatures-database-msigdb-hallmark-gene-set-collection/ in 2015.</p>
+<p id="Hallmark_expl" class="metric_expl">
+  <strong>The Hallmark represents a set of genes, whose presence is considered a signature of cancer.</strong>
+  It is a collection of 197 genes proposed by <a href="https://pubmed.ncbi.nlm.nih.gov/26771021-the-molecular-signatures-database-msigdb-hallmark-gene-set-collection/">
+Liberzon et al. in 2015</a>.
+ Accordingly, a Hallmark score of 144 means that the used integration methods reports that 144 of these genes are active (i.e. the reactions facilitated by these genes have a non-zero flux).
+<!--
+If the integration method reports a non-zero flux on a reaction facilitated by one of the Hallmark genes, the Hallmark score increases by one.
+-->
+ </p>
 <p id="BlandAltman_expl" class="metric_expl"><strong>BlandAltman..?</strong></p>
-<p id="Jaccard_expl" class="metric_expl"><strong>The Jaccard similarity coefficient...?</strong></p>
+<p id="Jaccard_expl" class="metric_expl"><strong>The Jaccard index measures the similarity between finite sample sets.</strong> It is defined as the size of the intersection divided by the size of the union of the sample sets, see <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3959882/">Fuxman Bass et al. 2013</a>.</p>
 
 <!-- Create a div where the graph will take place -->
 <div id="my_dataviz"></div>
