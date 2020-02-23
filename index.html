@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
+<link rel="stylesheet" href="v2.1.7/fancybox-2.1.7/source/jquery.fancybox.css">
+</head>
+<body>
+  <header id="header" class="fixed-top">
+    <div class="container-fluid d-flex">
+
+      <div class="logo mr-auto">
+        <a href="index.html"><img src="art/gembench.png" alt="" class="img-fluid"></a>
+      </div>
+
+      <nav class="nav-menu d-none d-lg-block">
+        <ul>
+          <li class="active"><a href="#header">Home</a></li>
+          <li><a href="/explore">Explore</a></li>
+          <li><a href="/imprint">Imprint</a></li>
+          <li><a href="/imprint#privacy">Privacy</a></li>
+        </ul>
+      </nav><!-- .nav-menu -->
+
+    </div>
+  </header>
+  
+  
+  
+  <section id="hero" class="d-flex align-items-center">
+
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-6 pt-5 pt-lg-0 order-2 order-lg-1">
+          <h1>GEMbench</h1>
+          <h2>A comprehensive benchmark of omics data and integration methods for assessment of metabolic patterns in cancers</h2>
+          <p>The ultimate goal of systems medicine is to understand the underlying mechanism of disease development, diagnostic biomarkers, potential drug targets and prognosis biomarkers. The generic genome-scale metabolic models (GEMs) is one of the most prevalent networks that in integration with omics-data could generate the context-based/tissue-specific GEM. Generating the context-based GEM has allowed a more in-depth study of metabolism and in particular, these facilitate the unveiling of the genotype-phenotype relationship and give rise to the extraction of physiologically relevant information from the high-quality data.</p>
+          <p>Since 2002 to now, more than fifty methods have been developed to investigate how gene expression integration into GEM could affect model content and predictive accuracy. These methods differ in assumptions and mathematical formulation, used different gene expression datasets (in form of microarray data or RNA-sequencing data) and various GEMs of organisms from bacteria to human as well as tested isolated case studies. These heterogeneous datasets and diverse algorithms are difficult for comparison and benchmarking.</p>
+          <p>Here, we performed a comprehensive benchmark to assess the influence of omics-data (regarding to the data sources, types and platforms) and integration methods on the model content and predictive accuracy. We collected different types of omics data (Transcriptome and proteome) from different sources (cell-lines and patients), as well as different platforms (RNA-Seq and Microarray) and integrated them into Recon3D (the generic GEM of Human) by four integration algorithms (GIMME, iMAT, INIT, and FASTCORE).</p>
+        </div>
+        <div class="col-lg-6 order-1 order-lg-2 hero-img text-center">
+          <img src="art/gembench-boxed.png" class="img-fluid animated mb-5" alt="">
+          <p>Go ahead and interactively explore the results reported in  .....</p>
+          <a href="/explore.html" class="btn">Get Started</a>
+        </div>
+      </div>
+    </div>
+
+  </section>
+  
+  
+  <section id="details" class="d-flex align-items-center">
+    <div class="container">
+      <div class="section-title">
+        <h2>Background on Integration Methods</h2>
+      </div>
+      <p>
+      From 2002 to now, more than fifty methods have been developed to investigate how gene expression integration into GEM could affect model content and predictive accuracy.
+      The first study, which tried to overcome this issue, was published in 2002 by Covert and Palsson [1].
+      In 2004, Akesson et al. used gene expression data as an additional constraint on the metabolic fluxes in yeast [2]. Afterwards, different algorithms were devised for tackling this challenge GIMME [3], E-Flux [4], MBA [5], Moxley [6], MADE [7], RELATCH [8], INIT [9], mCADRE [10], tINIT [11], CORDA [12], E-Flux2, SPOT [13] and FASTCORE [14]. These algorithms can be classified in many different ways on the basis of the underlying methodology.
+</p>
+      <p>
+ In 2014, Machado and Herrgård classified methods by three main criteria: 1. Regarding how they apply the gene expression levels (discrete vs continuous, absolute vs relative), 2. Model functionality regarding flux prediction or 3. Model building [15]. 
+</p>
+      <p>
+Kim and Lun considered four grouping criteria, regarding gene expression and model functionality: 1. Algorithms which require multiple gene expression datasets as input, 2. Requirement for gene expression threshold to define a gene's high and low expression, 3. Requirement of an appropriate objective function for a given GEM, and 4. Validation of predicted fluxes directly against measured intracellular fluxes [16].
+</p>
+      <p>
+In 2015, Estévez and Nikoloski [17] stratified the methods in three distinct groups. 1. GIMME- and GIM3E-like methods. This group refers to the two-steps approaches with a metabolic functionality (objective function) being optimized through FBA in a first step. Then, the obtained optimal value is employed to minimize the discrepancies between fluxes and data. 2. iMAT-and INIT-like methods. This group of algorithms determines the binary reaction status (i.e., active or inactive) which are in good agreement with the associate data state. 3. MBA-, mCADRE and fastCORE-like methods. This group defines a core set of active reactions and then finds the minimum essential set of reactions to satisfy the model consistency condition.
+
+
+
+</p>
+
+
+    </div>
+  </section>
+    
+  <footer id="footer">
+
+    <div class="footer-top">
+    <div class="container py-4">
+      <p class="">The <a href="/imprint#imprint">GEMtractor</a> is a Project of the <a href="https://www.sbi.uni-rostock.de/">Department of Systems Biology and Bioinformatics</a> at the <a href="http://www.uni-rostock.de/">University of Rostock</a></p>
+    </div>
+  </footer>
+</body>
+</html>

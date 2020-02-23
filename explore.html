@@ -13,44 +13,30 @@
 <script src="jquery-3.4.1.min.js"></script>
 <script src="v2.1.7/fancybox-2.1.7/source/jquery.fancybox.pack.js"></script>
 <script src="v2.1.7/fancybox-2.1.7/lib/jquery.mousewheel.pack.js"></script>
-<!--
-<script src="magnifypopup.js"></script>
--->
-<!-- Tooltip style -->
-<style>
-.method {
-  -webkit-transform: rotate(90deg);
-  -moz-transform: rotate(90deg);
-  -o-transform: rotate(90deg);
-  -ms-transform: rotate(90deg);
-  transform: rotate(90deg);
-}
-.d3-tip {
-  line-height: 1;
-  padding: 6px;
-  background: rgba(0, 0, 0, 0.7);
-  color: #fff;
-  border-radius: 4px;
-  font-size: 12px;
-}
-.slider {
-  width: 100px;
-}
-svg {
-  color:black;
-}
-#outliers {
-  display:none
-}
-.outliers tr:nth-child(even) {
-  background-color: #f2f2f2;
-}
-.outliers tr:hover {
-  background-color: #ddd;
-}
-</style>
+<link rel="stylesheet" href="style.css">
 </head>
 <body>
+  <header id="header" class="fixed-top">
+    <div class="container-fluid d-flex">
+
+      <div class="logo mr-auto">
+        <a href="index.html"><img src="art/gembench.png" alt="" class="img-fluid"></a>
+      </div>
+
+      <nav class="nav-menu d-none d-lg-block">
+        <ul>
+          <li class="active"><a href="#header">Home</a></li>
+          <li><a href="/explore">Explore</a></li>
+          <li><a href="/imprint">Imprint</a></li>
+          <li><a href="/imprint#privacy">Privacy</a></li>
+        </ul>
+      </nav><!-- .nav-menu -->
+
+    </div>
+  </header>
+  
+  
+  <section id="analyses" class="">
   <div class="container mt-5">
 <h1>Comparison of Methods for Data Integration</h1>
 <p>Metric to display:  <select id='metric' onChange="draw_boxplots()"></select><br>
@@ -85,11 +71,17 @@ If the integration method reports a non-zero flux on a reaction facilitated by o
   <div id="cor6" class="col-md-2"></div>
 </div>
 </div>
-<footer class="container-fluid text-center my-5 p-2">
-  <p>cool website. isn't it?</p>
-</footer>
-<script src="test.js"></script>
 
 <div id="outliers"></div>
+  </section>
+    
+  <footer id="footer">
+
+    <div class="footer-top">
+    <div class="container py-4">
+      <p class="">The <a href="/imprint#imprint">GEMtractor</a> is a Project of the <a href="https://www.sbi.uni-rostock.de/">Department of Systems Biology and Bioinformatics</a> at the <a href="http://www.uni-rostock.de/">University of Rostock</a></p>
+    </div>
+  </footer>
+<script src="explore.js"></script>
 </body>
 </html>

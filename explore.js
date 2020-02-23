@@ -19,9 +19,9 @@ function datacolor (str) {
   if (str.includes ("Microarray")) {
     return "#fef0d9"
   } else if (str.includes ("MS Proteomics")) {
-    return "#fdcc8a"
+    return "#fdddb2"
   }
-  return "#fc8d59"
+  return "#f3e793"
 }
 
 function dataset2sourcetype (dataset) {
