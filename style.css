@@ -50,8 +50,9 @@ a:hover, a:active {
 }
 .nav-menu a:hover, .nav-menu .active > a, .nav-menu li:hover > a {
 
-    color: #1a5a3a;
-    text-decoration: none;
+    color: #1a5a3a !important;
+    text-decoration: none !important;
+    border-bottom: none !important;
 
 }
 img {
