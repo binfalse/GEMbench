@@ -118,9 +118,7 @@ footer {
   border-radius: 4px;
   font-size: 12px;
 }
-.slider {
-  width: 100px;
-}
+
 svg {
   color:black;
 }
@@ -150,4 +148,9 @@ svg {
   100% {
     transform: translateY(-10px);
   }
+}
+
+
+#explore-controls {
+  margin: 50px 0;
 }

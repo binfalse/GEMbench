@@ -39,10 +39,23 @@
   <section id="analyses" class="">
   <div class="container mt-5">
 <h1>Comparison of Methods for Data Integration</h1>
-<p>Metric to display:  <select id='metric' onChange="draw_boxplots()"></select><br>
-Scale y: <input type="range" min=".1" max="1" value="1" step="0.1" class="slider" id="slider" oninput="update_slider_value()" onmouseup="draw_boxplots()" ontouchend="draw_boxplots()"> <span id="slider_value"></span></p>
 
-<p id="AFR_expl" class="metric_expl"><strong>This AFR score represents the ratio of glycolytic to oxidative ATP flux.</strong> It was proposed by https://www.embopress.org/doi/full/10.15252/msb.20134993 in 2014. In fact, AFR measures the extent of the Warburg effect, which is found to be highly positively associated with cancer cell migration.</p>
+
+    <div class="container" id="explore-controls">
+      <div class="row">
+        <div class="col-lg-6 pt-5 pt-lg-0 order-2 order-lg-1">
+  <div class="form-group">
+<label for="metric">Metric to display:</label>
+<select id='metric' onChange="draw_boxplots()" class="form-control"></select></div>
+  <div class="form-group">
+<label for="slider">Scale y: <span id="slider_value"></span></label><input type="range" min=".1" max="1" value="1" step="0.1" class="slider form-control" id="slider" oninput="update_slider_value()" onmouseup="draw_boxplots()" ontouchend="draw_boxplots()"> 
+</div>
+
+        </div>
+        <div class="col-lg-6 order-1 order-lg-2">
+          <h4>Information about the Metric</h4>
+
+<p id="AFR_expl" class="metric_expl"><strong>The AFR score represents the ratio of glycolytic to oxidative ATP flux.</strong> It was proposed by https://www.embopress.org/doi/full/10.15252/msb.20134993 in 2014. In fact, AFR measures the extent of the Warburg effect, which is found to be highly positively associated with cancer cell migration.</p>
 <p id="EOR_expl" class="metric_expl"><strong>The EOR score represents the ratio of the glycolytic versus oxidative capacity.</strong> It computes the fraction of extracellular acidification rate (i.e. lactate secretion flux value), over the oxygen consumption rate (i.e. oxygen consumption flux value) which was proposed by https://www.embopress.org/doi/full/10.15252/msb.20134993 in 2014. </p>
 <p id="Hallmark_expl" class="metric_expl">
   <strong>The Hallmark represents a set of genes, whose presence is considered a signature of cancer.</strong>
@@ -55,6 +68,11 @@ If the integration method reports a non-zero flux on a reaction facilitated by o
  </p>
 <p id="BlandAltman_expl" class="metric_expl"><strong>BlandAltman..?</strong></p>
 <p id="Jaccard_expl" class="metric_expl"><strong>The Jaccard index measures the similarity between finite sample sets.</strong> It is defined as the size of the intersection divided by the size of the union of the sample sets, see <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3959882/">Fuxman Bass et al. 2013</a>.</p>
+
+</div>
+        </div>
+        </div>
+
 
 <!-- Create a div where the graph will take place -->
 <div id="my_dataviz"></div>
@@ -79,7 +97,7 @@ If the integration method reports a non-zero flux on a reaction facilitated by o
 
     <div class="footer-top">
     <div class="container py-4">
-      <p class="">The <a href="/imprint#imprint">GEMtractor</a> is a Project of the <a href="https://www.sbi.uni-rostock.de/">Department of Systems Biology and Bioinformatics</a> at the <a href="http://www.uni-rostock.de/">University of Rostock</a></p>
+      <p class="">The <a href="/imprint#imprint">GEMbench</a> is a project of the <a href="https://www.sbi.uni-rostock.de/">Department of Systems Biology and Bioinformatics</a> at the <a href="http://www.uni-rostock.de/">University of Rostock</a></p>
     </div>
   </footer>
 <script src="explore.js"></script>

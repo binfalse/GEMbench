@@ -487,7 +487,6 @@ var svg = d3.select("#" + domnode + " p a")
 
 
 
-
 const global_sumstat = {}
 
 
@@ -701,7 +700,7 @@ var svg = d3.select("#my_dataviz")
   inf_y = r_u
   if (infinites_p) {
     svg.append("text")
-    .attr("x", 0)
+    .attr("x", -5)
     .attr("y", inf_y - 10)
     .attr("text-anchor","end")
     .attr("font-size","10px")
@@ -739,7 +738,7 @@ var svg = d3.select("#my_dataviz")
   
   if (infinites_m) {
     svg.append("text")
-    .attr("x", 0)
+    .attr("x", -5)
     .attr("y", inf_y - 10)
     .attr("text-anchor","end")
     .attr("font-size","10px")
@@ -865,7 +864,7 @@ var svg = d3.select("#my_dataviz")
       
       console.log ("drawing:", t1, t2, "cor" + corId)
       const tmpCorId = corId
-      //setTimeout (function () {draw_correlation (t1, t2, "cor" + tmpCorId)}, 1000* Math.random ());
+      setTimeout (function () {draw_correlation (t1, t2, "cor" + tmpCorId)}, 1000* Math.random ());
       corId = corId + 1
       console.log ("drawn")
     }
@@ -899,6 +898,12 @@ var svg = d3.select("#my_dataviz")
     .append("line")
       .attr("x1", x(types1[i]["end"])+columnWidth/2)
       .attr("x2", x(types1[i]["end"])+columnWidth/2)
+      .attr("y1", chart_top - 50)
+      .attr("y2", chart_bottom + 5)
+      .attr("stroke", "black")
+    svg.append("line")
+      .attr("x1", x(types1[i]["start"])-columnWidth/2)
+      .attr("x2", x(types1[i]["start"])-columnWidth/2)
       .attr("y1", chart_top - 50)
       .attr("y2", chart_bottom + 5)
       .attr("stroke", "black")
@@ -1077,43 +1082,43 @@ d3.csv("data/combined-afr-eor-hallmark.csv").then (function(data) {
 });
 
 
-//d3.csv("data/combined-jaccard-ba.csv").then (function(data) {
-  //var metrics = new Set ()
-  //for (row=0; row < data.length; row++){
-    //metrics.add (data[row]["Score"])
-    //var [source, type] = dataset2sourcetype (data[row]["Dataset"])
+d3.csv("data/combined-jaccard-ba.csv").then (function(data) {
+  var metrics = new Set ()
+  for (row=0; row < data.length; row++){
+    metrics.add (data[row]["Score"])
+    var [source, type] = dataset2sourcetype (data[row]["Dataset"])
 		
-    //sid = data[row]["Dx1"] + " -vs- " + data[row]["Dx2"]
+    sid = data[row]["Dx1"] + " -vs- " + data[row]["Dx2"]
     
-		//if (!samples[source + "__" + type + "__double"][sid]) {
-			//samples[source + "__" + type + "__double"][sid] = new Sample (sid, source, type)
-		//}
+		if (!samples[source + "__" + type + "__double"][sid]) {
+			samples[source + "__" + type + "__double"][sid] = new Sample (sid, source, type)
+		}
     
-    //const sample = samples[source + "__" + type + "__double"][sid]
-		//if (!boxplots[data[row]["Score"]]) {
-			//boxplots[data[row]["Score"]] = getSourceData ();
-    //}
+    const sample = samples[source + "__" + type + "__double"][sid]
+		if (!boxplots[data[row]["Score"]]) {
+			boxplots[data[row]["Score"]] = getSourceData ();
+    }
     
-    //for (i = 0; i < imethods.length; i++) {
-      //boxplots[data[row]["Score"]][source][type][imethods[i]]["samples"].push (sample);
-      //sample.setScore (data[row]["Score"], imethods[i], parseFloat (data[row][imethods[i]]))
-    //}
-  //}
+    for (i = 0; i < imethods.length; i++) {
+      boxplots[data[row]["Score"]][source][type][imethods[i]]["samples"].push (sample);
+      sample.setScore (data[row]["Score"], imethods[i], parseFloat (data[row][imethods[i]]))
+    }
+  }
   
-  //for (let metric of metrics)
-    //setTimeout (function () {do_sumstat (metric)}, 1000*Math.random ());
+  for (let metric of metrics)
+    setTimeout (function () {do_sumstat (metric)}, 1000*Math.random ());
   
-  ///*m_select = document.getElementById("metric")
-  //for (let metric of metrics) {
-    //var opt = document.createElement('option');
-    //opt.value = metric;
-    //opt.innerHTML = metric;
-    //m_select.appendChild(opt);
-  //}
+  /*m_select = document.getElementById("metric")
+  for (let metric of metrics) {
+    var opt = document.createElement('option');
+    opt.value = metric;
+    opt.innerHTML = metric;
+    m_select.appendChild(opt);
+  }
   
-  //sortSelect (m_select)
+  sortSelect (m_select)
   
-  //if (!drawn)
-    //draw_boxplots ();*/
-//});
+  if (!drawn)
+    draw_boxplots ();*/
+});
 
