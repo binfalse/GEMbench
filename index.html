@@ -33,8 +33,14 @@
     <div class="container">
       <div class="row">
         <div class="col-lg-6 pt-5 pt-lg-0 order-2 order-lg-1">
-          <h1>GEMbench</h1>
-          <h2>A comprehensive benchmark of omics data and integration methods for assessment of metabolic patterns in cancers</h2>
+          <h2>GEMbench:
+<!--
+          </h1>
+-->
+<!--
+          <h2>
+-->
+            A comprehensive benchmark of omics data and integration methods for assessment of metabolic patterns in cancers</h2>
           <p>The ultimate goal of systems medicine is to understand the underlying mechanism of disease development, diagnostic biomarkers, potential drug targets and prognosis biomarkers. The generic genome-scale metabolic models (GEMs) is one of the most prevalent networks that in integration with omics-data could generate the context-based/tissue-specific GEM. Generating the context-based GEM has allowed a more in-depth study of metabolism and in particular, these facilitate the unveiling of the genotype-phenotype relationship and give rise to the extraction of physiologically relevant information from the high-quality data.</p>
           <p>Since 2002 to now, more than fifty methods have been developed to investigate how gene expression integration into GEM could affect model content and predictive accuracy. These methods differ in assumptions and mathematical formulation, used different gene expression datasets (in form of microarray data or RNA-sequencing data) and various GEMs of organisms from bacteria to human as well as tested isolated case studies. These heterogeneous datasets and diverse algorithms are difficult for comparison and benchmarking.</p>
           <p>Here, we performed a comprehensive benchmark to assess the influence of omics-data (regarding to the data sources, types and platforms) and integration methods on the model content and predictive accuracy. We collected different types of omics data (Transcriptome and proteome) from different sources (cell-lines and patients), as well as different platforms (RNA-Seq and Microarray) and integrated them into Recon3D (the generic GEM of Human) by four integration algorithms (GIMME, iMAT, INIT, and FASTCORE).</p>
@@ -67,7 +73,7 @@
 <a href="https://www.ncbi.nlm.nih.gov/pubmed/25379144">Kim and Lun</a> considered four grouping criteria, regarding gene expression and model functionality: 1. Algorithms which require multiple gene expression datasets as input, 2. Requirement for gene expression threshold to define a gene's high and low expression, 3. Requirement of an appropriate objective function for a given GEM, and 4. Validation of predicted fluxes directly against measured intracellular fluxes.
 </p>
       <p>
-In 2015, <a href="https://www.ncbi.nlm.nih.gov/pubmed/26158726">Estévez and Nikoloski</a> stratified the methods in three distinct groups. 1. GIMME- and GIM3E-like methods. This group refers to the two-steps approaches with a metabolic functionality (objective function) being optimized through FBA in a first step. Then, the obtained optimal value is employed to minimize the discrepancies between fluxes and data. 2. iMAT-and INIT-like methods. This group of algorithms determines the binary reaction status (i.e., active or inactive) which are in good agreement with the associate data state. 3. MBA-, mCADRE and fastCORE-like methods. This group defines a core set of active reactions and then finds the minimum essential set of reactions to satisfy the model consistency condition.
+In 2015, <a href="https://www.ncbi.nlm.nih.gov/pubmed/26158726">Estévez and Nikoloski</a> stratified the methods in three distinct groups. 1. GIMME- and GIM<sup>3</sup>E-like methods. This group refers to the two-steps approaches with a metabolic functionality (<em>objective function</em>) being optimized through <abbr title="Flux Balance Analysis">FBA</abbr> in a first step. Then, the obtained optimal value is employed to minimize the discrepancies between fluxes and data. 2. iMAT-and INIT-like methods. This group of algorithms determines the binary reaction status (i.e., active or inactive) which are in good agreement with the associate data state. 3. MBA-, mCADRE and FASTCORE-like methods. This group defines a core set of active reactions and then finds the minimum essential set of reactions to satisfy the model consistency condition.
 
 
 
