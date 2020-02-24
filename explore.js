@@ -1,6 +1,6 @@
 
-const sources = ["Cell Line","Patient Data"]
-const types = ["Microarray","RNA Seq","MS Proteomics"]
+const sources = ["Cell Line","Patient Data"];
+const types = ["Microarray","RNA Seq","MS Proteomics"];
 const imethods = ["GIMME","FASTCORE","INIT","iMAT"];
 
 Object.values = Object.values || function(o){return Object.keys(o).map(function(k){return o[k]})};
@@ -963,7 +963,7 @@ d3.select("#download").on("click", function(){
 
 
 function do_sumstat (metric) {
-  
+	
     
     
     
@@ -976,73 +976,99 @@ function do_sumstat (metric) {
   var infinites_p = false
   var infinites_m = false
   var xdomain = new Set ();
-  for (const [type1key, type1value] of Object.entries(boxplots[metric])) {
-    for (const [type2key, type2value] of Object.entries(type1value)) {
-      for (const [methkey, methvalue] of Object.entries(type2value)) {
-        var key = type1key+"-"+type2key+"-"+methkey
-         xdomain.add (key);
-         scoreId = metric + "_" + methkey;
-         vals = []
-         inf_p = []
-         inf_m = []
-         for (i = 0; i< methvalue["samples"].length; i++)
-         {
-           v= methvalue["samples"][i].scores[scoreId]
-           if (v == 1000) {
-             infinites_p = true
-             inf_p.push (methvalue["samples"][i])
-           } else if (v == -1000) {
-             infinites_m = true
-             inf_m.push (methvalue["samples"][i])
-           } else {
-             vals.push (v)
-           }
-         }
-         vals = vals.sort(d3.ascending)
-         q1 = d3.quantile(vals,.25);
-         median = d3.quantile(vals,.5);
-         q3 = d3.quantile(vals,.75);
-         interQuantileRange = q3 - q1;
-         min = vals[0]
-         max = vals[vals.length - 1]
-        whiskersMin = Math.max(min, q1 - interQuantileRange * 1.5);
-        whiskersMax = Math.min(max, q3 + interQuantileRange * 1.5);
-        outliers_min = methvalue["samples"].filter (x => (x.scores[scoreId] < whiskersMin) && vals.includes (x.scores[scoreId]));
-        outliers_max = methvalue["samples"].filter (x => (x.scores[scoreId] > whiskersMax) && vals.includes (x.scores[scoreId]));
-        outliers_min.sort (function (a, b) {return a.scores[scoreId] < b.scores[scoreId] ? -1 : 1});
-        outliers_max.sort (function (a, b) {return a.scores[scoreId] < b.scores[scoreId] ? -1 : 1});
-        
-        var outlier_table = "<div><h3>"+(outliers_min.length+outliers_max.length)+" outliers for "+ metric + " of " + key +"</h3><table class='outliers table'><thead><tr><th>Sample</th><th>Value</th></tr></thead><tbody>";
+  
+  
+  
+  if (typeof(Storage) !== "undefined") {
+	  
+	  cache = localStorage.getItem("sumstat_" + metric)
+	  //console.log ("found in cache:")
+	  //console.log (global_sumstat[metric])
+	  /*if (cached !== null) {
+		  sumstat = cached["sumstat"]
+		  minY = cached["minY"]
+		  maxY = cached["maxY"]
+		  infinites_p = cached["infinites_p"]
+		  infinites_m = cached["infinites_m"]
+		  xdomain = cached["xdomain"]
+	  }*/
+  }
+  if (cache === null) {
+	  for (const [type1key, type1value] of Object.entries(boxplots[metric])) {
+		for (const [type2key, type2value] of Object.entries(type1value)) {
+		  for (const [methkey, methvalue] of Object.entries(type2value)) {
+			var key = type1key+"-"+type2key+"-"+methkey
+			 xdomain.add (key);
+			 scoreId = metric + "_" + methkey;
+			 vals = []
+			 inf_p = []
+			 inf_m = []
+			 for (i = 0; i< methvalue["samples"].length; i++)
+			 {
+			   v= methvalue["samples"][i].scores[scoreId]
+			   if (v == 1000) {
+				 infinites_p = true
+				 inf_p.push (methvalue["samples"][i])
+			   } else if (v == -1000) {
+				 infinites_m = true
+				 inf_m.push (methvalue["samples"][i])
+			   } else {
+				 vals.push (v)
+			   }
+			 }
+			 vals = vals.sort(d3.ascending)
+			 q1 = d3.quantile(vals,.25);
+			 median = d3.quantile(vals,.5);
+			 q3 = d3.quantile(vals,.75);
+			 interQuantileRange = q3 - q1;
+			 min = vals[0]
+			 max = vals[vals.length - 1]
+			whiskersMin = Math.max(min, q1 - interQuantileRange * 1.5);
+			whiskersMax = Math.min(max, q3 + interQuantileRange * 1.5);
+			outliers_min = methvalue["samples"].filter (x => (x.scores[scoreId] < whiskersMin) && vals.includes (x.scores[scoreId]));
+			outliers_max = methvalue["samples"].filter (x => (x.scores[scoreId] > whiskersMax) && vals.includes (x.scores[scoreId]));
+			outliers_min.sort (function (a, b) {return a.scores[scoreId] < b.scores[scoreId] ? -1 : 1});
+			outliers_max.sort (function (a, b) {return a.scores[scoreId] < b.scores[scoreId] ? -1 : 1});
+			
+			var outlier_table = "<div><h3>"+(outliers_min.length+outliers_max.length)+" outliers for "+ metric + " of " + key +"</h3><table class='outliers table'><thead><tr><th>Sample</th><th>Value</th></tr></thead><tbody>";
 
-        for (var o = 0; o < outliers_min.length; o++) {
-          outlier_table += "<tr><td>"+outliers_min[o].name+"</td><td>"+outliers_min[o].scores[scoreId]+"</td></tr>";
-        }
-        outlier_table += "<tr><th>--- MEDIAN ---</td><th>"+median+"</th></tr>";
-        for (var o = 0; o < outliers_max.length; o++) {
-          outlier_table += "<tr><td>"+outliers_max[o].name+"</td><td>"+outliers_max[o].scores[scoreId]+"</td></tr>";
-        }
-        outlier_table += "</tbody></table></div>"
-        
-        sumstat.push ({
-          "key": key,
-          "value": {q1: q1, median: median, q3: q3, interQuantileRange: interQuantileRange, min: min, max: max, whiskersMin: whiskersMin, whiskersMax: whiskersMax, outliers_min: outliers_min, outliers_max: outliers_max, scoreId: scoreId, inf_p: inf_p, inf_m: inf_m, outlier_table: outlier_table}});
-        if (minY > min && min != -1000 && min != 1000)
-          minY = min;
-        if (maxY < max && max != 1000 && max != -1000)
-          maxY = max;
-      }
-    }
+			for (var o = 0; o < outliers_min.length; o++) {
+			  outlier_table += "<tr><td>"+outliers_min[o].name+"</td><td>"+outliers_min[o].scores[scoreId]+"</td></tr>";
+			}
+			outlier_table += "<tr><th>--- MEDIAN ---</td><th>"+median+"</th></tr>";
+			for (var o = 0; o < outliers_max.length; o++) {
+			  outlier_table += "<tr><td>"+outliers_max[o].name+"</td><td>"+outliers_max[o].scores[scoreId]+"</td></tr>";
+			}
+			outlier_table += "</tbody></table></div>"
+			
+			sumstat.push ({
+			  "key": key,
+			  "value": {q1: q1, median: median, q3: q3, interQuantileRange: interQuantileRange, min: min, max: max, whiskersMin: whiskersMin, whiskersMax: whiskersMax, outliers_min: outliers_min, outliers_max: outliers_max, scoreId: scoreId, inf_p: inf_p, inf_m: inf_m, outlier_table: outlier_table}});
+			if (minY > min && min != -1000 && min != 1000)
+			  minY = min;
+			if (maxY < max && max != 1000 && max != -1000)
+			  maxY = max;
+		  }
+		}
+	  }
+	  global_sumstat[metric] = {
+		"sumstat": sumstat,
+		"minY": minY,
+		"maxY": maxY,
+		"infinites_p": infinites_p,
+		"infinites_m": infinites_m,
+		"xdomain": xdomain
+	  }
+	  console.log (metric)
+	  console.log (global_sumstat[metric])
+	  //if (typeof(Storage) !== "undefined") {
+		  //localStorage.setItem("sumstat_" + metric, JSON.stringify(global_sumstat[metric]))
+	  //}
+  } else {
+	  global_sumstat[metric] = JSON.parse(cache)
   }
   console.log ("done sumstat")
   
-  global_sumstat[metric] = {
-    "sumstat": sumstat,
-    "minY": minY,
-    "maxY": maxY,
-    "infinites_p": infinites_p,
-    "infinites_m": infinites_m,
-    "xdomain": xdomain
-  }
   
   addSelect (metric)
   
