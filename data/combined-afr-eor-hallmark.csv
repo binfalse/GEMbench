@@ -783,7 +783,7 @@ AFR,GSE2109,D171_Ovary_Mixed_epithelial_tumor,1,1,1.5307,1
 AFR,GSE2109,D172_Ovary_Mucinous_Adenocarcinoma,1,1,1,1
 AFR,GSE2109,D173_Ovary_Mucinous_Carcinoma,1,1,1,1
 AFR,GSE2109,D174_Ovary_Mucinous_cystadenocarcinoma,1,1,1,1
-AFR,GSE2109,D175_Ovary_Mucinous_cystic_tumor_of_low_malignant_potential,1,5.6917,Inf,1
+AFR,GSE2109,D175_Ovary_Mucinous_cystic_tumor_of_low_malignant_potential,1,5.6917,1000,1
 AFR,GSE2109,D176_Ovary_Papillary_cystadenocarcinoma,1,1,1,1
 AFR,GSE2109,D177_Ovary_Papillary_mucinous_cystadenocarcinoma,1,1000,1.3957,1
 AFR,GSE2109,D178_Ovary_Papillary_Serous_Adenocarcinoma,1,1,1,1
