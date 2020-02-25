@@ -3,17 +3,14 @@ import pandas as pd
 import json
 
 ROUND_DIGS = 6
+def rounder_series (num):
+	return round (num, ROUND_DIGS)
 def rounder (num):
-  return round (num, ROUND_DIGS)
-
-
-table = pd.read_csv ("combined-afr-eor-hallmark.csv")
-
-samples = {}
-sid = 0
-for sample in table["Sample"].unique():
-  samples[sample] = sid
-  sid = sid + 1
+	if np.isinf (num):
+		if num > 0:
+			return "I"
+		return "i"
+	return round (num, ROUND_DIGS)
 
 metric_dict = {
   "AFR": 0,
@@ -37,6 +34,25 @@ imeth_dict = {
   "iMAT": 3,
 }
 
+def read_csv (filename):
+	df = pd.read_csv (filename)						\
+			.replace("Inf", np.inf)					\
+			.replace(["-Inf", "#NAME?"], -np.inf)	\
+			.replace ("NaN", np.nan)
+	for i in imeth_dict:
+		df[i] = df[i].astype (float)
+	return df
+
+table = read_csv ("combined-afr-eor-hallmark.csv")
+
+
+samples = {}
+sid = 0
+for sample in table["Sample"].unique():
+  samples[sample] = sid
+  sid = sid + 1
+
+
 def metric_shorter (metric):
   return metric_dict[metric]
 
@@ -50,7 +66,7 @@ def list_of_samples (subtable, sample_a, sample_b, imeth):
   l = []
   for index, row in subtable.iterrows ():
     tmp = [
-            round (row[imeth], ROUND_DIGS),
+            rounder (row[imeth]),
             samples[row[sample_a]]
           ]
     
@@ -62,7 +78,7 @@ def list_of_samples (subtable, sample_a, sample_b, imeth):
 
 def do_sumstat (metric, source, imeth):
   
-  subtable = table[(table.Score==metric) & (table.Dataset==source) & (abs (table[imeth]) != 1000)]
+  subtable = table[(table.Score==metric) & (table.Dataset==source) & (abs (table[imeth]) != np.inf)]
   # subtable = table[(table.Score==metric) & (table.Dataset==source)]
   q1 = rounder (subtable[imeth].quantile (.25))
   median = rounder (subtable[imeth].quantile (.5))
@@ -74,12 +90,12 @@ def do_sumstat (metric, source, imeth):
   whiskersMin = rounder (max(min_v, q1 - interQuantileRange * 1.5))
   whiskersMax = rounder (min(max_v, q3 + interQuantileRange * 1.5))
   
-  outliers_min = list_of_samples (subtable[rounder (subtable[imeth]) < whiskersMin][["Sample", imeth]], "Sample", None, imeth)
-  outliers_max = list_of_samples (subtable[rounder (subtable[imeth]) > whiskersMax][["Sample", imeth]], "Sample", None, imeth)
+  outliers_min = list_of_samples (subtable[rounder_series (subtable[imeth]) < whiskersMin][["Sample", imeth]], "Sample", None, imeth)
+  outliers_max = list_of_samples (subtable[rounder_series (subtable[imeth]) > whiskersMax][["Sample", imeth]], "Sample", None, imeth)
   
-  inftable = table[(table.Score==metric) & (table.Dataset==source) & (abs (table[imeth]) == 1000)]
-  inf_p = list_of_samples (inftable[inftable[imeth] == 1000][["Sample", imeth]], "Sample", None, imeth)
-  inf_m = list_of_samples (inftable[inftable[imeth] == -1000][["Sample", imeth]], "Sample", None, imeth)
+  inftable = table[(table.Score==metric) & (table.Dataset==source) & (abs (table[imeth]) == np.inf)]
+  inf_p = list_of_samples (inftable[inftable[imeth] == np.inf][["Sample", imeth]], "Sample", None, imeth)
+  inf_m = list_of_samples (inftable[inftable[imeth] == -np.inf][["Sample", imeth]], "Sample", None, imeth)
   
   return [ q1,
            median,
@@ -118,7 +134,7 @@ for metric in ["AFR", "EOR", "Hallmark"]:
 
 def do_sumstat2 (metric, source, imeth):
   
-  subtable = table[(table.Score==metric) & (table.Dataset==source) & (abs (table[imeth]) != 1000)]
+  subtable = table[(table.Score==metric) & (table.Dataset==source) & (abs (table[imeth]) != np.inf)]
   q1 = rounder (subtable[imeth].quantile (.25))
   median = rounder (subtable[imeth].quantile (.5))
   q3 = rounder (subtable[imeth].quantile (.75))
@@ -129,12 +145,12 @@ def do_sumstat2 (metric, source, imeth):
   whiskersMin = rounder (max(min_v, q1 - interQuantileRange * 1.5))
   whiskersMax = rounder (min(max_v, q3 + interQuantileRange * 1.5))
   
-  outliers_min = list_of_samples (subtable[rounder (subtable[imeth]) < whiskersMin][["Dx1", "Dx2", imeth]], "Dx1", "Dx2", imeth)
-  outliers_max = list_of_samples (subtable[rounder (subtable[imeth]) > whiskersMax][["Dx1", "Dx2", imeth]], "Dx1", "Dx2", imeth)
+  outliers_min = list_of_samples (subtable[rounder_series (subtable[imeth]) < whiskersMin][["Dx1", "Dx2", imeth]], "Dx1", "Dx2", imeth)
+  outliers_max = list_of_samples (subtable[rounder_series (subtable[imeth]) > whiskersMax][["Dx1", "Dx2", imeth]], "Dx1", "Dx2", imeth)
   
-  inftable = table[(table.Score==metric) & (table.Dataset==source) & (abs (table[imeth]) == 1000)]
-  inf_p = list_of_samples (inftable[inftable[imeth] == 1000][["Dx1", "Dx2", imeth]], "Dx1", "Dx2", imeth)
-  inf_m = list_of_samples (inftable[inftable[imeth] == -1000][["Dx1", "Dx2", imeth]], "Dx1", "Dx2", imeth)
+  inftable = table[(table.Score==metric) & (table.Dataset==source) & (abs (table[imeth]) == np.inf)]
+  inf_p = list_of_samples (inftable[inftable[imeth] == np.inf][["Dx1", "Dx2", imeth]], "Dx1", "Dx2", imeth)
+  inf_m = list_of_samples (inftable[inftable[imeth] == -np.inf][["Dx1", "Dx2", imeth]], "Dx1", "Dx2", imeth)
   
   return [ q1,
            median,
@@ -153,7 +169,7 @@ def do_sumstat2 (metric, source, imeth):
            inf_m ]
 
 
-table = pd.read_csv ("combined-jaccard-ba.csv")
+table = read_csv ("combined-jaccard-ba.csv")
 
 for metric in ["Jaccard","BlandAltman"]:
   for source in ["HPA", "EMTAB-37", "ProteomeNCI60", "TCGA", "GSE2109", "ProteomePatients"]:
