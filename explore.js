@@ -1,8 +1,8 @@
 
 const sources = ["Cell Line","Patient Data"];
 const types = ["Microarray","RNA Seq","MS Proteomics"];
-const imethods = ["GIMME","FASTCORE","INIT","iMAT"];
-
+const imethods = ["FASTCORE","GIMME","INIT","iMAT"];
+const metrics = ["AFR","EOR","Hallmark","BlandAltman","Jaccard"]
 metric_dict = {
   "AFR": 0,
   "EOR": 1,
@@ -28,24 +28,30 @@ imeth_dict = {
 
 Object.values = Object.values || function(o){return Object.keys(o).map(function(k){return o[k]})};
 
-function boxColor (str) {
-  if (str.includes ("GIMME")) {
+function boxColor (imeth) {
+  //if (str.includes ("GIMME")) {
+  if (imeth == 1) {
     return "#377eb8"
-  } else if (str.includes ("FASTCORE")) {
+  //} else if (str.includes ("FASTCORE")) {
+  } else if (imeth == 0) {
     return "#4daf4a"
-  } else if (str.includes ("INIT")) {
+  //} else if (str.includes ("INIT")) {
+  } else if (imeth == 2) {
     return "#984ea3"
   }
   return "#ff7f00"
 }
-function datacolor (str) {
-  if (str.includes ("Microarray")) {
+function datacolor (data) {
+  if (data == source_dict["EMTAB-37"] || data == source_dict["GSE2109"]) {
+  //if (str.includes ("Microarray")) {
     return "#fef0d9"
-  } else if (str.includes ("MS Proteomics")) {
+  } else if (data == source_dict["ProteomeNCI60"] || data == source_dict["ProteomePatients"]) {
+  //} else if (str.includes ("MS Proteomics")) {
     return "#fdddb2"
   }
   return "#f3e793"
 }
+
 
 function dataset2sourcetype (dataset) {
   switch (dataset) {
@@ -76,10 +82,10 @@ function sortSelect(selDom) {
     }
     return;
 }
-function addSelect (metric) {
+function addSelect (metric, metricid) {
   
   var opt = document.createElement('option');
-  opt.value = metric;
+  opt.value = metricid;
   opt.innerHTML = metric;
   
   var m_select = document.getElementById("metric");
@@ -87,7 +93,35 @@ function addSelect (metric) {
   
   sortSelect (m_select)
 }
-
+function get_x_for_boxplot (boxplot) {
+    var tmp = ""
+    switch (boxplot[11]) {
+        case source_dict["EMTAB-37"]:
+          tmp = sources[0] + "__" + types[0]
+    break;
+        case source_dict["HPA"]:
+          tmp = sources[0] + "__" + types[1]
+    break;
+        case source_dict["ProteomeNCI60"]:
+          tmp = sources[0] + "__" + types[2]
+    break;
+        case source_dict["GSE2109"]:
+          tmp = sources[1] + "__" + types[0]
+    break;
+        case source_dict["TCGA"]:
+          tmp = sources[1] + "__" + types[1]
+    break;
+        case source_dict["ProteomePatients"]:
+          tmp = sources[1] + "__" + types[2]
+    break;
+    }
+    return metrics[boxplot[10]] + "_" + tmp + "_" + imethods[boxplot[12]]
+  }
+function get_sample_name (item) {
+  if (item.length == 3)
+    return samples[item[1]] + " -vs- " + samples[item[2]]
+  return samples[item[1]]
+}
 //class Sample {
 	//constructor (name, source, type) {
 		//this.name = name
@@ -511,7 +545,7 @@ var svg = d3.select("#" + domnode + " p a")
 
 
 
-const global_sumstat = {}
+global_sumstat = {}
 
 
 
@@ -522,8 +556,8 @@ function draw_boxplots () {
   update_slider_value ()
   drawn = true
   //sqrtscale = document.getElementById('sqrt').checked
-  MEASURE = document.getElementById("metric")
-  MEASURE = MEASURE.options[MEASURE.selectedIndex].value
+  var MEASURE = document.getElementById("metric")
+  MEASURE = metrics[MEASURE.options[MEASURE.selectedIndex].value]
 $(".metric_expl").hide ()
   $("#" + MEASURE + "_expl").show ();
       
@@ -538,29 +572,35 @@ var svg = d3.select("#my_dataviz")
     .attr("transform",
           "translate(" + margin.left + "," + margin.top + ")");
 
-  var sumstat = global_sumstat[MEASURE]["sumstat"]
-  var minY  = global_sumstat[MEASURE]["minY"]
-  var maxY  = global_sumstat[MEASURE]["maxY"]
-  var infinites_p = global_sumstat[MEASURE]["infinites_p"]
-  var infinites_m = global_sumstat[MEASURE]["infinites_m"]
+  var sumstat = global_sumstat[MEASURE]["boxplots"];
+  var n_boxplots = Object.keys(sumstat).length;
+  var minY  = global_sumstat[MEASURE]["minY"];
+  var maxY  = global_sumstat[MEASURE]["maxY"];
+  var infinites_p = global_sumstat[MEASURE]["infinites_p"];
+  var infinites_m = global_sumstat[MEASURE]["infinites_m"];
   var xdomain = global_sumstat[MEASURE]["xdomain"];
+  //for (var i = 0; i < xdomain.length; i++) {
+    //var [t1, t2] = dataset2sourcetype (xdomain[i].replace (/.*_([a-zA-Z0-9 -]+)_.*/g, '$1'))
+    //xdomain[i] = t1 + "__" + t2 + "__" + xdomain[i]
+  //}
   console.log (minY, maxY);
-  var columnWidth = width / sumstat.length
+  var columnWidth = width / n_boxplots;
   // rectangle for the main box
-  var boxWidth = width / sumstat.length - 20
-  
+  var boxWidth = width / n_boxplots - 20;
+  console.log (xdomain)
+  console.log (sumstat)
   
   //var boxtip = d3.tip().attr('class', 'd3-tip').direction('e').offset([0,5])
-  var boxtip = d3.tip().attr('class', 'd3-tip').direction(function(d) {if (x(d.key) < width/2) return 'e'; return 'w'}).offset(function(d) {if (x(d.key) < width/2) return [0,5]; return [0,-5]})
+  var boxtip = d3.tip().attr('class', 'd3-tip').direction(function(d) {if (x(get_x_for_boxplot(d)) < width/2) return 'e'; return 'w'}).offset(function(d) {if (x(get_x_for_boxplot(d)) < width/2) return [0,5]; return [0,-5]})
             .html(function(d) {
-                var content = "<span style='margin-left: 2.5px;'><b>" + d.key + "</b></span><br>";
+                var content = "<span style='margin-left: 2.5px;'><b>" + get_x_for_boxplot(d) + "</b></span><br>";
                 content +=`
                     <table style="margin-top: 2.5px;">
-                            <tr><td>Max: </td><td style="text-align: right">` + d3.format(".2f")(d.value.max) + `</td></tr>
-                            <tr><td>Q3: </td><td style="text-align: right">` + d3.format(".2f")(d.value.q3) + `</td></tr>
-                            <tr><td>Median: </td><td style="text-align: right">` + d3.format(".2f")(d.value.median) + `</td></tr>
-                            <tr><td>Q1: </td><td style="text-align: right">` + d3.format(".2f")(d.value.q1) + `</td></tr>
-                            <tr><td>Min: </td><td style="text-align: right">` + d3.format(".2f")(d.value.min) + `</td></tr>
+                            <tr><td>Max: </td><td style="text-align: right">` + d3.format(".2f")(d[5]) + `</td></tr>
+                            <tr><td>Q3: </td><td style="text-align: right">` + d3.format(".2f")(d[2]) + `</td></tr>
+                            <tr><td>Median: </td><td style="text-align: right">` + d3.format(".2f")(d[1]) + `</td></tr>
+                            <tr><td>Q1: </td><td style="text-align: right">` + d3.format(".2f")(d[0]) + `</td></tr>
+                            <tr><td>Min: </td><td style="text-align: right">` + d3.format(".2f")(d[4]) + `</td></tr>
                     </table>
                     `;
                 return content;
@@ -578,7 +618,7 @@ var svg = d3.select("#my_dataviz")
   
   //var btm = undefined
   
-  xdomain = Array.from(xdomain).sort(function(a, b) { return d3.ascending(a, b); })
+  xdomain = xdomain.sort(function(a, b) { return d3.ascending(a, b); })
   var x = d3.scaleBand()
     .range([ 0, width ])
     .domain(xdomain)
@@ -600,19 +640,20 @@ var svg = d3.select("#my_dataviz")
     .domain([minY,maxY])
     .range([r_b, r_u])
   
-    
+  
+  
   
   svg
     .selectAll("databackground")
-    .data(sumstat)
+    .data(Object.values (sumstat))
     .enter()
     .append("rect")
-        .attr("x", function(d){return(x(d.key)-columnWidth/2)})
+        .attr("x", function(d){console.log (d); return(x(get_x_for_boxplot(d))-columnWidth/2)})
         .attr("y", chart_top)
         .attr("height", chart_bottom + 5)
         .attr("width", columnWidth )
         .style("opacity", ".2")
-        .style("fill", function(d){return datacolor(d.key)})
+        .style("fill", function(d){return datacolor(d[11])})
   svg
     .append("rect")
         .attr("x", 0)
@@ -631,33 +672,23 @@ var svg = d3.select("#my_dataviz")
         
         
         
-  console.log (sumstat);
+  //console.log (sumstat);
   
-  for (i = 0; i < sumstat.length; i++) {
+    //for (j = 0; j < boxplot[13].length; j++)
+      //arr.push ({n: get_x_for_boxplot(boxplot), s:boxplot[13][j], p: Infinity})
+  //for (i = 0; i < sumstat.length; i++) {
+  for (const [sumstat_key, boxplot] of Object.entries(sumstat)) {
     const arr_min = []
     const arr_max = []
-    for (j = 0; j < sumstat[i].value.outliers_min.length; j++)
-      arr_min.push ({n: sumstat[i].key, s:sumstat[i].value.outliers_min[j].name, p: sumstat[i].value.outliers_min[j].scores[sumstat[i].value.scoreId]})
-    for (j = 0; j < sumstat[i].value.outliers_max.length; j++)
-      arr_max.push ({n: sumstat[i].key, s:sumstat[i].value.outliers_max[j].name, p: sumstat[i].value.outliers_max[j].scores[sumstat[i].value.scoreId]})
+    for (j = 0; j < boxplot[8].length; j++)
+      arr_min.push ({n: get_x_for_boxplot(boxplot), s:get_sample_name (boxplot[8][j]), p: boxplot[8][j][0]})
+    for (j = 0; j < boxplot[9].length; j++)
+      arr_max.push ({n: get_x_for_boxplot(boxplot), s:get_sample_name (boxplot[9][j]), p: boxplot[9][j][0]})
     
     arr_min.sort(function (a, b) {return a.p < b.p ? -1 : 1});
     arr_max.sort(function (a, b) {return a.p < b.p ? -1 : 1});
-    /*const outlier_table = get_outlier_table_id (MEASURE, sumstat[i].key)
-    if($("#" + outlier_table).length == 0) {
-      $("#outliers").append ("<div id='" + outlier_table + "'><h3>Outliers for the "+
-      MEASURE + " metric of " + sumstat[i].key
-      +"</h3><table class='outliers table'><thead><tr><th>Sample</th><th>Value</th></tr></thead><tbody id='"+outlier_table+"_body'></tbody></table>")
-      const outlier_table_body = $("#" + outlier_table+"_body");
-      for (var o = 0; o < arr_min.length; o++) {
-        outlier_table_body.append ("<tr><td>"+arr_min[o].s+"</td><td>"+arr_min[o].p+"</td></tr>")
-      }
-      outlier_table_body.append ("<tr><th>--- MEDIAN ---</td><th>"+sumstat[i].value.median+"</th></tr>")
-      for (var o = 0; o < arr_max.length; o++) {
-        outlier_table_body.append ("<tr><td>"+arr_max[o].s+"</td><td>"+arr_max[o].p+"</td></tr>")
-      }
-    }*/
-    const outlier_table = sumstat[i].value.outlier_table
+    
+    const outlier_table = boxplot[15]
     
     function draw_outliers (outliers) {
       
@@ -674,7 +705,7 @@ var svg = d3.select("#my_dataviz")
             .on('mouseout', outliertip.hide)
             .on("click", function(){
 				console.log ("not too many outliers to draw")
-				console.log (outlier_table)
+				//console.log (outlier_table)
               $.fancybox( $(outlier_table) );
             });
       } else {
@@ -710,7 +741,7 @@ var svg = d3.select("#my_dataviz")
                 .style("fill", "none")    
           .on("click", function(){
 				console.log ("too many outliers to draw")
-				console.log (outlier_table)
+				//console.log (outlier_table)
               $.fancybox( $(outlier_table) );
             //~ $.fancybox( "#" + outlier_table );
           });
@@ -739,11 +770,11 @@ var svg = d3.select("#my_dataviz")
         .style("width", 10)
           .style("opacity", ".2")
     
-    for (i = 0; i < sumstat.length; i++) {
+    for (const [sumstat_key, boxplot] of Object.entries(sumstat)) {
     const arr = []
-    for (j = 0; j < sumstat[i].value.inf_p.length; j++)
-      arr.push ({n: sumstat[i].key, s:sumstat[i].value.inf_p[j].name, p: Infinity})
-    console.log (arr)
+    for (j = 0; j < boxplot[13].length; j++)
+      arr.push ({n: get_x_for_boxplot(boxplot), s:get_sample_name (boxplot[13][j]), p: Infinity})
+    //console.log (arr)
     svg
       .selectAll("inf_p")
       .data(arr)
@@ -754,8 +785,8 @@ var svg = d3.select("#my_dataviz")
         .attr("cy", inf_y - 13)
         .on('mouseover', outliertip.show)
         .on('mouseout', outliertip.hide);
-        //.attr("stroke", "black")
-        //.style("width", 40)
+        ////.attr("stroke", "black")
+        ////.style("width", 40)
   }
     inf_y = inf_y - 30
   }
@@ -777,11 +808,13 @@ var svg = d3.select("#my_dataviz")
         .style("width", 10)
           .style("opacity", ".2")
     
-    for (i = 0; i < sumstat.length; i++) {
+    //for (i = 0; i < sumstat.length; i++) {
+    for (const [sumstat_key, boxplot] of Object.entries(sumstat)) {
     const arr = []
-    for (j = 0; j < sumstat[i].value.inf_m.length; j++)
-      arr.push ({n: sumstat[i].key, s:sumstat[i].value.inf_m[j].name, p: -Infinity})
-    console.log (arr)
+    for (j = 0; j < boxplot[14].length; j++)
+      //arr.push ({n: sumstat[i].key, s:sumstat[i].value.inf_m[j].name, p: -Infinity})
+      arr.push ({n: get_x_for_boxplot(boxplot), s:get_sample_name (boxplot[14][j]), p: -Infinity})
+    //console.log (arr)
     svg
       .selectAll("inf_m")
       .data(arr)
@@ -792,21 +825,21 @@ var svg = d3.select("#my_dataviz")
         .attr("cy", inf_y - 13)
         .on('mouseover', outliertip.show)
         .on('mouseout', outliertip.hide);
-        //.attr("stroke", "black")
-        //.style("width", 40)
+        ////.attr("stroke", "black")
+        ////.style("width", 40)
   }
   }
   
   
   svg
     .selectAll("vertLines")
-    .data(sumstat)
+    .data(Object.values (sumstat))
     .enter()
     .append("line")
-      .attr("x1", function(d){return(x(d.key))})
-      .attr("x2", function(d){return(x(d.key))})
-      .attr("y1", function(d){return(y(d.value.whiskersMin))})
-      .attr("y2", function(d){return(y(d.value.whiskersMax))})
+      .attr("x1", function(d){return(x(get_x_for_boxplot(d)))})
+      .attr("x2", function(d){return(x(get_x_for_boxplot(d)))})
+      .attr("y1", function(d){return(y(d[6]))})
+      .attr("y2", function(d){return(y(d[7]))})
       .attr("stroke", "black")
       .style("width", 40)
   
@@ -820,37 +853,39 @@ var svg = d3.select("#my_dataviz")
   
   svg
     .selectAll("boxes")
-    .data(sumstat)
+    .data(Object.values (sumstat))
     .enter()
     .append("rect")
-        .attr("x", function(d){return(x(d.key)-boxWidth/2)})
-        .attr("y", function(d){return(y(d.value.q3))})
-        .attr("height", function(d){return(y(d.value.q1)-y(d.value.q3))})
+        .attr("x", function(d){return(x(get_x_for_boxplot(d))-boxWidth/2)})
+        .attr("y", function(d){return(y(d[2]))})
+        .attr("height", function(d){return(y(d[0])-y(d[2]))})
         .attr("width", boxWidth )
         //.attr("stroke", function(d){return boxColor(d.key)})
       .attr("stroke", "black")
-        .style("fill", function(d){return boxColor(d.key)})
+        .style("fill", function(d){return boxColor(d[12])})
         .on('mouseover', boxtip.show)
         .on('mouseout', boxtip.hide)
+        // TODO:
             .on("click", function(d){
-              $.fancybox( $(d.value.outlier_table));
+              $.fancybox( $(d[15]));
             });
   
   svg
     .selectAll("medianLines")
-    .data(sumstat)
+    .data(Object.values (sumstat))
     .enter()
     .append("line")
-      .attr("x1", function(d){return(x(d.key)-boxWidth/2) })
-      .attr("x2", function(d){return(x(d.key)+boxWidth/2) })
-      .attr("y1", function(d){return(y(d.value.median))})
-      .attr("y2", function(d){return(y(d.value.median))})
+      .attr("x1", function(d){return(x(get_x_for_boxplot(d))-boxWidth/2) })
+      .attr("x2", function(d){return(x(get_x_for_boxplot(d))+boxWidth/2) })
+      .attr("y1", function(d){return(y(d[1]))})
+      .attr("y2", function(d){return(y(d[1]))})
       .attr("stroke", "black")
       .style("width", 80)
+        // TODO:
         .on('mouseover', boxtip.show)
         .on('mouseout', boxtip.hide)
             .on("click", function(d){
-              $.fancybox( $(d.value.outlier_table));
+              $.fancybox( $(d[15]));
             });
   
   
@@ -860,8 +895,11 @@ var svg = d3.select("#my_dataviz")
   ctypes2 = {"name": undefined}
   corId = 1
   for (var x_i =0; x_i < xdomain.length; x_i++) {
-    const t1 = xdomain[x_i].replace (/([a-zA-Z ]+)-.*-.*/g, '$1')
-    const t2 = xdomain[x_i].replace (/.*-([a-zA-Z ]+)-.*/g, '$1')
+    const t1 = xdomain[x_i].replace (/.*_([a-zA-Z -]+)__.*/g, '$1')
+    const t2 = xdomain[x_i].replace (/.*__([a-zA-Z -]+)_.*/g, '$1')
+    
+    //var [t2, t1] = dataset2sourcetype (xdomain[x_i].replace (/.*_([a-zA-Z0-9 -]+)_.*/g, '$1'))
+    //console.log (xdomain[x_i], t1, t2)
     
     if (t1 == ctypes1["name"])
       ctypes1["end"] = xdomain[x_i]
@@ -886,11 +924,11 @@ var svg = d3.select("#my_dataviz")
         "name": t2
       }
       
-      console.log ("drawing:", t1, t2, "cor" + corId)
+      //console.log ("drawing:", t1, t2, "cor" + corId)
       const tmpCorId = corId
-      setTimeout (function () {draw_correlation (t1, t2, "cor" + tmpCorId)}, 1000* Math.random ());
+      //setTimeout (function () {draw_correlation (t1, t2, "cor" + tmpCorId)}, 1000* Math.random ());
       corId = corId + 1
-      console.log ("drawn")
+      //console.log ("drawn")
     }
     
   }
@@ -917,7 +955,6 @@ var svg = d3.select("#my_dataviz")
     .attr("text-anchor","middle")
     .attr("y", -margin.top + 30)
     .text(types1[i]["name"])
-    
   svg
     .append("line")
       .attr("x1", x(types1[i]["end"])+columnWidth/2)
@@ -931,7 +968,7 @@ var svg = d3.select("#my_dataviz")
       .attr("y1", chart_top - 50)
       .attr("y2", chart_bottom + 5)
       .attr("stroke", "black")
-      //.style("width", 10)
+      .style("width", 10)
   }
   for (i =0; i < types2.length; i++) {
     //console.log (types2[i]);
@@ -958,7 +995,7 @@ var svg = d3.select("#my_dataviz")
         .style("text-anchor", "end")
         .style("font-size", 28)
     .each(function(d, i){
-      d3.select(this).text(d.replace (/.*-/g,''));
+      d3.select(this).text(d.replace (/.*_/g,''));
     })
   svg.append("g").call(d3.axisLeft(y))
   
@@ -989,25 +1026,47 @@ d3.select("#download").on("click", function(){
 
 $.getJSON( "data/data.json", function( data ) {  
   console.log( "success" );
+  console.log( data );
   samples = data["samples"]
   global_sumstat = data["sumstat"]
   
+  for (const [metric_key, metric_value] of Object.entries(metric_dict)) {
+  for (const [sumstat_key, sumstat] of Object.entries(global_sumstat[metric_key])) {
+    for (const [key, boxplot] of Object.entries(sumstat)) {
+      //console.log (boxplot)
+      const outliers_min = boxplot[8];
+      const outliers_max = boxplot[9];
+      
+      //outliers_min.sort (function (a, b) {return a[0] < b[0] ? -1 : 1});
+      //outliers_max.sort (function (a, b) {return a[0] < b[0] ? -1 : 1});
+      
+			var outlier_table = "<div><h3>"+(outliers_min.length+outliers_max.length)+" outliers for "+ metric + " of " + get_x_for_boxplot (boxplot) +"</h3><table class='outliers table'><thead><tr><th>Sample</th><th>Value</th></tr></thead><tbody>";
+
+			for (var o = 0; o < outliers_min.length; o++) {
+			  outlier_table += "<tr><td>"+get_sample_name (outliers_min[o])+"</td><td>"+outliers_min[o][0]+"</td></tr>";
+			}
+			outlier_table += "<tr><th>--- MEDIAN ---</td><th>"+boxplot[1]+"</th></tr>";
+			for (var o = 0; o < outliers_max.length; o++) {
+			  outlier_table += "<tr><td>"+get_sample_name (outliers_max[o])+"</td><td>"+outliers_max[o][0]+"</td></tr>";
+			}
+			outlier_table += "</tbody></table></div>"
+      boxplot[15] =  (outlier_table)
+    }
+  }
+    addSelect (metric_key, metric_value)
+	}
+  
+  if (!drawn)
+    draw_boxplots ();
 })
   .done(function(data) {
-    console.log( "second success" );
-  console.log (data)
   })
   .fail(function(d, textStatus, error) {
     // TODO !!!!
     console.log( "error" );
     console.log( d );
         console.error("getJSON failed, status: " + textStatus + ", error: "+error)
-  })
-  .always(function() {
-    console.log( "complete" );
   });
-  //console.log (data)
-//})
 
 
 

@@ -62,6 +62,20 @@ def source_shorter (source):
 def imeth_shorter (imeth):
   return imeth_dict[imeth]
 
+def expand_source (source):
+  if source == "EMTAB-37":
+    return "Cell Line__Microarray"
+  if source == "HPA":
+    return "Cell Line__RNA Seq"
+  if source == "ProteomeNCI60":
+    return "Cell Line__MS Proteomics"
+  if source == "GSE2109":
+    return "Patient Data__Microarray"
+  if source == "TCGA":
+    return "Patient Data__RNA Seq"
+  if source == "ProteomePatients":
+    return "Patient Data__MS Proteomics"
+
 def list_of_samples (subtable, sample_a, sample_b, imeth):
   l = []
   for index, row in subtable.iterrows ():
@@ -74,6 +88,7 @@ def list_of_samples (subtable, sample_a, sample_b, imeth):
       tmp.append (samples[row[sample_b]])
     
     l.append (tmp)
+  l.sort(key=lambda x: x[0], reverse=False)
   return l
 
 def do_sumstat (metric, source, imeth):
@@ -116,20 +131,6 @@ def do_sumstat (metric, source, imeth):
 
 
 
-metric = "AFR"
-source = "GSE2109"
-imeth = "INIT"
-
-
-
-sumstat = {}
-
-for metric in ["AFR", "EOR", "Hallmark"]:
-  for source in ["HPA", "EMTAB-37", "ProteomeNCI60", "TCGA", "GSE2109", "ProteomePatients"]:
-    for imeth in ["GIMME", "iMAT", "INIT", "FASTCORE"]:
-      sumstat[str (metric_shorter (metric)) + "_" + str (source_shorter (source)) + "_" + str (imeth_shorter (imeth))] = do_sumstat (metric, source, imeth)
-
-
 
 
 def do_sumstat2 (metric, source, imeth):
@@ -169,12 +170,81 @@ def do_sumstat2 (metric, source, imeth):
            inf_m ]
 
 
+metric = "AFR"
+source = "GSE2109"
+imeth = "INIT"
+
+
+
+sumstat = {}
+
+for metric in ["AFR", "EOR", "Hallmark"]:
+  boxplots = {}
+  minY = None
+  maxY = None
+  infinites_p = False
+  infinites_m = False
+  xdomain = []
+  for source in ["HPA", "EMTAB-37", "ProteomeNCI60", "TCGA", "GSE2109", "ProteomePatients"]:
+    for imeth in ["GIMME", "iMAT", "INIT", "FASTCORE"]:
+      curstat = do_sumstat (metric, source, imeth)
+      if minY is None:
+        minY = curstat[4]
+        maxY = curstat[5]
+        infinites_p = len (curstat[13]) > 0
+        infinites_m = len (curstat[14]) > 0
+      else:
+        minY = min (minY, curstat[4])
+        maxY = max (maxY, curstat[5])
+        infinites_p = infinites_p or len (curstat[13]) > 0
+        infinites_m = infinites_m or len (curstat[14]) > 0
+      xdomain.append (metric + "_" + expand_source (source) + "_" + imeth)
+      boxplots[str (metric_shorter (metric)) + "_" + str (source_shorter (source)) + "_" + str (imeth_shorter (imeth))] = curstat
+  sumstat[metric] = {
+    "boxplots": boxplots,
+    "minY": minY,
+    "maxY": maxY,
+    "infinites_p": infinites_p,
+    "infinites_m": infinites_m,
+    "xdomain": xdomain
+  }
+
+
+
+
 table = read_csv ("combined-jaccard-ba.csv")
 
 for metric in ["Jaccard","BlandAltman"]:
+  boxplots = {}
+  minY = None
+  maxY = None
+  infinites_p = False
+  infinites_m = False
+  xdomain = []
   for source in ["HPA", "EMTAB-37", "ProteomeNCI60", "TCGA", "GSE2109", "ProteomePatients"]:
     for imeth in ["GIMME", "iMAT", "INIT", "FASTCORE"]:
-      sumstat[str (metric_shorter (metric)) + "_" + str (source_shorter (source)) + "_" + str (imeth_shorter (imeth))] = do_sumstat2 (metric, source, imeth)
+      curstat = do_sumstat2 (metric, source, imeth)
+      if minY is None:
+        minY = curstat[4]
+        maxY = curstat[5]
+        infinites_p = len (curstat[13]) > 0
+        infinites_m = len (curstat[14]) > 0
+      else:
+        minY = min (minY, curstat[4])
+        maxY = max (maxY, curstat[5])
+        infinites_p = infinites_p or len (curstat[13]) > 0
+        infinites_m = infinites_p or len (curstat[14]) > 0
+      xdomain.append (metric + "_" + expand_source (source) + "_" + imeth)
+      boxplots[str (metric_shorter (metric)) + "_" + str (source_shorter (source)) + "_" + str (imeth_shorter (imeth))] = curstat
+  sumstat[metric] = {
+    "boxplots": boxplots,
+    "minY": minY,
+    "maxY": maxY,
+    "infinites_p": infinites_p,
+    "infinites_m": infinites_m,
+    "xdomain": xdomain
+  }
+      # sumstat[str (metric_shorter (metric)) + "_" + str (source_shorter (source)) + "_" + str (imeth_shorter (imeth))] = do_sumstat2 (metric, source, imeth)
 
 
 
