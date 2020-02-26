@@ -105,6 +105,8 @@ def do_sumstat (metric, source, imeth):
   whiskersMin = rounder (max(min_v, q1 - interQuantileRange * 1.5))
   whiskersMax = rounder (min(max_v, q3 + interQuantileRange * 1.5))
   
+  values = list_of_samples (subtable[(rounder_series (subtable[imeth]) >= whiskersMin) & (rounder_series (subtable[imeth]) <= whiskersMax)][["Sample", imeth]], "Sample", None, imeth)
+  
   outliers_min = list_of_samples (subtable[rounder_series (subtable[imeth]) < whiskersMin][["Sample", imeth]], "Sample", None, imeth)
   outliers_max = list_of_samples (subtable[rounder_series (subtable[imeth]) > whiskersMax][["Sample", imeth]], "Sample", None, imeth)
   
@@ -126,7 +128,8 @@ def do_sumstat (metric, source, imeth):
            source_shorter (source),
            imeth_shorter (imeth),
            inf_p,
-           inf_m ]
+           inf_m,
+           values ]
 
 
 
@@ -145,6 +148,8 @@ def do_sumstat2 (metric, source, imeth):
   max_v = rounder (max (subtable[imeth]))
   whiskersMin = rounder (max(min_v, q1 - interQuantileRange * 1.5))
   whiskersMax = rounder (min(max_v, q3 + interQuantileRange * 1.5))
+  
+  values = list_of_samples (subtable[(rounder_series (subtable[imeth]) >= whiskersMin) & (rounder_series (subtable[imeth]) <= whiskersMax)][["Dx1", "Dx2", imeth]], "Dx1", "Dx2", imeth)
   
   outliers_min = list_of_samples (subtable[rounder_series (subtable[imeth]) < whiskersMin][["Dx1", "Dx2", imeth]], "Dx1", "Dx2", imeth)
   outliers_max = list_of_samples (subtable[rounder_series (subtable[imeth]) > whiskersMax][["Dx1", "Dx2", imeth]], "Dx1", "Dx2", imeth)
@@ -167,7 +172,8 @@ def do_sumstat2 (metric, source, imeth):
            source_shorter (source),
            imeth_shorter (imeth),
            inf_p,
-           inf_m ]
+           inf_m,
+           values ]
 
 
 metric = "AFR"

@@ -3,6 +3,7 @@ const sources = ["Cell Line","Patient Data"];
 const types = ["Microarray","RNA Seq","MS Proteomics"];
 const imethods = ["FASTCORE","GIMME","INIT","iMAT"];
 const metrics = ["AFR","EOR","Hallmark","BlandAltman","Jaccard"]
+const data_sources = ["EMTAB-37","GSE2109","HPA","ProteomeNCI60","ProteomePatients","TCGA"]
 metric_dict = {
   "AFR": 0,
   "EOR": 1,
@@ -10,7 +11,7 @@ metric_dict = {
   "BlandAltman": 3,
   "Jaccard": 4
 }
-source_dict = {
+data_dict = {
   "EMTAB-37": 0,
   "GSE2109": 1,
   "HPA": 2,
@@ -42,10 +43,10 @@ function boxColor (imeth) {
   return "#ff7f00"
 }
 function datacolor (data) {
-  if (data == source_dict["EMTAB-37"] || data == source_dict["GSE2109"]) {
+  if (data == data_dict["EMTAB-37"] || data == data_dict["GSE2109"]) {
   //if (str.includes ("Microarray")) {
     return "#fef0d9"
-  } else if (data == source_dict["ProteomeNCI60"] || data == source_dict["ProteomePatients"]) {
+  } else if (data == data_dict["ProteomeNCI60"] || data == data_dict["ProteomePatients"]) {
   //} else if (str.includes ("MS Proteomics")) {
     return "#fdddb2"
   }
@@ -69,6 +70,25 @@ function dataset2sourcetype (dataset) {
         return [sources[1], types[2]]
     }
   return ["unknown", "unknown"]
+}
+
+function getDataFromSource (source, type) {
+  if (source == sources[0]) {
+    if (type == types[0])
+      return "EMTAB-37"
+    else if (type == types[1])
+      return "HPA"
+    else if (type == types[2])
+      return "ProteomeNCI60"
+  }
+  else if (source == sources[1]) {
+    if (type == types[0])
+      return "GSE2109"
+    else if (type == types[1])
+      return "TCGA"
+    else if (type == types[2])
+      return "ProteomePatients"
+  }
 }
 
 function sortSelect(selDom) {
@@ -96,22 +116,22 @@ function addSelect (metric, metricid) {
 function get_x_for_boxplot (boxplot) {
     var tmp = ""
     switch (boxplot[11]) {
-        case source_dict["EMTAB-37"]:
+        case data_dict["EMTAB-37"]:
           tmp = sources[0] + "__" + types[0]
     break;
-        case source_dict["HPA"]:
+        case data_dict["HPA"]:
           tmp = sources[0] + "__" + types[1]
     break;
-        case source_dict["ProteomeNCI60"]:
+        case data_dict["ProteomeNCI60"]:
           tmp = sources[0] + "__" + types[2]
     break;
-        case source_dict["GSE2109"]:
+        case data_dict["GSE2109"]:
           tmp = sources[1] + "__" + types[0]
     break;
-        case source_dict["TCGA"]:
+        case data_dict["TCGA"]:
           tmp = sources[1] + "__" + types[1]
     break;
-        case source_dict["ProteomePatients"]:
+        case data_dict["ProteomePatients"]:
           tmp = sources[1] + "__" + types[2]
     break;
     }
@@ -149,8 +169,8 @@ function pearson (samples, metric1, metric2) {
   y = []
   
   for (var i = 0; i < samples.length; i++){
-    x.push (samples[i].scores[metric1])
-    y.push (samples[i].scores[metric2])
+    x.push (samples[i].values[metric1])
+    y.push (samples[i].values[metric2])
   }
   let sumX = 0,
     sumY = 0,
@@ -264,24 +284,48 @@ $(".metric_expl").hide ()
 
 
 
-function draw_correlation (source, type, domnode) {
- 
-  //source = sources[0]
-  //type = types[0] 
+function draw_correlation (measure, sumstat, source, type, domnode) {
+  console.log (sumstat)
+  console.log (measure, source, type)
+  console.log (getDataFromSource (source, type))
+  var data_id = data_dict[getDataFromSource (source, type)]
+  var measure_id = metric_dict[measure]
   
-  //update_slider_value ()
-drawn = true
-  //sqrtscale = document.getElementById('sqrt').checked
-  var infinites_p = false
-  var infinites_m = false
-  var minY = 10000000;
-  var maxY = 0;
-  var MEASURE = document.getElementById("metric")
-  var MEASURE = MEASURE.options[MEASURE.selectedIndex].value
-  var xdomain = new Set ();
-      
+  cor_samples = {}
+  
+  //if (measure == "BlandAltman" || measure == "Jaccard")
+    //for (var i = 0; i < samples.length; i++)
+    //for (var j = 0; j < samples.length; j++)
+      //cor_samples[samples[i]] = {"id": i, "values": Array(imethods.length).fill(null)}
+  //else
+    //for (var i = 0; i < samples.length; i++)
+      //cor_samples[samples[i]] = {"id": i, "values": Array(imethods.length).fill(null)}
+  //console.log (cor_samples)
+  
+  for (var i = 0; i < imethods.length; i++) {
+    var boxplot = sumstat[measure_id + "_" + data_id + "_" + i]
+    
+    var values = boxplot[15] // values in whisker range
+        .concat (boxplot[8]) // outliers min
+        .concat (boxplot[9]) // outliers max
+    
+    // values in whisker range
+    for (var j = 0; j < values.length; j++) {
+      const sid = get_sample_name (values[j])
+      if (!(sid in cor_samples))
+        cor_samples[sid] = {"id": sid, "values": Array(imethods.length).fill(null)}
+      cor_samples[sid]["values"][i] = values[j][0]
+    }
+  }
+  //console.log (cor_samples)
+  
+  
+  //for (const [sumstat_key, boxplot] of Object.entries(sumstat)) {
+    //console.log (sumstat_key,"---",measure_id,data_id)
+  //} 
+  
   $("#" + domnode).empty ();
-  $("#" + domnode).append ("<p><a title='Correlation of "+MEASURE+" scores for "+ source + " &mdash; " + type + "' id='"+domnode+"_a' href='#"+domnode+"_svg'>" + source + "<br>" + type + "</a></p>");
+  $("#" + domnode).append ("<p><a title='Correlation of "+measure+" scores for "+ source + " &mdash; " + type + "' id='"+domnode+"_a' href='#"+domnode+"_svg'>" + source + "<br>" + type + "</a></p>");
   
 var marginWhole = {top: 10, right: 10, bottom: 10, left: 10},
     sizeWhole = 600 - marginWhole.left - marginWhole.right
@@ -314,7 +358,7 @@ var svg = d3.select("#" + domnode + " p a")
       $("#" + domnode + " p a").append (e)
       console.log ("test", domnode)
     },
-    title: "<h5>Correlation of "+MEASURE+" scores for "+ source + " &mdash; " + type + "</h5>",
+    title: "<h5>Correlation of "+measure+" scores for "+ source + " &mdash; " + type + "</h5>",
 		helpers		: {
 			title	: { type : 'inside',
                 position : 'top' },
@@ -330,18 +374,19 @@ var svg = d3.select("#" + domnode + " p a")
     .domain(allVar)
     .range([0, sizeWhole-size])
   
-  var cur_samples = undefined
-  if (MEASURE == "BlandAltman" || MEASURE == "Jaccard")
-    cur_samples = samples[source + "__" + type + "__double"]
-  else
-    cur_samples = samples[source + "__" + type + "__single"]
+  //var cur_samples = {}
+  
+  //if (MEASURE == "BlandAltman" || MEASURE == "Jaccard")
+    //cur_samples = samples[source + "__" + type + "__double"]
+  //else
+    //cur_samples = samples[source + "__" + type + "__single"]
 //console.log (samples[source + "__" + type])
   
   var color = d3.scaleLinear()
     .domain([-1, 0, 1])
     .range(["#fc8d59", "#ffffbf", "#91bfdb"]);
   
-  console.log ("n samples: ", Object.values (cur_samples).length)
+  console.log ("n samples: ", Object.values (cor_samples).length)
   
   // ------------------------------- //
   // Add charts
@@ -354,8 +399,8 @@ var svg = d3.select("#" + domnode + " p a")
       var var1 = allVar[var_i]
       var var2 = allVar[var_j]
 
-      scoreId_x = MEASURE + "_" + var1
-      scoreId_y = MEASURE + "_" + var2
+      scoreId_x = measure + "_" + var1
+      scoreId_y = measure + "_" + var2
 
       // If var1 == var2 i'm on the diagonal, I skip that
       if (var1 === var2) { continue; }
@@ -365,14 +410,14 @@ var svg = d3.select("#" + domnode + " p a")
     if (var_i < var_j) {
       
       // Add X Scale of each graph
-      xextent = d3.extent(Object.values (cur_samples), function(d) { return +d.scores[scoreId_x] })
+      xextent = d3.extent(Object.values (cor_samples), function(d) { return +d.values[var_i] })
 //console.log (xextent)
       var x = d3.scaleLinear()
         .domain(xextent).nice()
         .range([ 0, size-2*mar ]);
 
       // Add Y Scale of each graph
-      yextent = d3.extent(Object.values (cur_samples), function(d) { return +d.scores[scoreId_y] })
+      yextent = d3.extent(Object.values (cor_samples), function(d) { return +d.values[var_j] })
       var y = d3.scaleLinear()
         .domain(yextent).nice()
         .range([ size-2*mar, 0 ]);
@@ -390,18 +435,18 @@ var svg = d3.select("#" + domnode + " p a")
         .call(d3.axisLeft(y).ticks(3));
         
         
-      if (false && Object.values (cur_samples).length < 1500) {
+      if (false && Object.values (cor_samples).length < 1500) {
 
       // Add circle
-      tmp
-        .selectAll("myCircles")
-        .data(Object.values (cur_samples))
-        .enter()
-        .append("circle")
-          .attr("cx", function(d){ return x(+d.scores[scoreId_x]) })
-          .attr("cy", function(d){ return y(+d.scores[scoreId_y]) })
-          .attr("r", 3)
-          .attr("fill", "#000")
+      //tmp
+        //.selectAll("myCircles")
+        //.data(Object.values (cor_samples))
+        //.enter()
+        //.append("circle")
+          //.attr("cx", function(d){ return x(+d.scores[scoreId_x]) })
+          //.attr("cy", function(d){ return y(+d.scores[scoreId_y]) })
+          //.attr("r", 3)
+          //.attr("fill", "#000")
         }
         else {
           
@@ -410,11 +455,11 @@ var svg = d3.select("#" + domnode + " p a")
       .range(["white", "#69b3a2"])
       
       var densityData = d3.contourDensity()
-    .x(function(d) { return x(+d.scores[scoreId_x]); })
-    .y(function(d) { return y(+d.scores[scoreId_y]); })
+    .x(function(d) { return x(+d.values[var_i]); })
+    .y(function(d) { return y(+d.values[var_j]); })
     .size([size, size])
     .bandwidth(10)
-    (Object.values (cur_samples))
+    (Object.values (cor_samples))
 
   // show the shape!
   tmp.insert("g", "g")
@@ -433,7 +478,7 @@ var svg = d3.select("#" + domnode + " p a")
     }
     else {
       
-      corr = pearson (Object.values (cur_samples), scoreId_x, scoreId_y)
+      corr = pearson (Object.values (cor_samples), var_i, var_j)
 //console.log (source,type,var_i,var_j,var1,var2,scoreId_x,scoreId_y,corr)
       
       var tmp = svg
@@ -472,15 +517,15 @@ var svg = d3.select("#" + domnode + " p a")
       var var1 = allVar[i]
       var var2 = allVar[j]
 
-      scoreId_x = MEASURE + "_" + var1
-      scoreId_y = MEASURE + "_" + var2
+      scoreId_x = measure + "_" + var1
+      scoreId_y = measure + "_" + var2
 
       // If var1 == var2 i'm on the diagonal, otherwisee I skip
       if (i != j) { continue; }
 
       // create X Scale
       //xextent = d3.extent(data, function(d) { return +d[var1] })
-      xextent = d3.extent(Object.values (cur_samples), function(d) { return +d.scores[scoreId_x] })
+      xextent = d3.extent(Object.values (cor_samples), function(d) { return +d.values[var_i] })
       var x = d3.scaleLinear()
         .domain(xextent).nice()
         .range([ 0, size-2*mar ]);
@@ -497,12 +542,12 @@ var svg = d3.select("#" + domnode + " p a")
 
       // set the parameters for the histogram
        var histogram = d3.histogram()
-           .value(function(d) { return +d.scores[scoreId_x] })   // I need to give the vector of value
+           .value(function(d) { return +d.values[var_i] })   // I need to give the vector of value
            .domain(x.domain())  // then the domain of the graphic
            .thresholds(x.ticks(15)); // then the numbers of bins
 
        // And apply this function to data to get the bins
-       var bins = histogram(Object.values (cur_samples));
+       var bins = histogram(Object.values (cor_samples));
 
        // Y axis: scale and draw:
        var y = d3.scaleLinear()
@@ -688,7 +733,7 @@ var svg = d3.select("#my_dataviz")
     arr_min.sort(function (a, b) {return a.p < b.p ? -1 : 1});
     arr_max.sort(function (a, b) {return a.p < b.p ? -1 : 1});
     
-    const outlier_table = boxplot[15]
+    const outlier_table = boxplot[16]
     
     function draw_outliers (outliers) {
       
@@ -867,7 +912,7 @@ var svg = d3.select("#my_dataviz")
         .on('mouseout', boxtip.hide)
         // TODO:
             .on("click", function(d){
-              $.fancybox( $(d[15]));
+              $.fancybox( $(d[16]));
             });
   
   svg
@@ -885,7 +930,7 @@ var svg = d3.select("#my_dataviz")
         .on('mouseover', boxtip.show)
         .on('mouseout', boxtip.hide)
             .on("click", function(d){
-              $.fancybox( $(d[15]));
+              $.fancybox( $(d[16]));
             });
   
   
@@ -925,8 +970,13 @@ var svg = d3.select("#my_dataviz")
       }
       
       //console.log ("drawing:", t1, t2, "cor" + corId)
+      
+      
       const tmpCorId = corId
-      //setTimeout (function () {draw_correlation (t1, t2, "cor" + tmpCorId)}, 1000* Math.random ());
+      //if (x_i == 0)
+      //setTimeout (function () {
+        draw_correlation (MEASURE, sumstat, t1, t2, "cor" + tmpCorId)
+        //}, 1000* Math.random ());
       corId = corId + 1
       //console.log ("drawn")
     }
@@ -1050,7 +1100,7 @@ $.getJSON( "data/data.json", function( data ) {
 			  outlier_table += "<tr><td>"+get_sample_name (outliers_max[o])+"</td><td>"+outliers_max[o][0]+"</td></tr>";
 			}
 			outlier_table += "</tbody></table></div>"
-      boxplot[15] =  (outlier_table)
+      boxplot[16] =  (outlier_table)
     }
   }
     addSelect (metric_key, metric_value)
