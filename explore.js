@@ -413,13 +413,15 @@ var svg = d3.select("#" + domnode + " p a")
       // Add X Scale of each graph
       xextent = d3.extent(Object.values (cor_samples), function(d) { return +d.values[var_i] })
 //console.log (xextent)
-      var x = d3.scaleLinear()
+      var x = d3.scalePow().exponent(document.getElementById("slider").value)
+      //scaleLinear()
         .domain(xextent).nice()
         .range([ 0, size-2*mar ]);
 
       // Add Y Scale of each graph
       yextent = d3.extent(Object.values (cor_samples), function(d) { return +d.values[var_j] })
-      var y = d3.scaleLinear()
+      var y = d3.scalePow().exponent(document.getElementById("slider").value)
+      //scaleLinear()
         .domain(yextent).nice()
         .range([ size-2*mar, 0 ]);
 
@@ -1031,7 +1033,7 @@ var svg = d3.select("#my_dataviz")
       .selectAll("text")
         .attr("transform", "translate(-12,10)rotate(-90)")
         .style("text-anchor", "end")
-        .style("font-size", 28)
+        //.style("font-size", 28)
     .each(function(d, i){
       d3.select(this).text(d.replace (/.*_/g,''));
     })
