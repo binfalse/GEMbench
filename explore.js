@@ -2,7 +2,7 @@
 const sources = ["Cell Line","Patient Data"];
 const types = ["Microarray","RNA Seq","MS Proteomics"];
 const imethods = ["FASTCORE","GIMME","INIT","iMAT"];
-const metrics = ["AFR","EOR","Hallmark","BlandAltman","Jaccard"]
+const metrics = ["AFR","EOR","Hallmark","BlandAltman","Jaccard","Clusterability"]
 const data_sources = ["EMTAB-37","GSE2109","HPA","ProteomeNCI60","ProteomePatients","TCGA"]
 metric_dict = {
   "AFR": 0,
@@ -218,11 +218,22 @@ function get_outlier_table_id (metric, data_id) {
 
 var margin = {top: 50, right: 0, bottom: 70, left: 40},
     width = d3.select("#my_dataviz").node().clientWidth - margin.left - margin.right,
-    height = 800 - margin.top - margin.bottom;
+    height = 900 - margin.top - margin.bottom;
 
 
-drawn = false
-samples = []
+
+
+
+
+
+
+
+
+
+
+var drawn = false
+var samples = []
+const pca = {}
 
 $(".metric_expl").hide ()
 
@@ -236,6 +247,129 @@ $(".metric_expl").hide ()
 
 
 
+function draw_pca () {
+  console.log (pca);
+  
+      d3.select("#my_dataviz svg").remove();
+      
+// append sthe svg object to the body of the page
+var svg = d3.select("#my_dataviz")
+  .append("svg")
+    .attr("width", width + margin.left + margin.right)
+    .attr("height", height + margin.top + margin.bottom)
+  .append("g")
+    .attr("transform",
+          "translate(" + margin.left + "," + margin.top + ")");
+  
+  var size_y = height / imethods.length;
+  var size_x = width / data_sources.length;
+  
+  var position_x = d3.scalePoint()
+    .domain(data_sources)
+    .range([0, width-size_x]);
+  var position_y = d3.scalePoint()
+    .domain(imethods)
+    .range([0, height-size_y]);
+  
+  var color = d3.scaleLinear()
+    .domain([0, 1])
+    .range(["#aaa", "#fff"])
+  for (var s = 0; s < data_sources.length; s++) {
+    for (var i = 0; i < imethods.length; i++) {
+      const source = data_sources[s];
+      const imeth = imethods[i];
+      const pca_samples = pca[source + "_" + imeth]
+      
+      //console.log (source, imeth, position_x(imeth), size_x, position_x(imeth) + size_x)
+      
+      var tmp = svg
+        .append('g')
+        .attr("transform", "translate(" + (position_x(source)) + "," + (position_y(imeth)) + ")");
+        
+        
+          tmp.append("rect")
+             .attr("x", 0)
+              .attr("y", 0)
+             .attr("width", size_x)
+             .attr("height", size_y)
+             .style("fill", function(d,i){return color(Math.random ())})
+        
+        padding_x = 30
+        padding_y = 60
+        
+        //ax = Math.min (size_x, size_y) - 20;
+        
+        xextent = d3.extent(pca_samples, function(d) { return d[1] })
+        console.log (xextent)
+      var x = d3.scalePow().exponent(document.getElementById("slider").value)
+        .domain(xextent).nice()
+        .range([ padding_x, size_x ]);
+
+      // Add Y Scale of each graph
+      yextent = d3.extent(pca_samples, function(d) { return d[2] })
+        console.log (yextent)
+      var y = d3.scalePow().exponent(document.getElementById("slider").value)
+        .domain(yextent).nice()
+        .range([ 0, size_y-padding_y ]);
+
+      // Add a 'g' at the right position
+      //var tmp = svg
+        //.append('g')
+        //.attr("transform", "translate(" + (position(var1)+mar) + "," + (position(var2)+mar) + ")");
+
+      // Add X and Y axis in tmp
+      tmp.append("g")
+        .attr("transform", "translate(" + 0 + "," + (size_y-padding_y) + ")")
+        .call(d3.axisBottom(x).ticks(3));
+      tmp.append("g")
+        .attr("transform", "translate(" + padding_x + "," + 0 + ")")
+        .call(d3.axisLeft(y).ticks(3));
+             
+             tmp
+             .selectAll("myCircles")
+             .data(pca_samples)
+             .enter()
+             .append("circle")
+             .attr("cx", function(d){ return x(d[1]) })
+             .attr("cy", function(d){ return y(d[2]) })
+             .attr("r", 3)
+             .attr("fill", "#000")
+             
+      //tmp.append("text")
+      //.attr("y", 0)
+      //.attr("x", 0)
+      //.text(source+"_"+imeth)
+      //.style("font-size", 11)
+      //.style("text-align", "center")
+    //.style("text-anchor","middle");
+    }
+  }
+  
+  for (var s = 0; s < data_sources.length; s++) {
+    svg.append("text")
+      .attr("y", 0)
+      .attr("x", position_x(data_sources[s]) + size_x/2)
+      .text(data_sources[s])
+      .style("font-size", 11)
+      .style("text-align", "center")
+    .style("text-anchor","middle");
+  }
+  for (var i = 0; i < imethods.length; i++) {
+    svg.append("text")
+      .attr("x", -(position_y(imethods[i]) + size_y/2))
+      .attr("y", 0)
+      .text(imethods[i])
+      .style("font-size", 11)
+      .style("text-align", "center")
+    .style("text-anchor","middle")
+            .attr("transform", function(d) {
+                return "rotate(-90)" 
+                });
+  }
+  
+  
+  
+}
 
 
 
@@ -294,7 +428,7 @@ var svg = d3.select("#" + domnode + " p a")
       e.attr("width", 150);
       e.show ()
       $("#" + domnode + " p a").append (e)
-      console.log ("test", domnode)
+      //console.log ("test", domnode)
     },
     title: "<h5>Correlation of "+measure+" scores for "+ source + " &mdash; " + type + "</h5>",
 		helpers		: {
@@ -317,7 +451,7 @@ var svg = d3.select("#" + domnode + " p a")
     .range(["#2b9d67", "#fffbf0", "#2b9d67"])
     .unknown ("#fff");
   
-  console.log ("n samples: ", Object.values (cor_samples).length)
+  //console.log ("n samples: ", Object.values (cor_samples).length)
   
   
   
@@ -511,15 +645,10 @@ global_sumstat = {}
 
 
 
-
-function draw_boxplots () {
+function draw_boxplots (measure) {
   update_slider_value ()
   drawn = true
   //sqrtscale = document.getElementById('sqrt').checked
-  var MEASURE = document.getElementById("metric")
-  MEASURE = metrics[MEASURE.options[MEASURE.selectedIndex].value]
-$(".metric_expl").hide ()
-  $("#" + MEASURE + "_expl").show ();
       
       d3.select("#my_dataviz svg").remove();
       
@@ -532,19 +661,19 @@ var svg = d3.select("#my_dataviz")
     .attr("transform",
           "translate(" + margin.left + "," + margin.top + ")");
 
-  var sumstat = global_sumstat[MEASURE]["boxplots"];
+  var sumstat = global_sumstat[measure]["boxplots"];
   var n_boxplots = Object.keys(sumstat).length;
-  var minY  = global_sumstat[MEASURE]["minY"];
-  var maxY  = global_sumstat[MEASURE]["maxY"];
-  var infinites_p = global_sumstat[MEASURE]["infinites_p"];
-  var infinites_m = global_sumstat[MEASURE]["infinites_m"];
-  var xdomain = global_sumstat[MEASURE]["xdomain"];
-  console.log (minY, maxY);
+  var minY  = global_sumstat[measure]["minY"];
+  var maxY  = global_sumstat[measure]["maxY"];
+  var infinites_p = global_sumstat[measure]["infinites_p"];
+  var infinites_m = global_sumstat[measure]["infinites_m"];
+  var xdomain = global_sumstat[measure]["xdomain"];
+  //console.log (minY, maxY);
   var columnWidth = width / n_boxplots;
   // rectangle for the main box
   var boxWidth = width / n_boxplots - 20;
-  console.log (xdomain)
-  console.log (sumstat)
+  //console.log (xdomain)
+  //console.log (sumstat)
   
   //var boxtip = d3.tip().attr('class', 'd3-tip').direction('e').offset([0,5])
   var boxtip = d3.tip().attr('class', 'd3-tip').direction(function(d) {if (x(get_x_for_boxplot(d)) < width/2) return 'e'; return 'w'}).offset(function(d) {if (x(get_x_for_boxplot(d)) < width/2) return [0,5]; return [0,-5]})
@@ -604,7 +733,7 @@ var svg = d3.select("#my_dataviz")
     .data(Object.values (sumstat))
     .enter()
     .append("rect")
-        .attr("x", function(d){console.log (d); return(x(get_x_for_boxplot(d))-columnWidth/2)})
+        .attr("x", function(d){return(x(get_x_for_boxplot(d))-columnWidth/2)})
         .attr("y", chart_top)
         .attr("height", chart_bottom + 5)
         .attr("width", columnWidth )
@@ -655,12 +784,12 @@ var svg = d3.select("#my_dataviz")
             .on('mouseover', outliertip.show)
             .on('mouseout', outliertip.hide)
             .on("click", function(){
-				console.log ("not too many outliers to draw")
+				//console.log ("not too many outliers to draw")
 				//console.log (outlier_table)
               $.fancybox( $(outlier_table) );
             });
       } else {
-        console.log ("too many outliers to draw", outliers.length)
+        //console.log ("too many outliers to draw", outliers.length)
         
         xval = x(outliers[0].n)
         min = y(outliers[outliers.length - 1].p)
@@ -691,7 +820,7 @@ var svg = d3.select("#my_dataviz")
                 //.style("opacity", ".2")
                 .style("fill", "none")    
           .on("click", function(){
-				console.log ("too many outliers to draw")
+				//console.log ("too many outliers to draw")
 				//console.log (outlier_table)
               $.fancybox( $(outlier_table) );
             //~ $.fancybox( "#" + outlier_table );
@@ -876,7 +1005,7 @@ var svg = d3.select("#my_dataviz")
       const tmpCorId = corId
       //if (x_i == 0)
       setTimeout (function () {
-        draw_correlation (MEASURE, sumstat, t1, t2, "cor" + tmpCorId)
+        draw_correlation (measure, sumstat, t1, t2, "cor" + tmpCorId)
         }, 1000* Math.random ());
       corId = corId + 1
       //console.log ("drawn")
@@ -945,6 +1074,49 @@ var svg = d3.select("#my_dataviz")
 };
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+function draw_analysis () {
+  var measure = document.getElementById("metric")
+  console.log (measure)
+  measure = metrics[measure.options[measure.selectedIndex].value]
+$(".metric_expl").hide ()
+  $("#" + measure + "_expl").show ();
+  console.log (measure)
+  if (measure == "Clusterability") {
+    draw_pca ()
+  } else {
+    draw_boxplots (measure)
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
 d3.select("#download").on("click", function(){
   d3.select(this)
     .attr("href", 'data:application/octet-stream;base64,' + btoa(d3.select("#my_dataviz").html()))
@@ -954,9 +1126,20 @@ d3.select("#download").on("click", function(){
 
 
 
-$.getJSON( "data/data.json", function( data ) {  
-  console.log( "success" );
-  console.log( data );
+
+
+
+
+
+
+
+
+
+
+
+$.getJSON("data/data.json", function( data ) {
+  //console.log( "success" );
+  //console.log( data );
   samples = data["samples"]
   global_sumstat = data["sumstat"]
   
@@ -999,10 +1182,8 @@ $.getJSON( "data/data.json", function( data ) {
 	}
   
   if (!drawn)
-    draw_boxplots ();
+    draw_analysis ();
 })
-  .done(function(data) {
-  })
   .fail(function(d, textStatus, error) {
     // TODO !!!!
     console.log( "error" );
@@ -1013,4 +1194,33 @@ $.getJSON( "data/data.json", function( data ) {
 
 
 
+
+
+
+var pcas_expected = 0;
+for (var s = 0; s < data_sources.length; s++) {
+  for (var i = 0; i < imethods.length; i++) {
+    pcas_expected++;
+    const source = data_sources[s]
+    const imeth = imethods[i]
+    //console.log ("data/pca/" + source + "_" + imeth + ".csv")
+    pca[source + "_" + imeth] = undefined
+    
+    d3.csv("data/pca/" + source + "_" + imeth + ".csv").then (function( data ) {
+      //console.log (data)
+      pca[source + "_" + imeth] = []
+      for (row=0; row < data.length; row++){
+        pca[source + "_" + imeth].push ([
+          data[row][""],
+          parseFloat(data[row]["PC1"]),
+          parseFloat(data[row]["PC2"])
+        ])
+      }
+      if (pcas_expected-- == 1) {
+        addSelect ("Clusterability", 5)
+      }
+      console.log (pcas_expected)
+    })
+  }
+}
 
