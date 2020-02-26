@@ -384,7 +384,8 @@ var svg = d3.select("#" + domnode + " p a")
   
   var color = d3.scaleLinear()
     .domain([-1, 0, 1])
-    .range(["#fc8d59", "#ffffbf", "#91bfdb"]);
+    .range(["#2b9d67", "#fffbf0", "#2b9d67"])
+    .unknown ("#fff");
   
   console.log ("n samples: ", Object.values (cor_samples).length)
   
@@ -435,24 +436,11 @@ var svg = d3.select("#" + domnode + " p a")
         .call(d3.axisLeft(y).ticks(3));
         
         
-      if (false && Object.values (cor_samples).length < 1500) {
-
-      // Add circle
-      //tmp
-        //.selectAll("myCircles")
-        //.data(Object.values (cor_samples))
-        //.enter()
-        //.append("circle")
-          //.attr("cx", function(d){ return x(+d.scores[scoreId_x]) })
-          //.attr("cy", function(d){ return y(+d.scores[scoreId_y]) })
-          //.attr("r", 3)
-          //.attr("fill", "#000")
-        }
-        else {
+      
           
-          var color = d3.scaleLinear()
-      .domain([0, 1]) // Points per square pixel.
-      .range(["white", "#69b3a2"])
+          //var color = d3.scaleLinear()
+      //.domain([0, 1]) // Points per square pixel.
+      //.range(["white", "#69b3a2"])
       
       var densityData = d3.contourDensity()
     .x(function(d) { return x(+d.values[var_i]); })
@@ -470,11 +458,11 @@ var svg = d3.select("#" + domnode + " p a")
       .attr("d", d3.geoPath())
       //.attr("fill", function(d) { return color(d.value); })
             .attr("fill", "none")
-      .attr("stroke", "#69b3a2")
+      .attr("stroke", "#2b9d67")
       .attr("stroke-linejoin", "round")
       //.attr("fill", "#69b3a2")
       
-        }
+        
     }
     else {
       
@@ -974,9 +962,9 @@ var svg = d3.select("#my_dataviz")
       
       const tmpCorId = corId
       //if (x_i == 0)
-      //setTimeout (function () {
+      setTimeout (function () {
         draw_correlation (MEASURE, sumstat, t1, t2, "cor" + tmpCorId)
-        //}, 1000* Math.random ());
+        }, 1000* Math.random ());
       corId = corId + 1
       //console.log ("drawn")
     }
