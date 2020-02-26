@@ -74,8 +74,17 @@
 </p>
       <p>
 In 2015, <a href="https://www.ncbi.nlm.nih.gov/pubmed/26158726">Estévez and Nikoloski</a> stratified the methods in three distinct groups. 1. GIMME- and GIM<sup>3</sup>E-like methods. This group refers to the two-steps approaches with a metabolic functionality (<em>objective function</em>) being optimized through <abbr title="Flux Balance Analysis">FBA</abbr> in a first step. Then, the obtained optimal value is employed to minimize the discrepancies between fluxes and data. 2. iMAT-and INIT-like methods. This group of algorithms determines the binary reaction status (i.e., active or inactive) which are in good agreement with the associate data state. 3. MBA-, mCADRE and FASTCORE-like methods. This group defines a core set of active reactions and then finds the minimum essential set of reactions to satisfy the model consistency condition.
+</p>
+      <p>
 
+In this study we focus on the following integration methods:
 
+<ul>
+  <li><strong>FASTCORE</strong> takes a core set of active reactions in the context of interest as an input</li>
+  <li><strong>GIMME</strong> minimizes the utilization of inactive reactions</li>
+  <li><strong>INIT</strong> uses the relaxation strategy to prevent the removal of reactions that have a small net accumulation rate</li>
+  <li><strong>iMAT</strong> assumes gene expression into two groups: highly and lowly expressed and then maximizes the consistency with this classification</li>
+</ul>
 
 </p>
 
