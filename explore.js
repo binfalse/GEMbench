@@ -685,7 +685,7 @@ var svg = d3.select("#my_dataviz")
         .attr("y", chart_top)
         .attr("height", chart_bottom + 5)
         .attr("width", columnWidth )
-        .style("opacity", ".2")
+        .style("opacity", ".3")
         .style("fill", function(d){return datacolor(d[11])})
   svg
     .append("rect")
