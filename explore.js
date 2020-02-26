@@ -975,7 +975,7 @@ $.getJSON( "data/data.json", function( data ) {
       var [source, type] = dataset2sourcetype (data_sources[boxplot[11]]);
       var imeth = imethods[boxplot[12]]
       
-			var outlier_table = "<div><h3>"+(outliers_min.length+outliers_max.length)+" outliers for "+ metric_key + " of " + source + " -- " + type + " using " + imeth +"</h3><table class='outliers table'><thead><tr><th>Sample</th><th>Value</th></tr></thead><tbody>";
+			var outlier_table = "<div><h3>"+(outliers_min.length+outliers_max.length)+" outliers for "+ metric_key + " of " + source + ": " + type + " using " + imeth +"</h3><table class='outliers table'><thead><tr><th>Sample</th><th>Value</th></tr></thead><tbody>";
 
 			for (var o = 0; o < inf_m.length; o++) {
 			  outlier_table += "<tr><td>"+get_sample_name (inf_m[o])+"</td><td>-Infinity</td></tr>";

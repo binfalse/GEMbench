@@ -67,13 +67,18 @@
       In 2004, <a href="https://www.ncbi.nlm.nih.gov/pubmed/15491858">Akesson et al.</a> used gene expression data as an additional constraint on the metabolic fluxes in yeast. Afterwards, different algorithms were devised for tackling this challenge <a href="https://www.ncbi.nlm.nih.gov/pubmed/18483554">GIMME</a>, <a href="https://www.ncbi.nlm.nih.gov/pubmed/19714220">E-Flux</a>, <a href="https://www.ncbi.nlm.nih.gov/pubmed/20823844">MBA</a>, <a href="https://www.ncbi.nlm.nih.gov/pubmed/19346491">Moxley</a>, <a href="https://www.ncbi.nlm.nih.gov/pubmed/21172910">MADE</a>, <a href="https://www.ncbi.nlm.nih.gov/pubmed/23013597">RELATCH</a>, <a href="https://www.ncbi.nlm.nih.gov/pubmed/22615553">INIT</a>, <a href="https://www.ncbi.nlm.nih.gov/pubmed/23234303">mCADRE</a>, <a href="https://www.ncbi.nlm.nih.gov/pubmed/24646661">tINIT</a>, <a href="https://www.ncbi.nlm.nih.gov/pubmed/26942765">CORDA</a>, <a href="https://www.ncbi.nlm.nih.gov/pubmed/27327084">E-Flux2</a>, <a href="https://www.ncbi.nlm.nih.gov/pubmed/27327084">SPOT</a> and <a href="https://www.ncbi.nlm.nih.gov/pubmed/29222750">FASTCORE</a>. These algorithms can be classified in many different ways on the basis of the underlying methodology.
 </p>
       <p>
- In 2014, <a href="https://www.ncbi.nlm.nih.gov/pubmed/24762745">Machado and Herrgård</a> classified methods by three main criteria: 1. Regarding how they apply the gene expression levels (discrete vs continuous, absolute vs relative), 2. Model functionality regarding flux prediction or 3. Model building. 
+ In 2014, <a href="https://www.ncbi.nlm.nih.gov/pubmed/24762745">Machado and Herrgård</a> classified methods by three main criteria: 1. how do they apply the gene expression levels (discrete vs continuous, absolute vs relative), 2. Model functionality regarding flux prediction or 3. Model building. 
 </p>
       <p>
 <a href="https://www.ncbi.nlm.nih.gov/pubmed/25379144">Kim and Lun</a> considered four grouping criteria, regarding gene expression and model functionality: 1. Algorithms which require multiple gene expression datasets as input, 2. Requirement for gene expression threshold to define a gene's high and low expression, 3. Requirement of an appropriate objective function for a given GEM, and 4. Validation of predicted fluxes directly against measured intracellular fluxes.
 </p>
       <p>
-In 2015, <a href="https://www.ncbi.nlm.nih.gov/pubmed/26158726">Estévez and Nikoloski</a> stratified the methods in three distinct groups. 1. GIMME- and GIM<sup>3</sup>E-like methods. This group refers to the two-steps approaches with a metabolic functionality (<em>objective function</em>) being optimized through <abbr title="Flux Balance Analysis">FBA</abbr> in a first step. Then, the obtained optimal value is employed to minimize the discrepancies between fluxes and data. 2. iMAT-and INIT-like methods. This group of algorithms determines the binary reaction status (i.e., active or inactive) which are in good agreement with the associate data state. 3. MBA-, mCADRE and FASTCORE-like methods. This group defines a core set of active reactions and then finds the minimum essential set of reactions to satisfy the model consistency condition.
+In 2015, <a href="https://www.ncbi.nlm.nih.gov/pubmed/26158726">Estévez and Nikoloski</a> stratified the methods in three distinct groups:
+ <ul>
+   <li><strong>GIMME- and GIM<sup>3</sup>E-like methods.</strong> This group refers to the two-steps approaches with a metabolic functionality (<em>objective function</em>) being optimized through <abbr title="Flux Balance Analysis">FBA</abbr> in a first step. Then, the obtained optimal value is employed to minimize the discrepancies between fluxes and data.</li>
+   <li><strong>iMAT-and INIT-like methods.</strong>  This group of algorithms determines the binary reaction status (i.e., active or inactive) which are in good agreement with the associate data state.</li>
+   <li><strong>MBA-, mCADRE and FASTCORE-like methods.</strong>  This group defines a core set of active reactions and then finds the minimum essential set of reactions to satisfy the model consistency condition.</li>
+   </ul>
 </p>
       <p>
 
