@@ -48,7 +48,7 @@
 <label for="metric">Metric to display:</label>
 <select id='metric' onChange="draw_boxplots()" class="form-control"></select></div>
   <div class="form-group">
-<label for="slider">Scale y: <span id="slider_value"></span></label><input type="range" min=".1" max="1" value="1" step="0.1" class="slider form-control" id="slider" oninput="update_slider_value()" onmouseup="draw_boxplots()" ontouchend="draw_boxplots()"> 
+<label for="slider">Scale y: <span id="slider_value"></span></label><input type="range" min=".1" max="2" value="1" step="0.1" class="slider form-control" id="slider" oninput="update_slider_value()" onmouseup="draw_boxplots()" ontouchend="draw_boxplots()"> 
 </div>
 
         </div>
@@ -79,7 +79,7 @@ If the integration method reports a non-zero flux on a reaction facilitated by o
 <p class="my-5 p-2">Disclaimer: The boxplots where computed while neglecting infinite values. A wavy line indicates a lot of outliers. Drawing them would be a torture for your browser and probably wouldn't help much. Click any box to get a list of outliers.</p>
 <a id="download" class="btn btn-block my-5 p-2" href="#">Download SVG</a>
 <h3>Correlation of integration methods.</h3>
-<p>Click the title to get a larger version of the plot.</p>
+<p>Click the title to get a larger version of the plot. Infinities were not considered in the correlation plots. scales from green to green over yellow. NaNs are white</p>
 <div class="row" id="cor">
   <div id="cor1" class="col-md-2"></div>
   <div id="cor2" class="col-md-2"></div>
