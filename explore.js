@@ -274,6 +274,10 @@ var svg = d3.select("#my_dataviz")
   var color = d3.scaleLinear()
     .domain([0, 1])
     .range(["#aaa", "#fff"])
+  
+  var padding_x = 30
+  var padding_y = 60
+  
   for (var s = 0; s < data_sources.length; s++) {
     for (var i = 0; i < imethods.length; i++) {
       const source = data_sources[s];
@@ -287,15 +291,13 @@ var svg = d3.select("#my_dataviz")
         .attr("transform", "translate(" + (position_x(source)) + "," + (position_y(imeth)) + ")");
         
         
-          tmp.append("rect")
-             .attr("x", 0)
-              .attr("y", 0)
-             .attr("width", size_x)
-             .attr("height", size_y)
-             .style("fill", function(d,i){return color(Math.random ())})
+          //tmp.append("rect")
+             //.attr("x", 0)
+              //.attr("y", 0)
+             //.attr("width", size_x)
+             //.attr("height", size_y)
+             //.style("fill", function(d,i){return color(Math.random ())})
         
-        padding_x = 30
-        padding_y = 60
         
         //ax = Math.min (size_x, size_y) - 20;
         
@@ -303,7 +305,7 @@ var svg = d3.select("#my_dataviz")
         console.log (xextent)
       var x = d3.scalePow().exponent(document.getElementById("slider").value)
         .domain(xextent).nice()
-        .range([ padding_x, size_x ]);
+        .range([ padding_x, size_x-10 ]);
 
       // Add Y Scale of each graph
       yextent = d3.extent(pca_samples, function(d) { return d[2] })
@@ -348,7 +350,7 @@ var svg = d3.select("#my_dataviz")
   for (var s = 0; s < data_sources.length; s++) {
     svg.append("text")
       .attr("y", 0)
-      .attr("x", position_x(data_sources[s]) + size_x/2)
+      .attr("x", position_x(data_sources[s]) + size_x/2 + padding_x)
       .text(data_sources[s])
       .style("font-size", 11)
       .style("text-align", "center")
@@ -356,7 +358,7 @@ var svg = d3.select("#my_dataviz")
   }
   for (var i = 0; i < imethods.length; i++) {
     svg.append("text")
-      .attr("x", -(position_y(imethods[i]) + size_y/2))
+      .attr("x", -(position_y(imethods[i]) + size_y/2 - padding_y/2))
       .attr("y", 0)
       .text(imethods[i])
       .style("font-size", 11)
