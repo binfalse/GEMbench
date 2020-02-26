@@ -1090,7 +1090,10 @@ $.getJSON( "data/data.json", function( data ) {
       //outliers_min.sort (function (a, b) {return a[0] < b[0] ? -1 : 1});
       //outliers_max.sort (function (a, b) {return a[0] < b[0] ? -1 : 1});
       
-			var outlier_table = "<div><h3>"+(outliers_min.length+outliers_max.length)+" outliers for "+ metric + " of " + get_x_for_boxplot (boxplot) +"</h3><table class='outliers table'><thead><tr><th>Sample</th><th>Value</th></tr></thead><tbody>";
+      var [source, type] = dataset2sourcetype (data_sources[boxplot[11]]);
+      var imeth = imethods[boxplot[12]]
+      
+			var outlier_table = "<div><h3>"+(outliers_min.length+outliers_max.length)+" outliers for "+ metric_key + " of " + source + " -- " + type + " using " + imeth +"</h3><table class='outliers table'><thead><tr><th>Sample</th><th>Value</th></tr></thead><tbody>";
 
 			for (var o = 0; o < outliers_min.length; o++) {
 			  outlier_table += "<tr><td>"+get_sample_name (outliers_min[o])+"</td><td>"+outliers_min[o][0]+"</td></tr>";
