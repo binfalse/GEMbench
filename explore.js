@@ -1086,6 +1086,8 @@ $.getJSON( "data/data.json", function( data ) {
       //console.log (boxplot)
       const outliers_min = boxplot[8];
       const outliers_max = boxplot[9];
+      const inf_p = boxplot[13];
+      const inf_m = boxplot[14];
       
       //outliers_min.sort (function (a, b) {return a[0] < b[0] ? -1 : 1});
       //outliers_max.sort (function (a, b) {return a[0] < b[0] ? -1 : 1});
@@ -1095,12 +1097,19 @@ $.getJSON( "data/data.json", function( data ) {
       
 			var outlier_table = "<div><h3>"+(outliers_min.length+outliers_max.length)+" outliers for "+ metric_key + " of " + source + " -- " + type + " using " + imeth +"</h3><table class='outliers table'><thead><tr><th>Sample</th><th>Value</th></tr></thead><tbody>";
 
+			for (var o = 0; o < inf_m.length; o++) {
+			  outlier_table += "<tr><td>"+get_sample_name (inf_m[o])+"</td><td>-Infinity</td></tr>";
+			}
+      
 			for (var o = 0; o < outliers_min.length; o++) {
 			  outlier_table += "<tr><td>"+get_sample_name (outliers_min[o])+"</td><td>"+outliers_min[o][0]+"</td></tr>";
 			}
 			outlier_table += "<tr><th>--- MEDIAN ---</td><th>"+boxplot[1]+"</th></tr>";
 			for (var o = 0; o < outliers_max.length; o++) {
 			  outlier_table += "<tr><td>"+get_sample_name (outliers_max[o])+"</td><td>"+outliers_max[o][0]+"</td></tr>";
+			}
+			for (var o = 0; o < inf_p.length; o++) {
+			  outlier_table += "<tr><td>"+get_sample_name (inf_p[o])+"</td><td>Infinity</td></tr>";
 			}
 			outlier_table += "</tbody></table></div>"
       boxplot[16] =  (outlier_table)
