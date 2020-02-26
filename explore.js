@@ -142,20 +142,7 @@ function get_sample_name (item) {
     return samples[item[1]] + " -vs- " + samples[item[2]]
   return samples[item[1]]
 }
-//class Sample {
-	//constructor (name, source, type) {
-		//this.name = name
-		//this.scores = {}
-    //this.source = source
-    //this.type = type
-	//}
-	//setScore (measure, method, value) {
-		//this.scores[measure + "_" + method] = value
-	//}
-//}
-//function SampleSorter (scoreId) {
- //return (a, b) => {return a.scores[scoreId]-b.scores[scoreId]}	
-//}
+
 
 function sum (x) {
   var s = 0
@@ -210,11 +197,6 @@ function getType () {
   for (var i = 0; i < types.length; i++)
     t[types[i]] = getMeth ()
   return t
-  //return {
-    //"RNA Seq": getMeth (),
-    //"Microarray": getMeth (),
-    //"MS Proteomics": getMeth ()
-  //};
 };
 
 function getSourceData () {
@@ -222,16 +204,11 @@ function getSourceData () {
   for (var i = 0; i < sources.length; i++)
     s[sources[i]] = getType ()
   return s
-	//return {
-    //"Patient Data": getType (),
-    //"Cell Line": getType ()
-  //}
 };
 
 
 function update_slider_value () {
   slider = document.getElementById("slider")
-  //console.log (slider)
   document.getElementById("slider_value").innerHTML = slider.value
 }
 
@@ -244,28 +221,8 @@ var margin = {top: 50, right: 0, bottom: 70, left: 40},
     height = 800 - margin.top - margin.bottom;
 
 
-//boxplots = {}
-
-//var xdomain = new Set ();
 drawn = false
 samples = []
-//samples = {}
-//for (var i = 0; i < sources.length; i++)
-//for (var j = 0; j < types.length; j++) {
-  //samples[sources[i] + "__" + types[j] + "__single"] = {}
-  //samples[sources[i] + "__" + types[j] + "__double"] = {}
-//}
-//MEASURE = "AFR"
-//MEASURE = "EOR"
-//MEASURE = "Hallmark"
-
-//var slider = document.getElementById("myRange");
-//console.log (slider.value)
-
-// Update the current slider value (each time you drag the slider handle)
-/*slider.oninput = function() {
-  console.log (this.value);
-} */
 
 $(".metric_expl").hide ()
 
@@ -285,22 +242,13 @@ $(".metric_expl").hide ()
 
 
 function draw_correlation (measure, sumstat, source, type, domnode) {
-  console.log (sumstat)
-  console.log (measure, source, type)
-  console.log (getDataFromSource (source, type))
+  //console.log (sumstat)
+  //console.log (measure, source, type)
+  //console.log (getDataFromSource (source, type))
   var data_id = data_dict[getDataFromSource (source, type)]
   var measure_id = metric_dict[measure]
   
-  cor_samples = {}
-  
-  //if (measure == "BlandAltman" || measure == "Jaccard")
-    //for (var i = 0; i < samples.length; i++)
-    //for (var j = 0; j < samples.length; j++)
-      //cor_samples[samples[i]] = {"id": i, "values": Array(imethods.length).fill(null)}
-  //else
-    //for (var i = 0; i < samples.length; i++)
-      //cor_samples[samples[i]] = {"id": i, "values": Array(imethods.length).fill(null)}
-  //console.log (cor_samples)
+  var cor_samples = {}
   
   for (var i = 0; i < imethods.length; i++) {
     var boxplot = sumstat[measure_id + "_" + data_id + "_" + i]
@@ -317,12 +265,6 @@ function draw_correlation (measure, sumstat, source, type, domnode) {
       cor_samples[sid]["values"][i] = values[j][0]
     }
   }
-  //console.log (cor_samples)
-  
-  
-  //for (const [sumstat_key, boxplot] of Object.entries(sumstat)) {
-    //console.log (sumstat_key,"---",measure_id,data_id)
-  //} 
   
   $("#" + domnode).empty ();
   $("#" + domnode).append ("<p><a title='Correlation of "+measure+" scores for "+ source + " &mdash; " + type + "' id='"+domnode+"_a' href='#"+domnode+"_svg'>" + source + "<br>" + type + "</a></p>");
@@ -333,14 +275,10 @@ var marginWhole = {top: 10, right: 10, bottom: 10, left: 10},
 // Create the svg area
 var svg = d3.select("#" + domnode + " p a")
   .append("svg")
-  //.attr ("preserveAspectRatio", "xMinYMin meet")
     .attr("width", 150)
     .attr("height", 150)
     .attr("id", domnode+"_svg")
-    //.attr("width", sizeWhole  + marginWhole.left + marginWhole.right)
-    //.attr("height", sizeWhole  + marginWhole.top + marginWhole.bottom)
   .attr ("viewBox", "0 0 " + (sizeWhole  + marginWhole.left + marginWhole.right) + " " + (sizeWhole  + marginWhole.left + marginWhole.right))
-  //.classed("svg-content", true)
   .append("g")
     .attr("transform", "translate(" + marginWhole.left + "," + marginWhole.top + ")");
     
@@ -374,14 +312,6 @@ var svg = d3.select("#" + domnode + " p a")
     .domain(allVar)
     .range([0, sizeWhole-size])
   
-  //var cur_samples = {}
-  
-  //if (MEASURE == "BlandAltman" || MEASURE == "Jaccard")
-    //cur_samples = samples[source + "__" + type + "__double"]
-  //else
-    //cur_samples = samples[source + "__" + type + "__single"]
-//console.log (samples[source + "__" + type])
-  
   var color = d3.scaleLinear()
     .domain([-1, 0, 1])
     .range(["#2b9d67", "#fffbf0", "#2b9d67"])
@@ -389,9 +319,7 @@ var svg = d3.select("#" + domnode + " p a")
   
   console.log ("n samples: ", Object.values (cor_samples).length)
   
-  // ------------------------------- //
-  // Add charts
-  // ------------------------------- //
+  
   
   for (var_i in allVar){
     for (var_j in allVar){
@@ -497,9 +425,6 @@ var svg = d3.select("#" + domnode + " p a")
   
   
   
-  // ------------------------------- //
-  // Add histograms = diagonal
-  // ------------------------------- //
   for (var i in allVar){
     for (var j in allVar){
 
@@ -614,10 +539,6 @@ var svg = d3.select("#my_dataviz")
   var infinites_p = global_sumstat[MEASURE]["infinites_p"];
   var infinites_m = global_sumstat[MEASURE]["infinites_m"];
   var xdomain = global_sumstat[MEASURE]["xdomain"];
-  //for (var i = 0; i < xdomain.length; i++) {
-    //var [t1, t2] = dataset2sourcetype (xdomain[i].replace (/.*_([a-zA-Z0-9 -]+)_.*/g, '$1'))
-    //xdomain[i] = t1 + "__" + t2 + "__" + xdomain[i]
-  //}
   console.log (minY, maxY);
   var columnWidth = width / n_boxplots;
   // rectangle for the main box
@@ -707,11 +628,6 @@ var svg = d3.select("#my_dataviz")
         
         
         
-  //console.log (sumstat);
-  
-    //for (j = 0; j < boxplot[13].length; j++)
-      //arr.push ({n: get_x_for_boxplot(boxplot), s:boxplot[13][j], p: Infinity})
-  //for (i = 0; i < sumstat.length; i++) {
   for (const [sumstat_key, boxplot] of Object.entries(sumstat)) {
     const arr_min = []
     const arr_max = []
@@ -895,7 +811,6 @@ var svg = d3.select("#my_dataviz")
         .attr("y", function(d){return(y(d[2]))})
         .attr("height", function(d){return(y(d[0])-y(d[2]))})
         .attr("width", boxWidth )
-        //.attr("stroke", function(d){return boxColor(d.key)})
       .attr("stroke", "black")
         .style("fill", function(d){return boxColor(d[12])})
         .on('mouseover', boxtip.show)
@@ -916,7 +831,6 @@ var svg = d3.select("#my_dataviz")
       .attr("y2", function(d){return(y(d[1]))})
       .attr("stroke", "black")
       .style("width", 80)
-        // TODO:
         .on('mouseover', boxtip.show)
         .on('mouseout', boxtip.hide)
             .on("click", function(d){
@@ -932,9 +846,6 @@ var svg = d3.select("#my_dataviz")
   for (var x_i =0; x_i < xdomain.length; x_i++) {
     const t1 = xdomain[x_i].replace (/.*_([a-zA-Z -]+)__.*/g, '$1')
     const t2 = xdomain[x_i].replace (/.*__([a-zA-Z -]+)_.*/g, '$1')
-    
-    //var [t2, t1] = dataset2sourcetype (xdomain[x_i].replace (/.*_([a-zA-Z0-9 -]+)_.*/g, '$1'))
-    //console.log (xdomain[x_i], t1, t2)
     
     if (t1 == ctypes1["name"])
       ctypes1["end"] = xdomain[x_i]
@@ -979,16 +890,6 @@ var svg = d3.select("#my_dataviz")
   
   
   for (i =0; i < types1.length; i++) {
-    //console.log (types1[i]);
-    //svg.append("rect")
-        //.attr("x", x(types1[i]["start"]))
-        //.attr("y", -margin.top + 30)
-        //.attr("height", 30)
-        //.attr("width",  (x(types1[i]["start"]) + x(types1[i]["end"])))
-        ////.attr("stroke", function(d){return boxColor(d.key)})
-      //.attr("stroke", "black")
-        ////.style("fill", function(d){return boxColor(d.key)})
-        //.style("fill", "red")
         
     txt = svg.append("text")
     .attr("x", (x(types1[i]["start"]) + x(types1[i]["end"]))/2)
@@ -1040,17 +941,6 @@ var svg = d3.select("#my_dataviz")
   svg.append("g").call(d3.axisLeft(y))
   
   
-  
-  
-  
-  //for (var i = 0; i < 6; i++) {
-    
-    //var svg = d3.select("#cor" + (i+1) + " svg").node ()//svg.node ()//document.getElementById(domnode + "svg");
-    //console.log (svg)
-    //svg.setAttribute("viewBox", "0 0 600 600")
-    //svg.setAttribute("width",  "150")
-    //svg.setAttribute("height", "150")
-  //}
   
 };
 
@@ -1123,190 +1013,4 @@ $.getJSON( "data/data.json", function( data ) {
 
 
 
-
-//function do_sumstat (metric) {
-	
-    
-    
-    
-    
-    
-  //console.log ("starting sumstat")
-  //var sumstat = []
-  //var minY = 10000000;
-  //var maxY = 0;
-  //var infinites_p = false
-  //var infinites_m = false
-  //var xdomain = new Set ();
-  
-  
-  
-  //if (typeof(Storage) !== "undefined") {
-	  
-	  //cache = localStorage.getItem("sumstat_" + metric)
-	  ////console.log ("found in cache:")
-	  ////console.log (global_sumstat[metric])
-	  ///*if (cached !== null) {
-		  //sumstat = cached["sumstat"]
-		  //minY = cached["minY"]
-		  //maxY = cached["maxY"]
-		  //infinites_p = cached["infinites_p"]
-		  //infinites_m = cached["infinites_m"]
-		  //xdomain = cached["xdomain"]
-	  //}*/
-  //}
-  //if (cache === null) {
-	  //for (const [type1key, type1value] of Object.entries(boxplots[metric])) {
-		//for (const [type2key, type2value] of Object.entries(type1value)) {
-		  //for (const [methkey, methvalue] of Object.entries(type2value)) {
-			//var key = type1key+"-"+type2key+"-"+methkey
-			 //xdomain.add (key);
-			 //scoreId = metric + "_" + methkey;
-			 //vals = []
-			 //inf_p = []
-			 //inf_m = []
-			 //for (i = 0; i< methvalue["samples"].length; i++)
-			 //{
-			   //v= methvalue["samples"][i].scores[scoreId]
-			   //if (v == 1000) {
-				 //infinites_p = true
-				 //inf_p.push (methvalue["samples"][i])
-			   //} else if (v == -1000) {
-				 //infinites_m = true
-				 //inf_m.push (methvalue["samples"][i])
-			   //} else {
-				 //vals.push (v)
-			   //}
-			 //}
-			 //vals = vals.sort(d3.ascending)
-			 //q1 = d3.quantile(vals,.25);
-			 //median = d3.quantile(vals,.5);
-			 //q3 = d3.quantile(vals,.75);
-			 //interQuantileRange = q3 - q1;
-			 //min = vals[0]
-			 //max = vals[vals.length - 1]
-			//whiskersMin = Math.max(min, q1 - interQuantileRange * 1.5);
-			//whiskersMax = Math.min(max, q3 + interQuantileRange * 1.5);
-			//outliers_min = methvalue["samples"].filter (x => (x.scores[scoreId] < whiskersMin) && vals.includes (x.scores[scoreId]));
-			//outliers_max = methvalue["samples"].filter (x => (x.scores[scoreId] > whiskersMax) && vals.includes (x.scores[scoreId]));
-			//outliers_min.sort (function (a, b) {return a.scores[scoreId] < b.scores[scoreId] ? -1 : 1});
-			//outliers_max.sort (function (a, b) {return a.scores[scoreId] < b.scores[scoreId] ? -1 : 1});
-			
-			//var outlier_table = "<div><h3>"+(outliers_min.length+outliers_max.length)+" outliers for "+ metric + " of " + key +"</h3><table class='outliers table'><thead><tr><th>Sample</th><th>Value</th></tr></thead><tbody>";
-
-			//for (var o = 0; o < outliers_min.length; o++) {
-			  //outlier_table += "<tr><td>"+outliers_min[o].name+"</td><td>"+outliers_min[o].scores[scoreId]+"</td></tr>";
-			//}
-			//outlier_table += "<tr><th>--- MEDIAN ---</td><th>"+median+"</th></tr>";
-			//for (var o = 0; o < outliers_max.length; o++) {
-			  //outlier_table += "<tr><td>"+outliers_max[o].name+"</td><td>"+outliers_max[o].scores[scoreId]+"</td></tr>";
-			//}
-			//outlier_table += "</tbody></table></div>"
-			
-			//sumstat.push ({
-			  //"key": key,
-			  //"value": {q1: q1, median: median, q3: q3, interQuantileRange: interQuantileRange, min: min, max: max, whiskersMin: whiskersMin, whiskersMax: whiskersMax, outliers_min: outliers_min, outliers_max: outliers_max, scoreId: scoreId, inf_p: inf_p, inf_m: inf_m, outlier_table: outlier_table}});
-			//if (minY > min && min != -1000 && min != 1000)
-			  //minY = min;
-			//if (maxY < max && max != 1000 && max != -1000)
-			  //maxY = max;
-		  //}
-		//}
-	  //}
-	  //global_sumstat[metric] = {
-		//"sumstat": sumstat,
-		//"minY": minY,
-		//"maxY": maxY,
-		//"infinites_p": infinites_p,
-		//"infinites_m": infinites_m,
-		//"xdomain": xdomain
-	  //}
-	  //console.log (metric)
-	  //console.log (global_sumstat[metric])
-	  ////if (typeof(Storage) !== "undefined") {
-		  ////localStorage.setItem("sumstat_" + metric, JSON.stringify(global_sumstat[metric]))
-	  ////}
-  //} else {
-	  //global_sumstat[metric] = JSON.parse(cache)
-  //}
-  //console.log ("done sumstat")
-  
-  
-  //addSelect (metric)
-  
-  //if (!drawn)
-    //draw_boxplots ();
-  
-//}
-
-
-
-
-
-
-
-//d3.csv("data/combined-afr-eor-hallmark.csv").then (function(data) {
-  //var metrics = new Set ()
-  //for (row=0; row < data.length; row++){
-    //metrics.add (data[row]["Score"])
-    //var [source, type] = dataset2sourcetype (data[row]["Dataset"])
-    
-		//if (!samples[source + "__" + type + "__single"][data[row]["Sample"]]) {
-			//samples[source + "__" + type + "__single"][data[row]["Sample"]] = new Sample (data[row]["Sample"], source, type)
-		//}
-		
-    //const sample = samples[source + "__" + type + "__single"][data[row]["Sample"]]
-		//if (!boxplots[data[row]["Score"]]) {
-			//boxplots[data[row]["Score"]] = getSourceData ();
-    //}
-    
-    //for (i = 0; i < imethods.length; i++) {
-      //boxplots[data[row]["Score"]][source][type][imethods[i]]["samples"].push (sample);
-      //sample.setScore (data[row]["Score"], imethods[i], parseFloat (data[row][imethods[i]]))
-    //}
-  //}
-  //for (let metric of metrics)
-    //setTimeout (function () {do_sumstat (metric)}, 10);
-//});
-
-
-//d3.csv("data/combined-jaccard-ba.csv").then (function(data) {
-  //var metrics = new Set ()
-  //for (row=0; row < data.length; row++){
-    //metrics.add (data[row]["Score"])
-    //var [source, type] = dataset2sourcetype (data[row]["Dataset"])
-		
-    //sid = data[row]["Dx1"] + " -vs- " + data[row]["Dx2"]
-    
-		//if (!samples[source + "__" + type + "__double"][sid]) {
-			//samples[source + "__" + type + "__double"][sid] = new Sample (sid, source, type)
-		//}
-    
-    //const sample = samples[source + "__" + type + "__double"][sid]
-		//if (!boxplots[data[row]["Score"]]) {
-			//boxplots[data[row]["Score"]] = getSourceData ();
-    //}
-    
-    //for (i = 0; i < imethods.length; i++) {
-      //boxplots[data[row]["Score"]][source][type][imethods[i]]["samples"].push (sample);
-      //sample.setScore (data[row]["Score"], imethods[i], parseFloat (data[row][imethods[i]]))
-    //}
-  //}
-  
-  //for (let metric of metrics)
-    //setTimeout (function () {do_sumstat (metric)}, 1000*Math.random ());
-  
-  ///*m_select = document.getElementById("metric")
-  //for (let metric of metrics) {
-    //var opt = document.createElement('option');
-    //opt.value = metric;
-    //opt.innerHTML = metric;
-    //m_select.appendChild(opt);
-  //}
-  
-  //sortSelect (m_select)
-  
-  //if (!drawn)
-    //draw_boxplots ();*/
-//});
 
