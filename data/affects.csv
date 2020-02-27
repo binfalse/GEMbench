@@ -1,0 +1,153 @@
+Data,Method,Reaction name,description,formula,subsystem
+HPA,GIMME,EX_glypro[e],Exchange of Glypro,glypro[e] <=>,Exchange/demand reaction
+HPA,GIMME,EX_tyrglu[e],Exchange of TyrGlu,tyrglu[e] <=>,Exchange/demand reaction
+HPA,GIMME,TYRGLUr,Metabolism (Formation/Degradation) of TyrGlu,h2o[c] + tyrglu[c] <=> glu_L[c] + tyr_L[c],Peptide metabolism
+HPA,GIMME,GLYPROt,Transport of Glycylproline,glypro[c] <=> glypro[e],"Transport, extracellular"
+HPA,GIMME,TYRGLUt,"Transport of TyrGlu, Extracellular",h[e] + tyrglu[e] <=> h[c] + tyrglu[c],"Transport, extracellular"
+HPA,GIMME,TRPTHRGLUt,"Transport of TrpThrGlu, Extracellular",h[e] + trpthrglu[e] <=> h[c] + trpthrglu[c],"Transport, extracellular"
+HPA,GIMME,ARGARGLYSt,"Transport of ArgArgLys, Extracellular",argarglys[e] + h[e] <=> argarglys[c] + h[c],"Transport, extracellular"
+HPA,GIMME,ARGARGLYSr,Metabolism (Formation/Degradation) of ArgArgLys,argarglys[c] + 2.0 h2o[c] <=> 2.0 arg_L[c] + lys_L[c],Peptide metabolism
+HPA,GIMME,EX_lysargleu[e],Exchange of LysArgLeu,lysargleu[e] <=>,Exchange/demand reaction
+HPA,GIMME,EX_glntyrleu[e],Exchange of GlntyrLeu,glntyrleu[e] <=>,Exchange/demand reaction
+HPA,GIMME,PHEPHETHRt,"Transport of PhePheThr, Extracellular",h[e] + phephethr[e] <=> h[c] + phephethr[c],"Transport, extracellular"
+HPA,GIMME,EX_tyralaphe[e],Exchange of TyrAlaPhe,tyralaphe[e] <=>,Exchange/demand reaction
+HPA,GIMME,GLNTYRLEUr,Metabolism (Formation/Degradation) of GlntyrLeu,glntyrleu[c] + 2.0 h2o[c] <=> gln_L[c] + leu_L[c] + tyr_L[c],Peptide metabolism
+HPA,GIMME,LYSARGLEUr,Metabolism (Formation/Degradation) of LysArgLeu,h[c] + 2.0 h2o[c] + lysargleu[c] <=> arg_L[c] + leu_L[c] + lys_L[c],Peptide metabolism
+HPA,GIMME,TYRALAPHEt,"Transport of TyrAlaPhe, Extracellular",h[e] + tyralaphe[e] <=> h[c] + tyralaphe[c],"Transport, extracellular"
+HPA,iMAT,EX_hishislys[e],Exchange of HisHisLys,hishislys[e] <=>,Exchange/demand reaction
+HPA,iMAT,LYSLYSLYSt,"Transport of LysLysLys, Extracellular",h[e] + lyslyslys[e] <=> h[c] + lyslyslys[c],"Transport, extracellular"
+HPA,iMAT,EX_trpproleu[e],Exchange of TrpProLeu,trpproleu[e] <=>,Exchange/demand reaction
+HPA,iMAT,ARGALATHRr,Metabolism (Formation/Degradation) of ArgAlaThr,argalathr[c] + 2.0 h2o[c] <=> ala_L[c] + arg_L[c] + thr_L[c],Peptide metabolism
+HPA,iMAT,ARGCYSGLYr,Metabolism (Formation/Degradation) of ArgCysGly,argcysgly[c] + 2.0 h2o[c] <=> arg_L[c] + cys_L[c] + gly[c],Peptide metabolism
+HPA,iMAT,EX_phepheasn[e],Exchange of PhePheAsn,phepheasn[e] <=>,Exchange/demand reaction
+HPA,iMAT,EX_proglnpro[e],Exchange of ProGlnPro,proglnpro[e] <=>,Exchange/demand reaction
+HPA,iMAT,PROGLNPROr,Metabolism (Formation/Degradation) of ProGlnPro,2.0 h2o[c] + proglnpro[c] <=> gln_L[c] + 2.0 pro_L[c],Peptide metabolism
+HPA,iMAT,ARGLEUPHEr,Metabolism (Formation/Degradation) of ArgLeuPhe,argleuphe[c] + 2.0 h2o[c] <=> arg_L[c] + leu_L[c] + phe_L[c],Peptide metabolism
+HPA,iMAT,TRPPROLEUr,Metabolism (Formation/Degradation) of TrpProLeu,2.0 h2o[c] + trpproleu[c] <=> leu_L[c] + pro_L[c] + trp_L[c],Peptide metabolism
+HPA,iMAT,PROLYSPROt,"Transport of ProLysPro, Extracellular",h[e] + prolyspro[e] <=> h[c] + prolyspro[c],"Transport, extracellular"
+HPA,iMAT,EX_provalgln[e],Exchange of ProValGln,provalgln[e] <=>,Exchange/demand reaction
+HPA,iMAT,PROGLNPROt,"Transport of ProGlnPro, Extracellular",h[e] + proglnpro[e] <=> h[c] + proglnpro[c],"Transport, extracellular"
+HPA,iMAT,EX_argalathr[e],Exchange of ArgAlaThr,argalathr[e] <=>,Exchange/demand reaction
+HPA,iMAT,GLULEUr,Metabolism (Formation/Degradation) of GluLeu,gluleu[c] + h2o[c] <=> glu_L[c] + leu_L[c],Peptide metabolism
+TCGA,GIMME,ALAARGGLYt,"Transport of AlaArgGly, Extracellular",alaarggly[e] + h[e] <=> alaarggly[c] + h[c],"Transport, extracellular"
+TCGA,GIMME,ASPGLUt,"Transport of AspGlu, Extracellular",aspglu[e] + h[e] <=> aspglu[c] + h[c],"Transport, extracellular"
+TCGA,GIMME,ASPHISCYSt,"Transport of AspHisCys, Extracellular",asphiscys[e] + h[e] <=> asphiscys[c] + h[c],"Transport, extracellular"
+TCGA,GIMME,EX_lysglnphe[e],Exchange of LysGlnPhe,lysglnphe[e] <=>,Exchange/demand reaction
+TCGA,GIMME,HDL_HSDEG,Degradation of HDL,h2o[e] + hdl_hs[e] -> 2.0 chsterol[e] + glyc[e] + HC00004[e] + HC00006[e] + HC00007[e] + HC00008[e] + HC00009[e] + 2.0 pchol_hs[e] + Rtotal[e] + Rtotal2[e] + Rtotal3[e],Glycerophospholipid metabolism
+TCGA,GIMME,LEUTRPARGr,Metabolism (Formation/Degradation) of LeuTrpArg,2.0 h2o[c] + leutrparg[c] <=> arg_L[c] + leu_L[c] + trp_L[c],Peptide metabolism
+TCGA,GIMME,LEUTRPARGt,"Transport of LeuTrpArg, Extracellular",h[e] + leutrparg[e] <=> h[c] + leutrparg[c],"Transport, extracellular"
+TCGA,GIMME,LYSARGLEUr,Metabolism (Formation/Degradation) of LysArgLeu,h[c] + 2.0 h2o[c] + lysargleu[c] <=> arg_L[c] + leu_L[c] + lys_L[c],Peptide metabolism
+TCGA,GIMME,LYSGLNPHEr,Metabolism (Formation/Degradation) of LysGlnPhe,2.0 h2o[c] + lysglnphe[c] <=> gln_L[c] + lys_L[c] + phe_L[c],Peptide metabolism
+TCGA,GIMME,PROCYSt,"Transport of ProCys, Extracellular",h[e] + procys[e] <=> h[c] + procys[c],"Transport, extracellular"
+TCGA,GIMME,PROLYSPROt,"Transport of ProLysPro, Extracellular",h[e] + prolyspro[e] <=> h[c] + prolyspro[c],"Transport, extracellular"
+TCGA,GIMME,RE2651R,RE2651R,retinal[r] <=> retinal_cis_9[r],Vitamin A metabolism
+TCGA,GIMME,RE2655R,RE2655R,retinal[r] <=> retinal_cis_13[r],Vitamin A metabolism
+TCGA,GIMME,TRPLYSt,"Transport of TrpLys, Extracellular",h[e] + trplys[e] <=> h[c] + trplys[c],"Transport, extracellular"
+TCGA,GIMME,TYRGLUr,Metabolism (Formation/Degradation) of TyrGlu,h2o[c] + tyrglu[c] <=> glu_L[c] + tyr_L[c],Peptide metabolism
+TCGA,iMAT,ALAARGGLYt,"Transport of AlaArgGly, Extracellular",alaarggly[e] + h[e] <=> alaarggly[c] + h[c],"Transport, extracellular"
+TCGA,iMAT,ALAASNLEUr,Metabolism (Formation/Degradation) of AlaAsnLeu,alaasnleu[c] + 2.0 h2o[c] <=> ala_L[c] + asn_L[c] + leu_L[c],Peptide metabolism
+TCGA,iMAT,ALAHISALAr,Metabolism (Formation/Degradation) of AlaHisAla,alahisala[c] + 2.0 h2o[c] <=> 2.0 ala_L[c] + his_L[c],Peptide metabolism
+TCGA,iMAT,ARGGLUGLUr,Metabolism (Formation/Degradation) of ArgGluGlu,arggluglu[c] + 2.0 h2o[c] <=> arg_L[c] + 2.0 glu_L[c],Peptide metabolism
+TCGA,iMAT,EX_arggluglu[e],Exchange of ArgGluGlu,arggluglu[e] <=>,Exchange/demand reaction
+TCGA,iMAT,EX_leuleutrp[e],Exchange of LeuLeuTrp,leuleutrp[e] <=>,Exchange/demand reaction
+TCGA,iMAT,EX_lyslyslys[e],Exchange of LysLysLys,lyslyslys[e] <=>,Exchange/demand reaction
+TCGA,iMAT,EX_propropro[e],Exchange of ProProPro,propropro[e] <=>,Exchange/demand reaction
+TCGA,iMAT,LYSGLUGLUt,"Transport of LysGluGlu, Extracellular",h[e] + lysgluglu[e] <=> h[c] + lysgluglu[c],"Transport, extracellular"
+TCGA,iMAT,LYSLYSLYSr,Metabolism (Formation/Degradation) of LysLysLys,2.0 h2o[c] + lyslyslys[c] <=> 3.0 lys_L[c],Peptide metabolism
+TCGA,iMAT,METMETILEr,Metabolism (Formation/Degradation) of MetMetIle,2.0 h2o[c] + metmetile[c] <=> ile_L[c] + 2.0 met_L[c],Peptide metabolism
+TCGA,iMAT,PHEGLNPHEt,"Transport of PheGlnPhe, Extracellular",h[e] + pheglnphe[e] <=> h[c] + pheglnphe[c],"Transport, extracellular"
+TCGA,iMAT,TRPASPASPt,"Transport of TrpAspAsp, Extracellular",h[e] + trpaspasp[e] <=> h[c] + trpaspasp[c],"Transport, extracellular"
+TCGA,iMAT,VALTRPVALr,Metabolism (Formation/Degradation) of ValTrpVal,2.0 h2o[c] + valtrpval[c] <=> trp_L[c] + 2.0 val_L[c],Peptide metabolism
+TCGA,iMAT,VALTRPVALt,"Transport of ValTrpVal, Extracellular",h[e] + valtrpval[e] <=> h[c] + valtrpval[c],"Transport, extracellular"
+TCGA,INIT,EX_M01238[e],EX_M01238[e],M01238[e] <=>,Exchange/demand reaction
+TCGA,INIT,EX_proglnpro[e],Exchange of ProGlnPro,proglnpro[e] <=>,Exchange/demand reaction
+TCGA,INIT,EX_prolyspro[e],Exchange of ProLysPro,prolyspro[e] <=>,Exchange/demand reaction
+TCGA,INIT,EX_trpglngln[e],Exchange of TrpGlnGln,trpglngln[e] <=>,Exchange/demand reaction
+TCGA,INIT,HMR_0301,Long-Chain-Fatty-Acid Coenzyme A Ligase,atp[c] + coa[c] + M01207[c] <=> amp[c] + M00123[c] + ppi[c],Fatty acid synthesis
+TCGA,INIT,HMR_2361,Very-Long-Chain 3-Oxoacyl Coenzyme A Synthase,h[c] + lneldccoa[c] + malcoa[c] -> co2[c] + coa[c] + M00871[c],Fatty acid synthesis
+TCGA,INIT,HMR_2362,Very-Long-Chain 3-Oxoacyl Coenzyme A Reductase,h[c] + M00871[c] + nadph[c] -> M00704[c] + nadp[c],Fatty acid synthesis
+TCGA,INIT,HMR_2363,Very-Long-Chain (3R)-3-Hydroxyacyl Coenzyme A Dehydratase,M00704[c] -> h2o[c] + M03017[c],Fatty acid synthesis
+TCGA,INIT,HMR_2364,Very-Long-Chain Enoyl Coenzyme A Reductase,h[c] + M03017[c] + nadph[c] -> M00123[c] + nadp[c],Fatty acid synthesis
+TCGA,INIT,LYSARGLEUt,"Transport of LysArgLeu, Extracellular",h[e] + lysargleu[e] <=> h[c] + lysargleu[c],"Transport, extracellular"
+TCGA,INIT,PROGLNPROr,Metabolism (Formation/Degradation) of ProGlnPro,2.0 h2o[c] + proglnpro[c] <=> gln_L[c] + 2.0 pro_L[c],Peptide metabolism
+TCGA,INIT,PROGLNPROt,"Transport of ProGlnPro, Extracellular",h[e] + proglnpro[e] <=> h[c] + proglnpro[c],"Transport, extracellular"
+TCGA,INIT,RE3245C,RE3245C,h2o[c] + odecoa[c] <=> coa[c] + h[c] + ocdcea[c],Fatty acid synthesis
+TCGA,INIT,XYLTD_Dr,Xylitol Dehydrogenase (D-Xyulose-Forming),nad[c] + xylt[c] <=> h[c] + nadh[c] + xylu_D[c],Pentose phosphate pathway
+TCGA,INIT,XYLUDte,Assumed Passive Diffusion into Extracellular Space,xylu_D[c] <=> xylu_D[e],"Transport, extracellular"
+GSE2109,GIMME,ASPGLUt,"Transport of AspGlu, Extracellular",aspglu[e] + h[e] <=> aspglu[c] + h[c],"Transport, extracellular"
+GSE2109,GIMME,EX_aspglu[e],Exchange of AspGlu,aspglu[e] <=>,Exchange/demand reaction
+GSE2109,GIMME,EX_HC00004[e],Exchange of Apoa1,HC00004[e] <=>,Exchange/demand reaction
+GSE2109,GIMME,EX_HC00006[e],Exchange of Apo C1,HC00006[e] <=>,Exchange/demand reaction
+GSE2109,GIMME,EX_HC00007[e],Exchange of Apo C2,HC00007[e] <=>,Exchange/demand reaction
+GSE2109,GIMME,EX_hdl_hs[e],Exchange of HDL_Hs,hdl_hs[e] <=>,Exchange/demand reaction
+GSE2109,GIMME,EX_prolyspro[e],Exchange of ProLysPro,prolyspro[e] <=>,Exchange/demand reaction
+GSE2109,GIMME,EX_trplys[e],Exchange of TrpLys,trplys[e] <=>,Exchange/demand reaction
+GSE2109,GIMME,EX_tyrglu[e],Exchange of TyrGlu,tyrglu[e] <=>,Exchange/demand reaction
+GSE2109,GIMME,EX_xylu_L[e],Exchange of L-Xylulose,xylu_L[e] <=>,Exchange/demand reaction
+GSE2109,GIMME,LYSARGLEUr,Metabolism (Formation/Degradation) of LysArgLeu,h[c] + 2.0 h2o[c] + lysargleu[c] <=> arg_L[c] + leu_L[c] + lys_L[c],Peptide metabolism
+GSE2109,GIMME,PROCYSt,"Transport of ProCys, Extracellular",h[e] + procys[e] <=> h[c] + procys[c],"Transport, extracellular"
+GSE2109,GIMME,PROLYSPROr,Metabolism (Formation/Degradation) of ProLysPro,2.0 h2o[c] + prolyspro[c] <=> lys_L[c] + 2.0 pro_L[c],Peptide metabolism
+GSE2109,GIMME,PROLYSPROt,"Transport of ProLysPro, Extracellular",h[e] + prolyspro[e] <=> h[c] + prolyspro[c],"Transport, extracellular"
+GSE2109,GIMME,TYRGLUr,Metabolism (Formation/Degradation) of TyrGlu,h2o[c] + tyrglu[c] <=> glu_L[c] + tyr_L[c],Peptide metabolism
+GSE2109,GIMME,TYRGLUt,"Transport of TyrGlu, Extracellular",h[e] + tyrglu[e] <=> h[c] + tyrglu[c],"Transport, extracellular"
+GSE2109,iMAT,GLNHISHISr,Metabolism (Formation/Degradation) of GlnHisHis,glnhishis[c] + 2.0 h2o[c] <=> gln_L[c] + 2.0 his_L[c],Peptide metabolism
+GSE2109,iMAT,EX_trpaspasp[e],Exchange of TrpAspAsp,trpaspasp[e] <=>,Exchange/demand reaction
+GSE2109,iMAT,ASPMETASPr,Metabolism (Formation/Degradation) of AspMetAsp,aspmetasp[c] + 2.0 h2o[c] <=> 2.0 asp_L[c] + met_L[c],Peptide metabolism
+GSE2109,iMAT,TRPILETRPr,Metabolism (Formation/Degradation) of TrpIleTrp,2.0 h2o[c] + trpiletrp[c] <=> ile_L[c] + 2.0 trp_L[c],Peptide metabolism
+GSE2109,iMAT,TRPASPASPr,Metabolism (Formation/Degradation) of TrpAspAsp,2.0 h2o[c] + trpaspasp[c] <=> 2.0 asp_L[c] + trp_L[c],Peptide metabolism
+GSE2109,iMAT,GLNHISHISt,"Transport of GlnHisHis, Extracellular",glnhishis[e] + h[e] <=> glnhishis[c] + h[c],"Transport, extracellular"
+GSE2109,iMAT,EX_hishislys[e],Exchange of HisHisLys,hishislys[e] <=>,Exchange/demand reaction
+GSE2109,iMAT,EX_glnhishis[e],Exchange of GlnHisHis,glnhishis[e] <=>,Exchange/demand reaction
+GSE2109,iMAT,ALAARGGLYt,"Transport of AlaArgGly, Extracellular",alaarggly[e] + h[e] <=> alaarggly[c] + h[c],"Transport, extracellular"
+GSE2109,iMAT,TRPGLNGLNt,"Transport of TrpGlnGln, Extracellular",h[e] + trpglngln[e] <=> h[c] + trpglngln[c],"Transport, extracellular"
+GSE2109,iMAT,EX_trpiletrp[e],Exchange of TrpIleTrp,trpiletrp[e] <=>,Exchange/demand reaction
+GSE2109,iMAT,TRPTYRTYRt,"Transport of Trptyrtyr, Extracellular",h[e] + trptyrtyr[e] <=> h[c] + trptyrtyr[c],"Transport, extracellular"
+GSE2109,iMAT,ASNCYSCYSr,Metabolism (Formation/Degradation) of AsnCysCys,asncyscys[c] + 2.0 h2o[c] <=> asn_L[c] + 2.0 cys_L[c],Peptide metabolism
+GSE2109,iMAT,EX_leutyrtyr[e],Exchange of Leutyrtyr,leutyrtyr[e] <=>,Exchange/demand reaction
+GSE2109,iMAT,EX_ileargile[e],Exchange of IleArgIle,ileargile[e] <=>,Exchange/demand reaction
+GSE2109,INIT,EX_prolyspro[e],Exchange of ProLysPro,prolyspro[e] <=>,Exchange/demand reaction
+GSE2109,INIT,HMR_2363,Very-Long-Chain (3R)-3-Hydroxyacyl Coenzyme A Dehydratase,M00704[c] -> h2o[c] + M03017[c],Fatty acid synthesis
+GSE2109,INIT,XYLTD_Dr,Xylitol Dehydrogenase (D-Xyulose-Forming),nad[c] + xylt[c] <=> h[c] + nadh[c] + xylu_D[c],Pentose phosphate pathway
+GSE2109,INIT,HMR_2353,Very-Long-Chain 3-Oxoacyl Coenzyme A Synthase,h[c] + M01236[c] + malcoa[c] -> co2[c] + coa[c] + M00839[c],Fatty acid synthesis
+GSE2109,INIT,PROLYSPROt,"Transport of ProLysPro, Extracellular",h[e] + prolyspro[e] <=> h[c] + prolyspro[c],"Transport, extracellular"
+GSE2109,INIT,ACONTm,Aconitate Hydratase,cit[m] <=> icit[m],Citric acid cycle
+GSE2109,INIT,PROLYSPROr,Metabolism (Formation/Degradation) of ProLysPro,2.0 h2o[c] + prolyspro[c] <=> lys_L[c] + 2.0 pro_L[c],Peptide metabolism
+GSE2109,INIT,ADK3m,Adentylate Kinase (GTP),amp[m] + gtp[m] <=> adp[m] + gdp[m],Nucleotide interconversion
+GSE2109,INIT,HMR_2364,Very-Long-Chain Enoyl Coenzyme A Reductase,h[c] + M03017[c] + nadph[c] -> M00123[c] + nadp[c],Fatty acid synthesis
+GSE2109,INIT,XYLUDte,Assumed Passive Diffusion into Extracellular Space,xylu_D[c] <=> xylu_D[e],"Transport, extracellular"
+GSE2109,INIT,ARGSERSERr,Metabolism (Formation/Degradation) of ArgSerSer,argserser[c] + 2.0 h2o[c] <=> arg_L[c] + 2.0 ser_L[c],Peptide metabolism
+GSE2109,INIT,HMR_2347,Very-Long-Chain 3-Oxoacyl Coenzyme A Synthase,h[c] + M00116[c] + malcoa[c] -> co2[c] + coa[c] + M00852[c],Fatty acid synthesis
+GSE2109,INIT,EX_lysgluglu[e],Exchange of LysGluGlu,lysgluglu[e] <=>,Exchange/demand reaction
+GSE2109,INIT,ALAARGGLYr,Metabolism (Formation/Degradation) of AlaArgGly,alaarggly[c] + 2.0 h2o[c] <=> ala_L[c] + arg_L[c] + gly[c],Peptide metabolism
+GSE2109,INIT,HMR_2543,Very-Long-Chain Enoyl Coenzyme A Reductase,h[c] + M03006[c] + nadph[c] -> M00343[c] + nadp[c],Fatty acid synthesis
+EMTAB37,GIMME,DHAPA,Dihydroxyacetone Phosphate Acyltransferase,dhap[c] + Rtotalcoa[c] -> adhap_hs[c] + coa[c],Triacylglycerol synthesis
+EMTAB37,GIMME,EX_HC00006[e],Exchange of Apo C1,HC00006[e] <=>,Exchange/demand reaction
+EMTAB37,GIMME,r0942,Neurotransmitter:Sodium Symporter (Nss) Tcdb:2.A.22.3.4,creat[c] <=> creat[e],"Transport, extracellular"
+EMTAB37,GIMME,EX_M01238[e],EX_M01238[e],M01238[e] <=>,Exchange/demand reaction
+EMTAB37,GIMME,EX_HC00009[e],Exchange of Apo E,HC00009[e] <=>,Exchange/demand reaction
+EMTAB37,GIMME,EX_2h3mv[e],Exchange of 2-Hydroxy-3-Methyl-Valerate,2h3mv[e] <=>,Exchange/demand reaction
+EMTAB37,GIMME,2H3MVte,Transport of 2-Hydroxy-3-Methyl-Valerate,2h3mv[c] <=> 2h3mv[e],"Transport, extracellular"
+EMTAB37,GIMME,2H3MVte,Transport of 2-Hydroxy-3-Methyl-Valerate,2h3mv[c] <=> 2h3mv[e],"Transport, extracellular"
+EMTAB37,GIMME,DM_ts3[c],Demand for  Tachysterol 3,ts3[c] ->,Exchange/demand reaction
+EMTAB37,GIMME,ALPA_HStc,Intracellular Transport of Lysophosphatidic Acid,alpa_hs[x] <=> alpa_hs[c],"Transport, peroxisomal"
+EMTAB37,GIMME,EX_HC00008[e],Exchange of Apo C3,HC00008[e] <=>,Exchange/demand reaction
+EMTAB37,GIMME,EX_hdl_hs[e],Exchange of HDL_Hs,hdl_hs[e] <=>,Exchange/demand reaction
+EMTAB37,GIMME,HMR_0240,HMR_0240,M00003[e] -> M00003[c],"Transport, extracellular"
+EMTAB37,GIMME,EX_asn_L[e],Exchange of L-Asparagine,asn_L[e] <=>,Exchange/demand reaction
+EMTAB37,GIMME,q10h2tc,Transport of Ubiquinol into Cytosol,q10h2[m] <=> q10h2[c],"Transport, mitochondrial"
+EMTAB37,INIT,ARACHDFATPtc,Arachidonate (N-C18:1) Transport by FATP,arachd[e] + atp[c] + coa[c] -> amp[c] + arachdcoa[c] + ppi[c],"Transport, extracellular"
+EMTAB37,INIT,EX_5oxpro[e],Exchange of 5-Oxoprolinate,5oxpro[e] <=>,Exchange/demand reaction
+EMTAB37,INIT,EX_M01238[e],EX_M01238[e],M01238[e] <=>,Exchange/demand reaction
+EMTAB37,INIT,GGLUCT,Gamma-Glutamylcyclotransferase,gluala[e] -> 5oxpro[c] + ala_L[c],Glutathione metabolism
+EMTAB37,INIT,HMR_2347,Very-Long-Chain 3-Oxoacyl Coenzyme A Synthase,h[c] + M00116[c] + malcoa[c] -> co2[c] + coa[c] + M00852[c],Fatty acid synthesis
+EMTAB37,INIT,HMR_2349,Very-Long-Chain (3R)-3-Hydroxyacyl Coenzyme A Dehydratase,M00707[c] -> h2o[c] + M03018[c],Fatty acid synthesis
+EMTAB37,INIT,HMR_2350,Very-Long-Chain Enoyl Coenzyme A Reductase,h[c] + M03018[c] + nadph[c] -> M01236[c] + nadp[c],Fatty acid synthesis
+EMTAB37,INIT,HMR_2356,Very-Long-Chain Enoyl Coenzyme A Reductase,h[c] + M03011[c] + nadph[c] -> M00006[c] + nadp[c],Fatty acid synthesis
+EMTAB37,INIT,HMR_2702,Carnitine O-Palmitoyltransferase,coa[c] + M01724[c] <=> crn[c] + docoscoa[c],Fatty acid oxidation
+EMTAB37,INIT,LNLCt,Linoleic Acid (N-C18:2) Transport in via Diffusion,lnlc[e] <=> lnlc[c],"Transport, extracellular"
+EMTAB37,INIT,P5CR,Pyrroline-5-Carboxylate Reductase,1pyr5c[c] + 2.0 h[c] + nadph[c] -> nadp[c] + pro_L[c],Arginine and proline metabolism
+EMTAB37,INIT,q10h2tc,Transport of Ubiquinol into Cytosol,q10h2[m] <=> q10h2[c],"Transport, mitochondrial"
+EMTAB37,INIT,r0463,"(S)-3-Hydroxy-3-Methylglutaryl Coenzyme A Acetoacetyl Coenzyme A-Lyase (Coa-Acetylating) Synthesis And Degradation of Ketone Bodies Valine, Leucine And Isoleucine Degradation",coa[x] + h[x] + hmgcoa[x] <=> aacoa[x] + accoa[x] + h2o[x],Cholesterol metabolism
+EMTAB37,INIT,RE0570C,RE0570C,CE2250[c] + h[c] + nadph[c] <=> CE2246[c] + nadp[c],Fatty acid synthesis
+EMTAB37,INIT,5OXPROt,Transport of 5-Oxoprolinate,5oxpro[e] + 2.0 na1[e] <=> 5oxpro[c] + 2.0 na1[c],"Transport, extracellular"
+EMTAB37,INIT,XYLUDte,Assumed Passive Diffusion into Extracellular Space,xylu_D[c] <=> xylu_D[e],"Transport, extracellular"
