@@ -237,7 +237,8 @@ const pca = {}
 
 $(".metric_expl").hide ()
 
-
+const subsystems = []
+const affected_subsystems = {}
 
 
 
@@ -249,7 +250,8 @@ $(".metric_expl").hide ()
 
 function draw_pca () {
   console.log (pca);
-  
+        
+        
       d3.select("#my_dataviz svg").remove();
       
 // append sthe svg object to the body of the page
@@ -263,6 +265,15 @@ var svg = d3.select("#my_dataviz")
   
   var size_y = height / imethods.length;
   var size_x = width / data_sources.length;
+  
+  var pcatip = d3.tip().attr('class', 'd3-tip').direction("e").offset([0,-5])
+            .html(function(d) {
+                var content = "<span style='margin-left: 2.5px;'><b>" + d[0] + "</b></span><br>";
+                content += "<span style='margin-left: 2.5px;'>PC1: " + d3.format(".2f")(d[1]) + "</span><br>";
+                content += "<span style='margin-left: 2.5px;'>PC2: " + d3.format(".2f")(d[2]) + "</span><br>";
+                return content;
+            });
+        svg.call(pcatip);
   
   var position_x = d3.scalePoint()
     .domain(data_sources)
@@ -334,8 +345,10 @@ var svg = d3.select("#my_dataviz")
              .append("circle")
              .attr("cx", function(d){ return x(d[1]) })
              .attr("cy", function(d){ return y(d[2]) })
-             .attr("r", 3)
+             .attr("r", 2)
              .attr("fill", "#000")
+            .on('mouseover', pcatip.show)
+            .on('mouseout', pcatip.hide)
              
       //tmp.append("text")
       //.attr("y", 0)
