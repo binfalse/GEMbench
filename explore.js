@@ -291,7 +291,18 @@ var pattern = svg.append("defs")
                 return content;
             });
         svg.call(pcatip);
+  var subsystemtip = d3.tip().attr('class', 'd3-tip').direction("n").offset([0,-5])
+            .html(function(d) {
+                var content = "<span style='margin-left: 2.5px;'><b>" + d.subsystem + "</b></span><br>";
+                content += "<span style='margin-left: 2.5px;'>affected reactions: " + d.num + "</span><br>";
+                //content += "<span style='margin-left: 2.5px;'>Method: " + d.method + "</span><br>";
+                return content;
+            });
+        svg.call(subsystemtip);
   
+             
+             
+             
   var position_x = d3.scalePoint()
     .domain(data_sources)
     .range([0, width-size_x]);
@@ -385,33 +396,49 @@ var pattern = svg.append("defs")
     
       console.log (source + "_" + imeth)
       
+          //tmp.append("rect")
+             //.attr("x", 9)
+              //.attr("y", size_y - padding_y + 24)
+             //.attr("width", size_x - 8)
+             //.attr("height", 22)
+             //.style("fill", "#fff")
+      //.attr("stroke", "black")
+             //.style("fill", "#888")
+             //.style("fill", "url(#fillpattern)")
+             
       if (affected_subsystems[source + "_" + imeth]) {
         console.log (affected_subsystems[source + "_" + imeth])
-        const unitl = (size_x - 10) / affected_subsystems[source + "_" + imeth].reduce (function(acc, val) { return acc + val; }, subsystems.length)
-        var cum = 10;
+        const unitl = (size_x - 40) / affected_subsystems[source + "_" + imeth].reduce (function(acc, val) { return acc + val; }, subsystems.length)
+        var cum = 30;
         for (var sub = 0; sub < subsystems.length; sub++) {
           var c = "#fff"
           if (affected_subsystems[source + "_" + imeth][sub] > 0)
             c = color (sub % nBarcodeColors)
           else
             c = colorBackground (sub % nBarcodeColors)
-          tmp.append("rect")
+          tmp
+             .selectAll('barcode').data ([{"subsystem": subsystems[sub], "num": affected_subsystems[source + "_" + imeth][sub]}]).enter ().append("rect")
              .attr("x", cum)
               .attr("y", size_y - padding_y + 25)
              .attr("width", (1 + affected_subsystems[source + "_" + imeth][sub]) * unitl)
              .attr("height", 20)
              //.style("fill", color(Math.random ()))
              .style("fill", c)
+            .on('mouseover', subsystemtip.show)
+            .on('mouseout', subsystemtip.hide)
+             
           cum += (1 + affected_subsystems[source + "_" + imeth][sub]) * unitl
         }
         
       } else {
         
           tmp.append("rect")
-             .attr("x", 10)
+             .attr("x", 30)
               .attr("y", size_y - padding_y + 25)
-             .attr("width", size_x - 10)
+             .attr("width", size_x - 40)
              .attr("height", 20)
+      //.attr("stroke", "black")
+  //.attr ("fill", "#f0f0f0")
              //.style("fill", color(Math.random ()))
              .style("fill", "url(#fillpattern)")
       }
