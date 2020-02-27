@@ -394,7 +394,7 @@ var pattern = svg.append("defs")
     
     // draw barcode
     
-      console.log (source + "_" + imeth)
+      //console.log (source + "_" + imeth)
       
           //tmp.append("rect")
              //.attr("x", 9)
@@ -407,7 +407,7 @@ var pattern = svg.append("defs")
              //.style("fill", "url(#fillpattern)")
              
       if (affected_subsystems[source + "_" + imeth]) {
-        console.log (affected_subsystems[source + "_" + imeth])
+        //console.log (affected_subsystems[source + "_" + imeth])
         const unitl = (size_x - 40) / affected_subsystems[source + "_" + imeth].reduce (function(acc, val) { return acc + val; }, subsystems.length)
         var cum = 30;
         for (var sub = 0; sub < subsystems.length; sub++) {
