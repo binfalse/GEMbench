@@ -249,7 +249,7 @@ const affected_subsystems = {}
 
 
 function draw_pca () {
-  console.log (pca);
+  //console.log (pca);
         
         
       d3.select("#my_dataviz svg").remove();
@@ -259,7 +259,24 @@ var svg = d3.select("#my_dataviz")
   .append("svg")
     .attr("width", width + margin.left + margin.right)
     .attr("height", height + margin.top + margin.bottom)
-  .append("g")
+    
+  
+  
+var pattern = svg.append("defs")
+	.append("pattern")
+  .attr ("id", "fillpattern")
+  .attr ("width", "8")
+  .attr ("height", "8")
+  .attr ("patternUnits", "userSpaceOnUse")
+  .attr ("patternTransform", "rotate(60)")
+		//.attr({ id:"fillpattern", width:"8", height:"8", patternUnits:"userSpaceOnUse", patternTransform:"rotate(60)"})
+	.append("rect")
+  .attr ("width", "4")
+  .attr ("height", "8")
+  .attr ("transform", "translate(0,0)")
+  .attr ("fill", "#f0f0f0")
+  
+  svg = svg.append("g")
     .attr("transform",
           "translate(" + margin.left + "," + margin.top + ")");
   
@@ -282,12 +299,17 @@ var svg = d3.select("#my_dataviz")
     .domain(imethods)
     .range([0, height-size_y]);
   
+  var nBarcodeColors = 5
+  
   var color = d3.scaleLinear()
-    .domain([0, 1])
-    .range(["#aaa", "#fff"])
+    .domain([...Array(nBarcodeColors).keys()])
+    .range(["#e41a1c","#377eb8","#4daf4a","#984ea3", "#ff7f00"])
+  var colorBackground = d3.scaleLinear()
+    .domain([...Array(nBarcodeColors).keys()])
+    .range(["#aaa", "#eee", "#ccc", "#ddd", "#bbb"])
   
   var padding_x = 30
-  var padding_y = 60
+  var padding_y = 80
   
   for (var s = 0; s < data_sources.length; s++) {
     for (var i = 0; i < imethods.length; i++) {
@@ -313,14 +335,14 @@ var svg = d3.select("#my_dataviz")
         //ax = Math.min (size_x, size_y) - 20;
         
         xextent = d3.extent(pca_samples, function(d) { return d[1] })
-        console.log (xextent)
+        //console.log (xextent)
       var x = d3.scalePow().exponent(document.getElementById("slider").value)
         .domain(xextent).nice()
         .range([ padding_x, size_x-10 ]);
 
       // Add Y Scale of each graph
       yextent = d3.extent(pca_samples, function(d) { return d[2] })
-        console.log (yextent)
+        //console.log (yextent)
       var y = d3.scalePow().exponent(document.getElementById("slider").value)
         .domain(yextent).nice()
         .range([ 0, size_y-padding_y ]);
@@ -357,6 +379,44 @@ var svg = d3.select("#my_dataviz")
       //.style("font-size", 11)
       //.style("text-align", "center")
     //.style("text-anchor","middle");
+    
+    
+    // draw barcode
+    
+      console.log (source + "_" + imeth)
+      
+      if (affected_subsystems[source + "_" + imeth]) {
+        console.log (affected_subsystems[source + "_" + imeth])
+        const unitl = (size_x - 10) / affected_subsystems[source + "_" + imeth].reduce (function(acc, val) { return acc + val; }, subsystems.length)
+        var cum = 10;
+        for (var sub = 0; sub < subsystems.length; sub++) {
+          var c = "#fff"
+          if (affected_subsystems[source + "_" + imeth][sub] > 0)
+            c = color (sub % nBarcodeColors)
+          else
+            c = colorBackground (sub % nBarcodeColors)
+          tmp.append("rect")
+             .attr("x", cum)
+              .attr("y", size_y - padding_y + 25)
+             .attr("width", (1 + affected_subsystems[source + "_" + imeth][sub]) * unitl)
+             .attr("height", 20)
+             //.style("fill", color(Math.random ()))
+             .style("fill", c)
+          cum += (1 + affected_subsystems[source + "_" + imeth][sub]) * unitl
+        }
+        
+      } else {
+        
+          tmp.append("rect")
+             .attr("x", 10)
+              .attr("y", size_y - padding_y + 25)
+             .attr("width", size_x - 10)
+             .attr("height", 20)
+             //.style("fill", color(Math.random ()))
+             .style("fill", "url(#fillpattern)")
+      }
+    
+    
     }
   }
   
@@ -1110,11 +1170,11 @@ var svg = d3.select("#my_dataviz")
 
 function draw_analysis () {
   var measure = document.getElementById("metric")
-  console.log (measure)
+  //console.log (measure)
   measure = metrics[measure.options[measure.selectedIndex].value]
 $(".metric_expl").hide ()
   $("#" + measure + "_expl").show ();
-  console.log (measure)
+  //console.log (measure)
   if (measure == "Clusterability") {
     draw_pca ()
   } else {
@@ -1210,6 +1270,24 @@ $.getJSON("data/data.json", function( data ) {
 
 
 
+d3.csv("data/affects.csv").then (function( data ) {
+  for (row=0; row < data.length; row++){
+    if (!subsystems.includes (data[row]["subsystem"]))
+      subsystems.push (data[row]["subsystem"]);
+  }
+  subsystems.sort();
+  
+  for (row=0; row < data.length; row++){
+    const id = data[row]["Data"] + "_" + data[row]["Method"];
+    if (!(id in affected_subsystems))
+      affected_subsystems[id] = Array(subsystems.length).fill(0)
+    affected_subsystems[id][subsystems.indexOf(data[row]["subsystem"])]++
+  }
+  
+  //console.log (subsystems);
+  //console.log (affected_subsystems);
+});
+
 
 
 var pcas_expected = 0;
@@ -1234,8 +1312,8 @@ for (var s = 0; s < data_sources.length; s++) {
       if (pcas_expected-- == 1) {
         addSelect ("Clusterability", 5)
       }
-      console.log (pcas_expected)
-    })
+      //console.log (pcas_expected)
+    });
   }
 }
 

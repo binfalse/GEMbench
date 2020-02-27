@@ -120,34 +120,34 @@ GSE2109,INIT,HMR_2347,Very-Long-Chain 3-Oxoacyl Coenzyme A Synthase,h[c] + M0011
 GSE2109,INIT,EX_lysgluglu[e],Exchange of LysGluGlu,lysgluglu[e] <=>,Exchange/demand reaction
 GSE2109,INIT,ALAARGGLYr,Metabolism (Formation/Degradation) of AlaArgGly,alaarggly[c] + 2.0 h2o[c] <=> ala_L[c] + arg_L[c] + gly[c],Peptide metabolism
 GSE2109,INIT,HMR_2543,Very-Long-Chain Enoyl Coenzyme A Reductase,h[c] + M03006[c] + nadph[c] -> M00343[c] + nadp[c],Fatty acid synthesis
-EMTAB37,GIMME,DHAPA,Dihydroxyacetone Phosphate Acyltransferase,dhap[c] + Rtotalcoa[c] -> adhap_hs[c] + coa[c],Triacylglycerol synthesis
-EMTAB37,GIMME,EX_HC00006[e],Exchange of Apo C1,HC00006[e] <=>,Exchange/demand reaction
-EMTAB37,GIMME,r0942,Neurotransmitter:Sodium Symporter (Nss) Tcdb:2.A.22.3.4,creat[c] <=> creat[e],"Transport, extracellular"
-EMTAB37,GIMME,EX_M01238[e],EX_M01238[e],M01238[e] <=>,Exchange/demand reaction
-EMTAB37,GIMME,EX_HC00009[e],Exchange of Apo E,HC00009[e] <=>,Exchange/demand reaction
-EMTAB37,GIMME,EX_2h3mv[e],Exchange of 2-Hydroxy-3-Methyl-Valerate,2h3mv[e] <=>,Exchange/demand reaction
-EMTAB37,GIMME,2H3MVte,Transport of 2-Hydroxy-3-Methyl-Valerate,2h3mv[c] <=> 2h3mv[e],"Transport, extracellular"
-EMTAB37,GIMME,2H3MVte,Transport of 2-Hydroxy-3-Methyl-Valerate,2h3mv[c] <=> 2h3mv[e],"Transport, extracellular"
-EMTAB37,GIMME,DM_ts3[c],Demand for  Tachysterol 3,ts3[c] ->,Exchange/demand reaction
-EMTAB37,GIMME,ALPA_HStc,Intracellular Transport of Lysophosphatidic Acid,alpa_hs[x] <=> alpa_hs[c],"Transport, peroxisomal"
-EMTAB37,GIMME,EX_HC00008[e],Exchange of Apo C3,HC00008[e] <=>,Exchange/demand reaction
-EMTAB37,GIMME,EX_hdl_hs[e],Exchange of HDL_Hs,hdl_hs[e] <=>,Exchange/demand reaction
-EMTAB37,GIMME,HMR_0240,HMR_0240,M00003[e] -> M00003[c],"Transport, extracellular"
-EMTAB37,GIMME,EX_asn_L[e],Exchange of L-Asparagine,asn_L[e] <=>,Exchange/demand reaction
-EMTAB37,GIMME,q10h2tc,Transport of Ubiquinol into Cytosol,q10h2[m] <=> q10h2[c],"Transport, mitochondrial"
-EMTAB37,INIT,ARACHDFATPtc,Arachidonate (N-C18:1) Transport by FATP,arachd[e] + atp[c] + coa[c] -> amp[c] + arachdcoa[c] + ppi[c],"Transport, extracellular"
-EMTAB37,INIT,EX_5oxpro[e],Exchange of 5-Oxoprolinate,5oxpro[e] <=>,Exchange/demand reaction
-EMTAB37,INIT,EX_M01238[e],EX_M01238[e],M01238[e] <=>,Exchange/demand reaction
-EMTAB37,INIT,GGLUCT,Gamma-Glutamylcyclotransferase,gluala[e] -> 5oxpro[c] + ala_L[c],Glutathione metabolism
-EMTAB37,INIT,HMR_2347,Very-Long-Chain 3-Oxoacyl Coenzyme A Synthase,h[c] + M00116[c] + malcoa[c] -> co2[c] + coa[c] + M00852[c],Fatty acid synthesis
-EMTAB37,INIT,HMR_2349,Very-Long-Chain (3R)-3-Hydroxyacyl Coenzyme A Dehydratase,M00707[c] -> h2o[c] + M03018[c],Fatty acid synthesis
-EMTAB37,INIT,HMR_2350,Very-Long-Chain Enoyl Coenzyme A Reductase,h[c] + M03018[c] + nadph[c] -> M01236[c] + nadp[c],Fatty acid synthesis
-EMTAB37,INIT,HMR_2356,Very-Long-Chain Enoyl Coenzyme A Reductase,h[c] + M03011[c] + nadph[c] -> M00006[c] + nadp[c],Fatty acid synthesis
-EMTAB37,INIT,HMR_2702,Carnitine O-Palmitoyltransferase,coa[c] + M01724[c] <=> crn[c] + docoscoa[c],Fatty acid oxidation
-EMTAB37,INIT,LNLCt,Linoleic Acid (N-C18:2) Transport in via Diffusion,lnlc[e] <=> lnlc[c],"Transport, extracellular"
-EMTAB37,INIT,P5CR,Pyrroline-5-Carboxylate Reductase,1pyr5c[c] + 2.0 h[c] + nadph[c] -> nadp[c] + pro_L[c],Arginine and proline metabolism
-EMTAB37,INIT,q10h2tc,Transport of Ubiquinol into Cytosol,q10h2[m] <=> q10h2[c],"Transport, mitochondrial"
-EMTAB37,INIT,r0463,"(S)-3-Hydroxy-3-Methylglutaryl Coenzyme A Acetoacetyl Coenzyme A-Lyase (Coa-Acetylating) Synthesis And Degradation of Ketone Bodies Valine, Leucine And Isoleucine Degradation",coa[x] + h[x] + hmgcoa[x] <=> aacoa[x] + accoa[x] + h2o[x],Cholesterol metabolism
-EMTAB37,INIT,RE0570C,RE0570C,CE2250[c] + h[c] + nadph[c] <=> CE2246[c] + nadp[c],Fatty acid synthesis
-EMTAB37,INIT,5OXPROt,Transport of 5-Oxoprolinate,5oxpro[e] + 2.0 na1[e] <=> 5oxpro[c] + 2.0 na1[c],"Transport, extracellular"
-EMTAB37,INIT,XYLUDte,Assumed Passive Diffusion into Extracellular Space,xylu_D[c] <=> xylu_D[e],"Transport, extracellular"
+EMTAB-37,GIMME,DHAPA,Dihydroxyacetone Phosphate Acyltransferase,dhap[c] + Rtotalcoa[c] -> adhap_hs[c] + coa[c],Triacylglycerol synthesis
+EMTAB-37,GIMME,EX_HC00006[e],Exchange of Apo C1,HC00006[e] <=>,Exchange/demand reaction
+EMTAB-37,GIMME,r0942,Neurotransmitter:Sodium Symporter (Nss) Tcdb:2.A.22.3.4,creat[c] <=> creat[e],"Transport, extracellular"
+EMTAB-37,GIMME,EX_M01238[e],EX_M01238[e],M01238[e] <=>,Exchange/demand reaction
+EMTAB-37,GIMME,EX_HC00009[e],Exchange of Apo E,HC00009[e] <=>,Exchange/demand reaction
+EMTAB-37,GIMME,EX_2h3mv[e],Exchange of 2-Hydroxy-3-Methyl-Valerate,2h3mv[e] <=>,Exchange/demand reaction
+EMTAB-37,GIMME,2H3MVte,Transport of 2-Hydroxy-3-Methyl-Valerate,2h3mv[c] <=> 2h3mv[e],"Transport, extracellular"
+EMTAB-37,GIMME,2H3MVte,Transport of 2-Hydroxy-3-Methyl-Valerate,2h3mv[c] <=> 2h3mv[e],"Transport, extracellular"
+EMTAB-37,GIMME,DM_ts3[c],Demand for  Tachysterol 3,ts3[c] ->,Exchange/demand reaction
+EMTAB-37,GIMME,ALPA_HStc,Intracellular Transport of Lysophosphatidic Acid,alpa_hs[x] <=> alpa_hs[c],"Transport, peroxisomal"
+EMTAB-37,GIMME,EX_HC00008[e],Exchange of Apo C3,HC00008[e] <=>,Exchange/demand reaction
+EMTAB-37,GIMME,EX_hdl_hs[e],Exchange of HDL_Hs,hdl_hs[e] <=>,Exchange/demand reaction
+EMTAB-37,GIMME,HMR_0240,HMR_0240,M00003[e] -> M00003[c],"Transport, extracellular"
+EMTAB-37,GIMME,EX_asn_L[e],Exchange of L-Asparagine,asn_L[e] <=>,Exchange/demand reaction
+EMTAB-37,GIMME,q10h2tc,Transport of Ubiquinol into Cytosol,q10h2[m] <=> q10h2[c],"Transport, mitochondrial"
+EMTAB-37,INIT,ARACHDFATPtc,Arachidonate (N-C18:1) Transport by FATP,arachd[e] + atp[c] + coa[c] -> amp[c] + arachdcoa[c] + ppi[c],"Transport, extracellular"
+EMTAB-37,INIT,EX_5oxpro[e],Exchange of 5-Oxoprolinate,5oxpro[e] <=>,Exchange/demand reaction
+EMTAB-37,INIT,EX_M01238[e],EX_M01238[e],M01238[e] <=>,Exchange/demand reaction
+EMTAB-37,INIT,GGLUCT,Gamma-Glutamylcyclotransferase,gluala[e] -> 5oxpro[c] + ala_L[c],Glutathione metabolism
+EMTAB-37,INIT,HMR_2347,Very-Long-Chain 3-Oxoacyl Coenzyme A Synthase,h[c] + M00116[c] + malcoa[c] -> co2[c] + coa[c] + M00852[c],Fatty acid synthesis
+EMTAB-37,INIT,HMR_2349,Very-Long-Chain (3R)-3-Hydroxyacyl Coenzyme A Dehydratase,M00707[c] -> h2o[c] + M03018[c],Fatty acid synthesis
+EMTAB-37,INIT,HMR_2350,Very-Long-Chain Enoyl Coenzyme A Reductase,h[c] + M03018[c] + nadph[c] -> M01236[c] + nadp[c],Fatty acid synthesis
+EMTAB-37,INIT,HMR_2356,Very-Long-Chain Enoyl Coenzyme A Reductase,h[c] + M03011[c] + nadph[c] -> M00006[c] + nadp[c],Fatty acid synthesis
+EMTAB-37,INIT,HMR_2702,Carnitine O-Palmitoyltransferase,coa[c] + M01724[c] <=> crn[c] + docoscoa[c],Fatty acid oxidation
+EMTAB-37,INIT,LNLCt,Linoleic Acid (N-C18:2) Transport in via Diffusion,lnlc[e] <=> lnlc[c],"Transport, extracellular"
+EMTAB-37,INIT,P5CR,Pyrroline-5-Carboxylate Reductase,1pyr5c[c] + 2.0 h[c] + nadph[c] -> nadp[c] + pro_L[c],Arginine and proline metabolism
+EMTAB-37,INIT,q10h2tc,Transport of Ubiquinol into Cytosol,q10h2[m] <=> q10h2[c],"Transport, mitochondrial"
+EMTAB-37,INIT,r0463,"(S)-3-Hydroxy-3-Methylglutaryl Coenzyme A Acetoacetyl Coenzyme A-Lyase (Coa-Acetylating) Synthesis And Degradation of Ketone Bodies Valine, Leucine And Isoleucine Degradation",coa[x] + h[x] + hmgcoa[x] <=> aacoa[x] + accoa[x] + h2o[x],Cholesterol metabolism
+EMTAB-37,INIT,RE0570C,RE0570C,CE2250[c] + h[c] + nadph[c] <=> CE2246[c] + nadp[c],Fatty acid synthesis
+EMTAB-37,INIT,5OXPROt,Transport of 5-Oxoprolinate,5oxpro[e] + 2.0 na1[e] <=> 5oxpro[c] + 2.0 na1[c],"Transport, extracellular"
+EMTAB-37,INIT,XYLUDte,Assumed Passive Diffusion into Extracellular Space,xylu_D[c] <=> xylu_D[e],"Transport, extracellular"
