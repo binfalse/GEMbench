@@ -5,6 +5,7 @@
 <link rel="stylesheet" href="style.css">
 <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
 <link rel="stylesheet" href="v2.1.7/fancybox-2.1.7/source/jquery.fancybox.css">
+<title>GEMbench: Benchmark of Omics Data and Integration Methods</title>
 </head>
 <body>
   <header id="header" class="fixed-top">
@@ -33,14 +34,7 @@
     <div class="container">
       <div class="row">
         <div class="col-lg-6 pt-5 pt-lg-0 order-2 order-lg-1">
-          <h2>GEMbench:
-<!--
-          </h1>
--->
-<!--
-          <h2>
--->
-            A comprehensive benchmark of omics data and integration methods for assessment of metabolic patterns in cancers</h2>
+          <h2>GEMbench: A comprehensive benchmark of omics data and integration methods for assessment of metabolic patterns in cancers</h2>
           <p>The ultimate goal of systems medicine is to understand the underlying mechanism of disease development, diagnostic biomarkers, potential drug targets and prognosis biomarkers. The generic genome-scale metabolic models (GEMs) is one of the most prevalent networks that in integration with omics-data could generate the context-based/tissue-specific GEM. Generating the context-based GEM has allowed a more in-depth study of metabolism and in particular, these facilitate the unveiling of the genotype-phenotype relationship and give rise to the extraction of physiologically relevant information from the high-quality data.</p>
           <p>Since 2002 to now, more than fifty methods have been developed to investigate how gene expression integration into GEM could affect model content and predictive accuracy. These methods differ in assumptions and mathematical formulation, used different gene expression datasets (in form of microarray data or RNA-sequencing data) and various GEMs of organisms from bacteria to human as well as tested isolated case studies. These heterogeneous datasets and diverse algorithms are difficult for comparison and benchmarking.</p>
           <p>Here, we performed a comprehensive benchmark to assess the influence of omics-data (regarding to the data sources, types and platforms) and integration methods on the model content and predictive accuracy. We collected different types of omics data (Transcriptome and proteome) from different sources (cell-lines and patients), as well as different platforms (RNA-Seq and Microarray) and integrated them into Recon3D (the generic GEM of Human) by four integration algorithms (GIMME, iMAT, INIT, and FASTCORE).</p>
@@ -102,63 +96,92 @@ In this study we focus on the following integration methods:
         <h2>Data</h2>
       </div>
       <p>
-        The data for our studies comes from the following sources:
+        The data for our study was obtained from the following sources:
       </p>
+      
+      
       <h4>EMTAB-37</h4>
         <ul>
           <li><strong>Source:</strong> Cell Line</li>
           <li><strong>Data type:</strong> Microarray data</li>
           <li><strong>Obtained:</strong> March 2019</li>
-          <li><strong>From:</strong> <a href=""></a></li>
+          <li><strong>From:</strong> <a href="https://www.ebi.ac.uk/arrayexpress/experiments/E-MTAB-37/samples/">ebi.ac.uk/arrayexpress</a></li>
           <li><strong>Number of Samples:</strong> 317</li>
         </ul>
       <p>
-        The transcriptomics profiles of various cancer cell lines from Cancer Cell Line Project were downloaded (ArrayExpress database ID: E-MTAB-37). The gene expression profiles of 317 different cancer cell lines, categorized into 57 different pathological states and 28 individual tissues for study. In total 22,012 unique genes exist in this dataset.
+        <a href="https://pubmed.ncbi.nlm.nih.gov/30357387">ArrayExpress</a> is an archive of functional genomics data that stores high-throughput functional genomics data and provides it for reuse to the research community.
+        The transcriptomics profiles of various cancer cell lines were downloaded from <a href="https://www.ebi.ac.uk/arrayexpress/experiments/E-MTAB-37/samples/">ebi.ac.uk/arrayexpress</a>.
+        The gene expression profiles of 317 different cancer cell lines, categorized into 57 different pathological states and 28 individual tissues for study.
+        In total 22&#x202f;012 unique genes exist in this dataset.
       </p>
+      
+      
       <h4>HPA</h4>
         <ul>
           <li><strong>Source:</strong> Cell Line</li>
           <li><strong>Data type:</strong> RNA Seq data</li>
           <li><strong>Obtained:</strong> March 2019</li>
-          <li><strong>From:</strong> <a href=""></a></li>
+          <li><strong>From:</strong> <a href="https://www.proteinatlas.org/about/download"></a></li>
           <li><strong>Number of Samples:</strong> 32</li>
         </ul>
       <p>
-        The HPA is a freely available database including Tissue Atlas, Cell Atlas and Pathology Atlas. The Cell Atlas contains mRNA expression profiles of 64 cell lines which characterized using deep RNA-sequencing. After filtering the non-metastatic human cancer cell lines, 32 cell lines were selected and the RNA levels data file were downloaded.
+        The <a href="https://pubmed.ncbi.nlm.nih.gov/25613900">Human Protein Atlas (HPA)</a> is a freely available database including Tissue Atlas, Cell Atlas and Pathology Atlas.
+        The Cell Atlas contains mRNA expression profiles of 64 cell lines which were characterized using deep RNA-sequencing.
+        After filtering the non-metastatic human cancer cell lines, 32 cell lines were selected and the RNA levels data files were downloaded.
       </p>
+      
+      
       <h4>ProteomeNCI60 </h4>
         <ul>
           <li><strong>Source:</strong> Cell Line</li>
           <li><strong>Data type:</strong> Mass Spec Proteomics data</li>
           <li><strong>Obtained:</strong> March 2019</li>
-          <li><strong>From:</strong> <a href=""></a></li>
+          <li><strong>From:</strong> <a href="https://www.proteomicsdb.org/#projects/35/256"></a></li>
           <li><strong>Number of Samples:</strong> 59</li>
         </ul>
       <p>
-        We used the results of Global Proteome Analysis study. Gholami et al. employed a MS-based proteomics analysis and provided quantitative proteome profiles of all 59 cell lines of the NCI-60 panel. The dataset contains 10,350 identified proteins. 
+        <a href="https://www.proteomicsdb.org/">ProteomicsDB</a> is an effort of the Technische Universität München (TUM) that dedicated to expedite the identification of various proteomes and their use across the scientific community.
+        We used the results of Global Proteome Analysis study.
+        <a href="https://pubmed.ncbi.nlm.nih.gov/23933261">Gholami et al.</a> employed an MS-based proteomics analysis and provided quantitative proteome profiles of all 59 cell lines of the NCI-60 panel.
+        The dataset contains 10&#x202f;350 identified proteins. 
       </p>
+      
+      
       <h4>GSE2109</h4>
         <ul>
           <li><strong>Source:</strong> Patient Data</li>
           <li><strong>Data type:</strong> Microarray data</li>
           <li><strong>Obtained:</strong> March 2019</li>
-          <li><strong>From:</strong> <a href=""></a></li>
+          <li><strong>From:</strong> <a href="https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE2109">ncbi.nlm.nih.gov</a></li>
           <li><strong>Number of Samples:</strong> 315</li>
         </ul>
       <p>
-        The results of DNA microarray analysis of The Expression Project for Oncology (expO) from The International Genomics Consortium were downloaded (NCBI GEO ID: GSE2109) (https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE2109). Among 2,158 patient samples, the metastatic and ambiguous samples were removed and 1,895 samples in 315 different cancer types were selected. Totally 24,442 unique genes exist in this dataset. 
+        The <a href="https://pubmed.ncbi.nlm.nih.gov/11752295">Gene Expression Omnibus (GEO)</a> is a public functional genomics data repository that stores Array- and sequence-based data.
+        The results of DNA microarray analysis of The Expression Project for Oncology (expO) from The International Genomics Consortium were downloaded from <a href="https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE2109">ncbi.nlm.nih.gov</a>.
+        Among 2&#x202f;158 patient samples, the metastatic and ambiguous samples were removed and 1,895 samples in 315 different cancer types were selected.
+        In total, 24&#x202f;442 unique genes exist in this dataset. 
       </p>
+      
+      
       <h4>TCGA</h4>
         <ul>
           <li><strong>Source:</strong> Patient Data</li>
           <li><strong>Data type:</strong> RNA Seq data</li>
           <li><strong>Obtained:</strong> March 2019</li>
-          <li><strong>From:</strong> <a href=""></a></li>
+          <li><strong>From:</strong> <a href="https://portal.gdc.cancer.gov/legacy-archive/search/f">portal.gdc.cancer.gov</a></li>
           <li><strong>Number of Samples:</strong> 202</li>
         </ul>
       <p>
-        The TCGA data was obtained using the GDC Data Portal platform. The portal has been searched for all RNA-seq cases and HTSeq-FPKM workflow type. Totally 11,571 files for 10,672 cases were found. The metadata file was downloaded and only files of primary tumor or primary blood derived cancer bone marrow or peripheral selected and finally 10,322 files were downloaded using API command. After combination of the same disease types, 202 different cancer types were prepared for the current study. 
+        The <a href="https://www.cancer.gov/tcga">Cancer Genome Atlas (TCGA)</a> is a joint effort between the National Cancer Institute and the National Human Genome Research Institute that generated high-throughput data.
+        The RNA-seq data was obtained using the GDC Data Portal.
+        The portal has been searched for all RNA-seq cases and HTSeq-FPKM workflow type.
+        In total, 11&#x202f;571 files for 10&#x202f;672 cases were found.
+        The metadata file was downloaded and only files of primary tumour or primary blood derived cancer bone marrow or peripheral selected.
+        Finally, 10&#x202f;322 files were downloaded through their API.
+        After combination of the same disease types, 202 different cancer types were prepared for the current study. 
       </p>
+      
+      
       <h4>ProteomePatients</h4>
         <ul>
           <li><strong>Source:</strong> Patient Data</li>
@@ -168,7 +191,9 @@ In this study we focus on the following integration methods:
           <li><strong>Number of Samples:</strong> 10</li>
         </ul>
       <p>
-        The ProteomeXchange (PX) Consortium of proteomics resources (http://www.proteomexchange.org) provided a standard portal for submission and dissemination of mass spectrometry proteomics data. We extracted 10 data sets of four different cancer types containing 11,961 identified proteins. See Supplementary file Section I for detailed list of omics data.
+        The <a href="http://www.proteomexchange.org">ProteomeXchange (PX) Consortium</a> provided a standard portal for submission and dissemination of mass spectrometry proteomics data.
+        We extracted 10 data sets of four different cancer types containing 11&#x202f;961 identified proteins.
+        See Supplementary file Section I for detailed list of omics data.
       </p>
     </div>
   </section>
