@@ -1,0 +1,476 @@
+Source;Location;Type;Cancer;Samples
+Cell-line;Transcriptome;RNA-Seq (HPA);Acute lymphoblastic leukemia (T-ALL) cell line;1
+Cell-line;Transcriptome;RNA-Seq (HPA);Acute monocytic leukemia (AML) cell line;1
+Cell-line;Transcriptome;RNA-Seq (HPA);Acute promyelocytic leukemia (APL) cell line;2
+Cell-line;Transcriptome;RNA-Seq (HPA);B-cell lymphoma cell line (lymphoblastic lymphosarcoma);
+Cell-line;Transcriptome;RNA-Seq (HPA);Cervical epithelial adenocarcinoma cell line;2
+Cell-line;Transcriptome;RNA-Seq (HPA);Chronic myeloid leukemia (CML) cell line;2
+Cell-line;Transcriptome;RNA-Seq (HPA);Colon adenocarcinoma cell line;1
+Cell-line;Transcriptome;RNA-Seq (HPA);Epidermoid carcinoma cell line;1
+Cell-line;Transcriptome;RNA-Seq (HPA);Glioblastoma cell line;3
+Cell-line;Transcriptome;RNA-Seq (HPA);Hepatocellular carcinoma cell line;1
+Cell-line;Transcriptome;RNA-Seq (HPA);Hodgkin lymphoma cell line;1
+Cell-line;Transcriptome;RNA-Seq (HPA);Human Burkitt lymphoma cell line;1
+Cell-line;Transcriptome;RNA-Seq (HPA);Invasive ductal carcinoma;1
+Cell-line;Transcriptome;RNA-Seq (HPA);Lung carcinoma cell line;1
+Cell-line;Transcriptome;RNA-Seq (HPA);Malignant fibrous histiocytoma cell line;1
+Cell-line;Transcriptome;RNA-Seq (HPA);Malignant melanoma cell line;1
+Cell-line;Transcriptome;RNA-Seq (HPA);Mastcell leukemia cell line;1
+Cell-line;Transcriptome;RNA-Seq (HPA);Multiple myeloma cell line;4
+Cell-line;Transcriptome;RNA-Seq (HPA);Myelomonocytic histiocytic lymphoma cell line;1
+Cell-line;Transcriptome;RNA-Seq (HPA);Osteosarcoma cell line;1
+Cell-line;Transcriptome;RNA-Seq (HPA);Pancreas adenocarcinoma cell line;1
+Cell-line;Transcriptome;RNA-Seq (HPA);Pre-B cell leukemia cell line (ALL, first relapse);1
+Cell-line;Transcriptome;RNA-Seq (HPA);Small cell lung carcinoma cell line;1
+Cell-line;Transcriptome;RNA-Seq (HPA);Urinary bladder transitional cell carcinoma cell line;1
+Cell-line;Transcriptome;Microarray (EMTAB-37);Acute B Cell Lymphocytic Leukemia;2
+Cell-line;Transcriptome;Microarray (EMTAB-37);Acute Lymphoblastic Leukemia  ;8
+Cell-line;Transcriptome;Microarray (EMTAB-37);Acute Myeloid Leukemia  ;8
+Cell-line;Transcriptome;Microarray (EMTAB-37);Acute T Cell Lymphoblastic Leukemia;2
+Cell-line;Transcriptome;Microarray (EMTAB-37);B-Cell Neoplasm   ;14
+Cell-line;Transcriptome;Microarray (EMTAB-37);Bladder Carcinoma   ;10
+Cell-line;Transcriptome;Microarray (EMTAB-37);Blast Phase Chronic Myelogenous Leukemia;4
+Cell-line;Transcriptome;Microarray (EMTAB-37);Bone Osteosarcoma   ;2
+Cell-line;Transcriptome;Microarray (EMTAB-37);Bone Sarcoma   ;2
+Cell-line;Transcriptome;Microarray (EMTAB-37);Brain Carcinoma   ;1
+Cell-line;Transcriptome;Microarray (EMTAB-37);Brain Glioblastoma   ;1
+Cell-line;Transcriptome;Microarray (EMTAB-37);Brain Medulloblastoma   ;1
+Cell-line;Transcriptome;Microarray (EMTAB-37);Brain Neuroblastoma   ;3
+Cell-line;Transcriptome;Microarray (EMTAB-37);Breast Carcinoma   ;19
+Cell-line;Transcriptome;Microarray (EMTAB-37);Burkitt Lymphoma   ;16
+Cell-line;Transcriptome;Microarray (EMTAB-37);Cervix Uteri Carcinoma  ;7
+Cell-line;Transcriptome;Microarray (EMTAB-37);Chronic Lymphocytic Leukemia  ;1
+Cell-line;Transcriptome;Microarray (EMTAB-37);Chronic Myelogenous Leukemia  ;3
+Cell-line;Transcriptome;Microarray (EMTAB-37);CNS Astrocytoma   ;1
+Cell-line;Transcriptome;Microarray (EMTAB-37);CNS Glioblastoma   ;6
+Cell-line;Transcriptome;Microarray (EMTAB-37);CNS Medulloblastoma   ;1
+Cell-line;Transcriptome;Microarray (EMTAB-37);CNS Neuroblastoma   ;3
+Cell-line;Transcriptome;Microarray (EMTAB-37);Colon Carcinoma   ;20
+Cell-line;Transcriptome;Microarray (EMTAB-37);Connective Tissue Fibrosarcoma  ;2
+Cell-line;Transcriptome;Microarray (EMTAB-37);Connective Tissue Liposarcoma  ;1
+Cell-line;Transcriptome;Microarray (EMTAB-37);Cutaneous T Cell Lymphoma ;2
+Cell-line;Transcriptome;Microarray (EMTAB-37);Erythroleukemia    ;1
+Cell-line;Transcriptome;Microarray (EMTAB-37);Esophagus Esophageal Carcinoma  ;3
+Cell-line;Transcriptome;Microarray (EMTAB-37);Esophagus Squamous Cell Carcinoma ;1
+Cell-line;Transcriptome;Microarray (EMTAB-37);Eye Retinoblastoma   ;1
+Cell-line;Transcriptome;Microarray (EMTAB-37);Hodgkin Lymphoma   ;3
+Cell-line;Transcriptome;Microarray (EMTAB-37);Kidney Carcinoma   ;5
+Cell-line;Transcriptome;Microarray (EMTAB-37);Kidney Choriocarcinoma   ;1
+Cell-line;Transcriptome;Microarray (EMTAB-37);Kidney Leiomyoblastoma   ;1
+Cell-line;Transcriptome;Microarray (EMTAB-37);Kidney Wilms Tumor  ;2
+Cell-line;Transcriptome;Microarray (EMTAB-37);Liver Carcinoma   ;9
+Cell-line;Transcriptome;Microarray (EMTAB-37);Lung Adenocarcinoma   ;22
+Cell-line;Transcriptome;Microarray (EMTAB-37);Lung Anaplastic Carcinoma  ;1
+Cell-line;Transcriptome;Microarray (EMTAB-37);Lung Atypical Carcinoid Tumor ;1
+Cell-line;Transcriptome;Microarray (EMTAB-37);Lung Bronchogenic Carcinoma  ;1
+Cell-line;Transcriptome;Microarray (EMTAB-37);Lung Carcinoma   ;27
+Cell-line;Transcriptome;Microarray (EMTAB-37);Lung Colorectal Adenocarcinoma  ;2
+Cell-line;Transcriptome;Microarray (EMTAB-37);Lung Large Cell Carcinoma ;1
+Cell-line;Transcriptome;Microarray (EMTAB-37);Lung Mesothelioma   ;1
+Cell-line;Transcriptome;Microarray (EMTAB-37);Lung Myeloid Leukemia  ;1
+Cell-line;Transcriptome;Microarray (EMTAB-37);Lung Papillary Adenocarcinoma  ;1
+Cell-line;Transcriptome;Microarray (EMTAB-37);Lung Sarcoma   ;1
+Cell-line;Transcriptome;Microarray (EMTAB-37);Lung Small Cell Carcinoma ;15
+Cell-line;Transcriptome;Microarray (EMTAB-37);Lung Squamous Cell Carcinoma ;2
+Cell-line;Transcriptome;Microarray (EMTAB-37);Lymphoma    ;2
+Cell-line;Transcriptome;Microarray (EMTAB-37);Muscle Osteosarcoma   ;1
+Cell-line;Transcriptome;Microarray (EMTAB-37);Muscle Rhabdomyosarcoma   ;3
+Cell-line;Transcriptome;Microarray (EMTAB-37);Myeloid Leukemia   ;1
+Cell-line;Transcriptome;Microarray (EMTAB-37);Myeloma    ;4
+Cell-line;Transcriptome;Microarray (EMTAB-37);Non-Hodgkin Lymphoma   ;1
+Cell-line;Transcriptome;Microarray (EMTAB-37);Ovary Adenocarcinoma   ;1
+Cell-line;Transcriptome;Microarray (EMTAB-37);Ovary Carcinoma   ;2
+Cell-line;Transcriptome;Microarray (EMTAB-37);Ovary Clear Cell Adenocarcinoma ;1
+Cell-line;Transcriptome;Microarray (EMTAB-37);Ovary Ovarian Serous Adenocarcinoma ;1
+Cell-line;Transcriptome;Microarray (EMTAB-37);Pancreas Adenocarcinoma   ;2
+Cell-line;Transcriptome;Microarray (EMTAB-37);Pancreas Carcinoma   ;7
+Cell-line;Transcriptome;Microarray (EMTAB-37);Pharynx Carcinoma   ;2
+Cell-line;Transcriptome;Microarray (EMTAB-37);Placenta Choriocarcinoma   ;3
+Cell-line;Transcriptome;Microarray (EMTAB-37);Plasma Cell Myeloma  ;2
+Cell-line;Transcriptome;Microarray (EMTAB-37);Prostate Adenocarcinoma   ;1
+Cell-line;Transcriptome;Microarray (EMTAB-37);Prostate Carcinoma   ;3
+Cell-line;Transcriptome;Microarray (EMTAB-37);Rectum Carcinoma   ;1
+Cell-line;Transcriptome;Microarray (EMTAB-37);Rectum Melanoma   ;1
+Cell-line;Transcriptome;Microarray (EMTAB-37);Sarcoma Osteosarcoma   ;2
+Cell-line;Transcriptome;Microarray (EMTAB-37);Skin Amelanotic Skin Melanoma ;1
+Cell-line;Transcriptome;Microarray (EMTAB-37);Skin Melanoma   ;11
+Cell-line;Transcriptome;Microarray (EMTAB-37);Stomach Carcinoma   ;5
+Cell-line;Transcriptome;Microarray (EMTAB-37);Synovial Membrane Synovial Sarcoma ;1
+Cell-line;Transcriptome;Microarray (EMTAB-37);T-Cell Lymphoma   ;1
+Cell-line;Transcriptome;Microarray (EMTAB-37);Thyroid gland Carcinoma  ;4
+Cell-line;Transcriptome;Microarray (EMTAB-37);Uterus Carcinoma   ;5
+Cell-line;Transcriptome;Microarray (EMTAB-37);Uterus Leiomyosarcoma   ;1
+Cell-line;Transcriptome;Microarray (EMTAB-37);Uterus Sarcoma   ;1
+Cell-line;Transcriptome;Microarray (EMTAB-37);Vulva Carcinoma   ;2
+Cell-line;Transcriptome;Microarray (EMTAB-37);Vulva Sarcoma   ;1
+Cell-line;Proteome;Mass Spec (ProteomeNCI60);Breast;7
+Cell-line;Proteome;Mass Spec (ProteomeNCI60);CNS;6
+Cell-line;Proteome;Mass Spec (ProteomeNCI60);Colon;7
+Cell-line;Proteome;Mass Spec (ProteomeNCI60);Leukemia;6
+Cell-line;Proteome;Mass Spec (ProteomeNCI60);Melanoma;8
+Cell-line;Proteome;Mass Spec (ProteomeNCI60);Non-Small Cell Lung;9
+Cell-line;Proteome;Mass Spec (ProteomeNCI60);Ovarian;6
+Cell-line;Proteome;Mass Spec (ProteomeNCI60);Prostate;2
+Cell-line;Proteome;Mass Spec (ProteomeNCI60);Renal;8
+Patient;Transcriptome;RNA-Seq (TCGA);Acute Myeloid Leukemia-Acute myeloid leukemia NOS;2
+Patient;Transcriptome;RNA-Seq (TCGA);Adrenocortical Carcinoma-Adrenal cortical carcinoma;1
+Patient;Transcriptome;RNA-Seq (TCGA);Bladder Urothelial Carcinoma-Carcinoma NOS;5
+Patient;Transcriptome;RNA-Seq (TCGA);Brain Lower Grade Glioma-;6
+Patient;Transcriptome;RNA-Seq (TCGA);Breast Invasive Carcinoma-;23
+Patient;Transcriptome;RNA-Seq (TCGA);Cervical Squamous Cell Carcinoma and Endocervical Adenocarcinoma-Adenocarcinoma endocervical type;10
+Patient;Transcriptome;RNA-Seq (TCGA);Cholangiocarcinoma-Cholangiocarcinoma;1
+Patient;Transcriptome;RNA-Seq (TCGA);Colon Adenocarcinoma-;8
+Patient;Transcriptome;RNA-Seq (TCGA);Esophageal Carcinoma-Adenocarcinoma NOS;6
+Patient;Transcriptome;RNA-Seq (TCGA);Glioblastoma Multiforme-;2
+Patient;Transcriptome;RNA-Seq (TCGA);Head and Neck Squamous Cell Carcinoma-Basaloid squamous cell carcinoma;5
+Patient;Transcriptome;RNA-Seq (TCGA);High-Risk Wilms Tumor-not reported;1
+Patient;Transcriptome;RNA-Seq (TCGA);Kidney Chromophobe-Renal cell carcinoma chromophobe type;1
+Patient;Transcriptome;RNA-Seq (TCGA);Kidney Renal Clear Cell Carcinoma-Clear cell adenocarcinoma NOS;2
+Patient;Transcriptome;RNA-Seq (TCGA);Kidney Renal Papillary Cell Carcinoma-Papillary adenocarcinoma NOS;1
+Patient;Transcriptome;RNA-Seq (TCGA);Liver Hepatocellular Carcinoma-Clear cell adenocarcinoma NOS;6
+Patient;Transcriptome;RNA-Seq (TCGA);Lung Adenocarcinoma-Acinar cell carcinoma;12
+Patient;Transcriptome;RNA-Seq (TCGA);Lung Squamous Cell Carcinoma-Basaloid squamous cell carcinoma;6
+Patient;Transcriptome;RNA-Seq (TCGA);Lymphoid Neoplasm Diffuse Large B-cell Lymphoma-Malignant lymphoma large B-cell diffuse NOS;1
+Patient;Transcriptome;RNA-Seq (TCGA);Mesothelioma-Epithelioid mesothelioma malignant;4
+Patient;Transcriptome;RNA-Seq (TCGA);Neuroblastoma-not reported;1
+Patient;Transcriptome;RNA-Seq (TCGA);Ovarian Serous Cystadenocarcinoma-Papillary serous cystadenocarcinoma;2
+Patient;Transcriptome;RNA-Seq (TCGA);Pancreatic Adenocarcinoma-Adenocarcinoma NOS;6
+Patient;Transcriptome;RNA-Seq (TCGA);Pheochromocytoma and Paraganglioma-Extra-adrenal paraganglioma malignant;6
+Patient;Transcriptome;RNA-Seq (TCGA);Prostate Adenocarcinoma-Adenocarcinoma NOS;4
+Patient;Transcriptome;RNA-Seq (TCGA);Rectum Adenocarcinoma-;6
+Patient;Transcriptome;RNA-Seq (TCGA);Sarcoma-Abdominal fibromatosis;15
+Patient;Transcriptome;RNA-Seq (TCGA);Skin Cutaneous Melanoma-Acral lentiginous melanoma malignant;9
+Patient;Transcriptome;RNA-Seq (TCGA);Stomach Adenocarcinoma-Adenocarcinoma intestinal type;8
+Patient;Transcriptome;RNA-Seq (TCGA);Testicular Germ Cell Tumors-;8
+Patient;Transcriptome;RNA-Seq (TCGA);Thymoma-Thymic carcinoma NOS;10
+Patient;Transcriptome;RNA-Seq (TCGA);Thyroid Carcinoma-Carcinoma NOS;8
+Patient;Transcriptome;RNA-Seq (TCGA);Uterine Carcinosarcoma-Carcinosarcoma NOS;3
+Patient;Transcriptome;RNA-Seq (TCGA);Uterine Corpus Endometrial Carcinoma-Adenocarcinoma NOS;8
+Patient;Transcriptome;RNA-Seq (TCGA);Uveal Melanoma-Epithelioid cell melanoma;5
+Patient;Transcriptome;Microarray (GSE2109);Acetabulum Dedifferentiated chondrosarcoma;2
+Patient;Transcriptome;Microarray (GSE2109);Adrenal Gland Oncocytoma;2
+Patient;Transcriptome;Microarray (GSE2109);Appendix Signet Ring Cell Carcinoma;1
+Patient;Transcriptome;Microarray (GSE2109);Axillary Lymph Node Classic Hodgkin's Disease, Nodular Sclerosing Type;2
+Patient;Transcriptome;Microarray (GSE2109);Bladder Papillary transitional cell carcinoma;1
+Patient;Transcriptome;Microarray (GSE2109);Bladder Small Cell Carcinoma;1
+Patient;Transcriptome;Microarray (GSE2109);Bladder Squamous cell carcinoma;1
+Patient;Transcriptome;Microarray (GSE2109);Bladder Transitional cell carcinoma;6
+Patient;Transcriptome;Microarray (GSE2109);Bone Dedifferentiated chondrosarcoma;1
+Patient;Transcriptome;Microarray (GSE2109);Bone Osteosarcoma;1
+Patient;Transcriptome;Microarray (GSE2109);Brain Astrocytoma;3
+Patient;Transcriptome;Microarray (GSE2109);Brain Glioblastoma multiformae;1
+Patient;Transcriptome;Microarray (GSE2109);Breast Adenoid Cystic Carcinoma;1
+Patient;Transcriptome;Microarray (GSE2109);Breast Colloid Adenocarcinoma;1
+Patient;Transcriptome;Microarray (GSE2109);Breast Cribiform Carcinoma;2
+Patient;Transcriptome;Microarray (GSE2109);Breast Ductal and Lobular carcinoma;4
+Patient;Transcriptome;Microarray (GSE2109);Breast Ductal Carcinoma;272
+Patient;Transcriptome;Microarray (GSE2109);Breast Ductal Carcinoma In-situ (DCIS) with focal Comedo Carcinoma;1
+Patient;Transcriptome;Microarray (GSE2109);Breast Inflammatory Carcinoma;2
+Patient;Transcriptome;Microarray (GSE2109);Breast Intracystic carcinoma;1
+Patient;Transcriptome;Microarray (GSE2109);Breast Intraductal Carcinoma;2
+Patient;Transcriptome;Microarray (GSE2109);Breast Intraductal papillary carcinoma;2
+Patient;Transcriptome;Microarray (GSE2109);Breast Invasive Ductal Carcinoma;8
+Patient;Transcriptome;Microarray (GSE2109);Breast Lobular Carcinoma;39
+Patient;Transcriptome;Microarray (GSE2109);Breast Lobular carcinoma in-situ;1
+Patient;Transcriptome;Microarray (GSE2109);Breast Medullary Carcinoma, NOS;2
+Patient;Transcriptome;Microarray (GSE2109);Breast Metaplastic Carcinoma;3
+Patient;Transcriptome;Microarray (GSE2109);Breast Metaplastic squamous carcinoma;3
+Patient;Transcriptome;Microarray (GSE2109);Breast Mucinous Carcinoma;6
+Patient;Transcriptome;Microarray (GSE2109);Breast Papillary carcinoma;2
+Patient;Transcriptome;Microarray (GSE2109);Breast Pleomorphic liposarcoma;1
+Patient;Transcriptome;Microarray (GSE2109);Bronchus & Lung Adenocarcinoma, NOS;2
+Patient;Transcriptome;Microarray (GSE2109);Cecum Adenocarcinoma;8
+Patient;Transcriptome;Microarray (GSE2109);Cecum Adenocarcinoma arising in a villous adenoma;1
+Patient;Transcriptome;Microarray (GSE2109);Cecum Mucinous Adenocarcinoma;3
+Patient;Transcriptome;Microarray (GSE2109);Cervical Lymph Node Diffuse large B-cell lymphoma;3
+Patient;Transcriptome;Microarray (GSE2109);Cervical Lymph Node Papillary carcinoma;1
+Patient;Transcriptome;Microarray (GSE2109);Cervix Adenocarcinoma;4
+Patient;Transcriptome;Microarray (GSE2109);Cervix Endometrioid carcinoma;1
+Patient;Transcriptome;Microarray (GSE2109);Cervix Mucinous Adenocarcinoma, Endocervical Type;2
+Patient;Transcriptome;Microarray (GSE2109);Cervix Squamous cell carcinoma;2
+Patient;Transcriptome;Microarray (GSE2109);Cervix Squamous cell carcinoma, non-keratinizing;8
+Patient;Transcriptome;Microarray (GSE2109);Cervix Uteri Adenocarcinoma;3
+Patient;Transcriptome;Microarray (GSE2109);Cervix Uteri Mucinous Adenocarcinoma;1
+Patient;Transcriptome;Microarray (GSE2109);Cervix Uteri Small cell carcinoma, NOS;1
+Patient;Transcriptome;Microarray (GSE2109);Cervix Uteri Squamous cell carcinoma;8
+Patient;Transcriptome;Microarray (GSE2109);Colon Adenocarcinoma;222
+Patient;Transcriptome;Microarray (GSE2109);Colon Adenocarcinoma arising in a villous adenoma;15
+Patient;Transcriptome;Microarray (GSE2109);Colon Adenocarcinoma In situ;1
+Patient;Transcriptome;Microarray (GSE2109);Colon Carcinoma in situ arising in a villous adenoma;2
+Patient;Transcriptome;Microarray (GSE2109);Colon Clear cell adenocarcinoma;1
+Patient;Transcriptome;Microarray (GSE2109);Colon Colloid Carcinoma;1
+Patient;Transcriptome;Microarray (GSE2109);Colon Mantle Cell Lymphoma;1
+Patient;Transcriptome;Microarray (GSE2109);Colon Medullary Carcinoma;1
+Patient;Transcriptome;Microarray (GSE2109);Colon Mucinous Adenocarcinoma;2
+Patient;Transcriptome;Microarray (GSE2109);Colon Mucinous Carcinoma;32
+Patient;Transcriptome;Microarray (GSE2109);Colon Mucin-producing adenocarcinoma;2
+Patient;Transcriptome;Microarray (GSE2109);Colon Papillary Serous Adenocarcinoma;1
+Patient;Transcriptome;Microarray (GSE2109);Colon Signet Ring Cell Carcinoma;1
+Patient;Transcriptome;Microarray (GSE2109);Colon Undifferentiated Carcinoma;1
+Patient;Transcriptome;Microarray (GSE2109);Common Bile Duct Cholangiocarcinoma;1
+Patient;Transcriptome;Microarray (GSE2109);Corpus Uteri Endometrioid carcinoma;4
+Patient;Transcriptome;Microarray (GSE2109);Corpus Uteri Malignant mixed muellerian tumor;1
+Patient;Transcriptome;Microarray (GSE2109);Corpus Uteri Serous adenocarcinoma (papillary serous);2
+Patient;Transcriptome;Microarray (GSE2109);Duodenum Adenocarcinoma;1
+Patient;Transcriptome;Microarray (GSE2109);Endocervix Adenocarcinoma;1
+Patient;Transcriptome;Microarray (GSE2109);Endometrium Adenocarcinoma;2
+Patient;Transcriptome;Microarray (GSE2109);Endometrium Adenosarcoma;1
+Patient;Transcriptome;Microarray (GSE2109);Endometrium Carcinoma, NOS;1
+Patient;Transcriptome;Microarray (GSE2109);Endometrium Clear cell adenocarcinoma;2
+Patient;Transcriptome;Microarray (GSE2109);Endometrium Endometrioid Adenocarcinoma;1
+Patient;Transcriptome;Microarray (GSE2109);Endometrium Endometrioid carcinoma;55
+Patient;Transcriptome;Microarray (GSE2109);Endometrium Malignant mixed muellerian tumor;3
+Patient;Transcriptome;Microarray (GSE2109);Endometrium Mixed endometrioid and serous adenocarcinoma;1
+Patient;Transcriptome;Microarray (GSE2109);Endometrium Papillary Serous Adenocarcinoma;1
+Patient;Transcriptome;Microarray (GSE2109);Endometrium Serous adenocarcinoma (papillary serous);3
+Patient;Transcriptome;Microarray (GSE2109);Endometrium Undifferentiated endometrial sarcoma;1
+Patient;Transcriptome;Microarray (GSE2109);Esophagus Adenocarcinoma;5
+Patient;Transcriptome;Microarray (GSE2109);Esophagus Signet ring cell adenocarcinoma;1
+Patient;Transcriptome;Microarray (GSE2109);Exocrine Pancreas Ductal adenocarcinoma;1
+Patient;Transcriptome;Microarray (GSE2109);Exocrine Pancreas Ductal Carcinoma;1
+Patient;Transcriptome;Microarray (GSE2109);Exocrine Pancreas Intraductal papillary mucinous carcinoma, invasive;1
+Patient;Transcriptome;Microarray (GSE2109);Fallopian Tube Endometrioid carcinoma;1
+Patient;Transcriptome;Microarray (GSE2109);Fallopian Tube Papillary Serous Carcinoma;1
+Patient;Transcriptome;Microarray (GSE2109);Fallopian Tube Serous cystadenocarcinoma, NOS;1
+Patient;Transcriptome;Microarray (GSE2109);Femoral Lymph Node Mantle Cell Lymphoma;1
+Patient;Transcriptome;Microarray (GSE2109);Gallbladder Adenocarcinoma;1
+Patient;Transcriptome;Microarray (GSE2109);Gastroesophageal junction Adenocarcinoma;1
+Patient;Transcriptome;Microarray (GSE2109);GI Tract Connective Tissue Gastrointestinal stromal tumor, benign;1
+Patient;Transcriptome;Microarray (GSE2109);Head of Pancreas Ductal adenocarcinoma;1
+Patient;Transcriptome;Microarray (GSE2109);Hepatic Flexure Adenocarcinoma;1
+Patient;Transcriptome;Microarray (GSE2109);Ileum Anaplastic large cell lymphoma;1
+Patient;Transcriptome;Microarray (GSE2109);Ileum Carcinoid Tumor;1
+Patient;Transcriptome;Microarray (GSE2109);Ileum Malignant carcinoid tumor;1
+Patient;Transcriptome;Microarray (GSE2109);Islets of Langerhans Malignant gastrinoma;1
+Patient;Transcriptome;Microarray (GSE2109);Jejunum Adenocarcinoma;1
+Patient;Transcriptome;Microarray (GSE2109);Jejunum Follicular lymphoma;1
+Patient;Transcriptome;Microarray (GSE2109);Kidney Adenocarcinoma, clear cell type;4
+Patient;Transcriptome;Microarray (GSE2109);Kidney Angiomyolipoma;1
+Patient;Transcriptome;Microarray (GSE2109);Kidney Chromophobe renal carcinoma;18
+Patient;Transcriptome;Microarray (GSE2109);Kidney Clear cell adenocarcinoma;2
+Patient;Transcriptome;Microarray (GSE2109);Kidney Clear Cell Renal Carcinoma;6
+Patient;Transcriptome;Microarray (GSE2109);Kidney Collecting duct carcinoma;1
+Patient;Transcriptome;Microarray (GSE2109);Kidney Conventional (clear cell) renal carcinoma;199
+Patient;Transcriptome;Microarray (GSE2109);Kidney Cyst-associated renal cell carcinoma;1
+Patient;Transcriptome;Microarray (GSE2109);Kidney Granular cell carcinoma;5
+Patient;Transcriptome;Microarray (GSE2109);Kidney Leiomyosarcoma;1
+Patient;Transcriptome;Microarray (GSE2109);Kidney Malignant renal oncocytoma;1
+Patient;Transcriptome;Microarray (GSE2109);Kidney Mixed type renal cell carcinoma;2
+Patient;Transcriptome;Microarray (GSE2109);Kidney Oncocytoma;1
+Patient;Transcriptome;Microarray (GSE2109);Kidney Papillary renal cell carcinoma;22
+Patient;Transcriptome;Microarray (GSE2109);Kidney Papillary transitional cell carcinoma;1
+Patient;Transcriptome;Microarray (GSE2109);Kidney Renal cell carcinoma;5
+Patient;Transcriptome;Microarray (GSE2109);Kidney Renal cell carcinoma, sarcomatoid;1
+Patient;Transcriptome;Microarray (GSE2109);Kidney Renal mixed papillary sarcomatoid;1
+Patient;Transcriptome;Microarray (GSE2109);Kidney Renal oncocytoma;2
+Patient;Transcriptome;Microarray (GSE2109);Kidney Solitary fibrous tumor;1
+Patient;Transcriptome;Microarray (GSE2109);Kidney Tubulo-papillary renal cell carcinoma;2
+Patient;Transcriptome;Microarray (GSE2109);Kidney Urothelial (transitional cell) carcinoma;1
+Patient;Transcriptome;Microarray (GSE2109);Kidney Urothelial sarcomatoid carcinoma;1
+Patient;Transcriptome;Microarray (GSE2109);Liver Adenocarcinoma, NOS;1
+Patient;Transcriptome;Microarray (GSE2109);Liver Cholangiocarcinoma;2
+Patient;Transcriptome;Microarray (GSE2109);Liver Hepatocellular Carcinoma;11
+Patient;Transcriptome;Microarray (GSE2109);Liver Intrahepatic Cholangiocarcinoma;1
+Patient;Transcriptome;Microarray (GSE2109);Lung Adenocarcinoma with mixed subtypes;1
+Patient;Transcriptome;Microarray (GSE2109);Lung Adenocarcinoma, NOS;34
+Patient;Transcriptome;Microarray (GSE2109);Lung Adenosquamous Carcinoma;3
+Patient;Transcriptome;Microarray (GSE2109);Lung Bronchioloalveolar carcinoma;13
+Patient;Transcriptome;Microarray (GSE2109);Lung Large cell carcinoma;9
+Patient;Transcriptome;Microarray (GSE2109);Lung Large cell neuroendocrine carcinoma;1
+Patient;Transcriptome;Microarray (GSE2109);Lung Mucinous Adenocarcinoma;3
+Patient;Transcriptome;Microarray (GSE2109);Lung Mucinous bronchioloalveolar carcinoma;1
+Patient;Transcriptome;Microarray (GSE2109);Lung Mucin-producing adenocarcinoma;1
+Patient;Transcriptome;Microarray (GSE2109);Lung Mucoepidermoid Carcinoma;1
+Patient;Transcriptome;Microarray (GSE2109);Lung Neuroendocrine carcinoma;6
+Patient;Transcriptome;Microarray (GSE2109);Lung Non-small cell carcinoma;1
+Patient;Transcriptome;Microarray (GSE2109);Lung Papillary adenocarcinoma;2
+Patient;Transcriptome;Microarray (GSE2109);Lung Squamous cell carcinoma;40
+Patient;Transcriptome;Microarray (GSE2109);Lung Synovial sarcoma, monophasic fibrous;1
+Patient;Transcriptome;Microarray (GSE2109);Lymph Node Follicular lymphoma;2
+Patient;Transcriptome;Microarray (GSE2109);Lymph Node Mature (peripheral) B-cell lymphoma;1
+Patient;Transcriptome;Microarray (GSE2109);Lymph Node Squamous cell carcinoma;1
+Patient;Transcriptome;Microarray (GSE2109);Mesenteric Lymph Node Diffuse large B-cell lymphoma;1
+Patient;Transcriptome;Microarray (GSE2109);Mesenteric Lymph Node Follicular lymphoma;1
+Patient;Transcriptome;Microarray (GSE2109);Myometrium Leiomyosarcoma;1
+Patient;Transcriptome;Microarray (GSE2109);Neck mass Papillary carcinoma;1
+Patient;Transcriptome;Microarray (GSE2109);Omentum Malignant mixed muellerian tumor;1
+Patient;Transcriptome;Microarray (GSE2109);Omentum Papillary Serous Adenocarcinoma;5
+Patient;Transcriptome;Microarray (GSE2109);Omentum Serous Adenocarcinoma;2
+Patient;Transcriptome;Microarray (GSE2109);Omentum Squamous cell carcinoma;1
+Patient;Transcriptome;Microarray (GSE2109);Ovary Adenocarcinoma;3
+Patient;Transcriptome;Microarray (GSE2109);Ovary Adenocarcinoma with mixed subtypes;5
+Patient;Transcriptome;Microarray (GSE2109);Ovary Adenocarcinoma, endometrioid and papillary serous;4
+Patient;Transcriptome;Microarray (GSE2109);Ovary Adenosquamous Carcinoma;1
+Patient;Transcriptome;Microarray (GSE2109);Ovary Adult Granulosa Cell Tumor;1
+Patient;Transcriptome;Microarray (GSE2109);Ovary Benign serous cystadenoma of borderline malignancy;2
+Patient;Transcriptome;Microarray (GSE2109);Ovary Borderline tumor of ovary, mixed epithelial type;1
+Patient;Transcriptome;Microarray (GSE2109);Ovary Carcinoid tumor with atypical features;1
+Patient;Transcriptome;Microarray (GSE2109);Ovary Carcinoma, NOS;1
+Patient;Transcriptome;Microarray (GSE2109);Ovary Carcinosarcoma;1
+Patient;Transcriptome;Microarray (GSE2109);Ovary Clear cell adenocarcinoma;12
+Patient;Transcriptome;Microarray (GSE2109);Ovary Diffuse large B-cell lymphoma;1
+Patient;Transcriptome;Microarray (GSE2109);Ovary Dysgerminoma;1
+Patient;Transcriptome;Microarray (GSE2109);Ovary Endometrioid Adenocarcinoma;12
+Patient;Transcriptome;Microarray (GSE2109);Ovary Endometrioid carcinoma;16
+Patient;Transcriptome;Microarray (GSE2109);Ovary Endometrioid tumor of low malignant potential;1
+Patient;Transcriptome;Microarray (GSE2109);Ovary Malignant mixed muellerian tumor;3
+Patient;Transcriptome;Microarray (GSE2109);Ovary Malignant teratoma;1
+Patient;Transcriptome;Microarray (GSE2109);Ovary Mixed Adenocarcinoma, Endometrioid and Clear Cell Types;1
+Patient;Transcriptome;Microarray (GSE2109);Ovary Mixed endometrioid and papillary serous adenocarcinoma;1
+Patient;Transcriptome;Microarray (GSE2109);Ovary Mixed epithelial tumor;2
+Patient;Transcriptome;Microarray (GSE2109);Ovary Mucinous Adenocarcinoma;6
+Patient;Transcriptome;Microarray (GSE2109);Ovary Mucinous Carcinoma;1
+Patient;Transcriptome;Microarray (GSE2109);Ovary Mucinous cystadenocarcinoma;1
+Patient;Transcriptome;Microarray (GSE2109);Ovary Mucinous cystic tumor of low malignant potential;4
+Patient;Transcriptome;Microarray (GSE2109);Ovary Papillary cystadenocarcinoma;1
+Patient;Transcriptome;Microarray (GSE2109);Ovary Papillary mucinous cystadenocarcinoma;1
+Patient;Transcriptome;Microarray (GSE2109);Ovary Papillary Serous Adenocarcinoma;32
+Patient;Transcriptome;Microarray (GSE2109);Ovary Papillary Serous Carcinoma;32
+Patient;Transcriptome;Microarray (GSE2109);Ovary Papillary serous cystadenocarcinoma;6
+Patient;Transcriptome;Microarray (GSE2109);Ovary Papillary serous tumor of low malignant potential;5
+Patient;Transcriptome;Microarray (GSE2109);Ovary Serous Adenocarinoma;15
+Patient;Transcriptome;Microarray (GSE2109);Ovary Sertoli-Leydig cell tumor, poorly differentiated;1
+Patient;Transcriptome;Microarray (GSE2109);Ovary Signet Ring Cell Carcinoma;1
+Patient;Transcriptome;Microarray (GSE2109);Ovary Transitional cell carcinoma;2
+Patient;Transcriptome;Microarray (GSE2109);Ovary Undifferentiated Carcinoma;2
+Patient;Transcriptome;Microarray (GSE2109);Pancreas Adenocarcinoma, NOS;3
+Patient;Transcriptome;Microarray (GSE2109);Pancreas Carcinoma with osteoclast-like giant cells;1
+Patient;Transcriptome;Microarray (GSE2109);Pancreas Colloid Adenocarcinoma w/Intraductal Papillary Mucinous Tumor;1
+Patient;Transcriptome;Microarray (GSE2109);Pancreas Ductal adenocarcinoma;10
+Patient;Transcriptome;Microarray (GSE2109);Pancreas Mucinous Adenocarcinoma;1
+Patient;Transcriptome;Microarray (GSE2109);Para aortic tissue Mixed germ cell tumor;1
+Patient;Transcriptome;Microarray (GSE2109);Parotid Gland Epithelial-myoepithelial carcinoma;1
+Patient;Transcriptome;Microarray (GSE2109);Parotid Gland Keratinizing Squamous Cell Carcinoma;1
+Patient;Transcriptome;Microarray (GSE2109);Parotid Gland Large cell carcinoma;1
+Patient;Transcriptome;Microarray (GSE2109);Parotid Gland Mucoepidermoid Carcinoma;1
+Patient;Transcriptome;Microarray (GSE2109);Parotid Lymph Node Malignant melanoma, NOS;1
+Patient;Transcriptome;Microarray (GSE2109);Pelvic Lymph Node Follicular lymphoma;1
+Patient;Transcriptome;Microarray (GSE2109);Pelvic Lymph Node Squamous cell carcinoma;2
+Patient;Transcriptome;Microarray (GSE2109);Pelvic Malignant mixed muellerian tumor;1
+Patient;Transcriptome;Microarray (GSE2109);Pelvic Papillary endometrioid adenocarcinoma of low malignant potential;1
+Patient;Transcriptome;Microarray (GSE2109);Pelvic Papillary Serous Adenocarcinoma;1
+Patient;Transcriptome;Microarray (GSE2109);Penis Squamous cell carcinoma;1
+Patient;Transcriptome;Microarray (GSE2109);Peritoneum Adenocarcinoma;1
+Patient;Transcriptome;Microarray (GSE2109);Prostate Adenocarcinoma, Acinar Type;83
+Patient;Transcriptome;Microarray (GSE2109);Rectosigmoid Adenocarcinoma;32
+Patient;Transcriptome;Microarray (GSE2109);Rectosigmoid Adenocarcinoma arising in a villous adenoma;1
+Patient;Transcriptome;Microarray (GSE2109);Rectosigmoid Adenocarcinoma in adenomatous polyp;1
+Patient;Transcriptome;Microarray (GSE2109);Rectosigmoid Colon Adenocarcinoma;7
+Patient;Transcriptome;Microarray (GSE2109);Rectosigmoid Colon Adenocarcinoma In Situ in a Villous Adenoma;1
+Patient;Transcriptome;Microarray (GSE2109);Rectosigmoid Junction Mucinous Carcinoma;1
+Patient;Transcriptome;Microarray (GSE2109);Rectum Adenocarcinoma;30
+Patient;Transcriptome;Microarray (GSE2109);Rectum Adenocarcinoma in adenomatous polyp;1
+Patient;Transcriptome;Microarray (GSE2109);Rectum Carcinoma in situ arising in a villous adenoma;1
+Patient;Transcriptome;Microarray (GSE2109);Rectum Mucinous Carcinoma;3
+Patient;Transcriptome;Microarray (GSE2109);Rectum Signet Ring Cell Carcinoma;1
+Patient;Transcriptome;Microarray (GSE2109);Renal Pelvis Oncocytoma;1
+Patient;Transcriptome;Microarray (GSE2109);Renal Pelvis Papillary transitional cell carcinoma;3
+Patient;Transcriptome;Microarray (GSE2109);Renal Pelvis Squamous cell carcinoma;1
+Patient;Transcriptome;Microarray (GSE2109);Renal Pelvis Transitional cell carcinoma;2
+Patient;Transcriptome;Microarray (GSE2109);Renal Pelvis Urothelial (transitional cell) carcinoma;3
+Patient;Transcriptome;Microarray (GSE2109);Retroperitoneal Mass Liposarcoma;1
+Patient;Transcriptome;Microarray (GSE2109);Retroperitoneal Mass Spindle Cell Sarcoma;1
+Patient;Transcriptome;Microarray (GSE2109);Retroperitoneum Dedifferentiated liposarcoma;1
+Patient;Transcriptome;Microarray (GSE2109);Retroperitoneum Leiomyosarcoma;1
+Patient;Transcriptome;Microarray (GSE2109);Sigmoid Colon Adenocarcinoma;4
+Patient;Transcriptome;Microarray (GSE2109);Sigmoid Colon Adenocarcinoma arising in a villous adenoma;1
+Patient;Transcriptome;Microarray (GSE2109);Skin Squamous cell carcinoma, NOS;1
+Patient;Transcriptome;Microarray (GSE2109);Small Intestine Adenocarcinoma;1
+Patient;Transcriptome;Microarray (GSE2109);Small Intestine Adenocarcinoma arising in tubular adenoma;1
+Patient;Transcriptome;Microarray (GSE2109);Small Intestine B-cell lymphoma, NOS;1
+Patient;Transcriptome;Microarray (GSE2109);Small Intestine Carcinoid Tumor;1
+Patient;Transcriptome;Microarray (GSE2109);Small Intestine Gastrointestinal Stromal Tumor (GIST);1
+Patient;Transcriptome;Microarray (GSE2109);Small Intestine Malignant lymphoma, large B-cell, diffuse, immunoblastic, NOS;1
+Patient;Transcriptome;Microarray (GSE2109);Small Intestine Neuroendocrine carcinoma, NOS;1
+Patient;Transcriptome;Microarray (GSE2109);Soft Tissue Carcinoma, NOS;1
+Patient;Transcriptome;Microarray (GSE2109);Soft Tissue Cellular Schwannoma;1
+Patient;Transcriptome;Microarray (GSE2109);Soft Tissue Ewings sarcoma/primitive neuroectodermal tumor;1
+Patient;Transcriptome;Microarray (GSE2109);Soft Tissue Leiomyosarcoma;4
+Patient;Transcriptome;Microarray (GSE2109);Soft Tissue Liposarcoma;1
+Patient;Transcriptome;Microarray (GSE2109);Soft Tissue Malignant fibrous histiocytoma;1
+Patient;Transcriptome;Microarray (GSE2109);Soft Tissue Malignant peripheral nerve sheath tumor;1
+Patient;Transcriptome;Microarray (GSE2109);Soft Tissue Myxoid liposarcoma;3
+Patient;Transcriptome;Microarray (GSE2109);Soft Tissue Myxoid pleomorphic spindle cell sarcoma;1
+Patient;Transcriptome;Microarray (GSE2109);Soft Tissue Pleomorphic sarcoma;7
+Patient;Transcriptome;Microarray (GSE2109);Soft Tissue Sarcoma, NOS;1
+Patient;Transcriptome;Microarray (GSE2109);Soft Tissue Serous Adenocarcinoma;1
+Patient;Transcriptome;Microarray (GSE2109);Soft Tissue Synovial sarcoma;1
+Patient;Transcriptome;Microarray (GSE2109);Soft Tissue Undifferentiated sarcoma;1
+Patient;Transcriptome;Microarray (GSE2109);Spinal cord Ependymoma, myxopapillary;1
+Patient;Transcriptome;Microarray (GSE2109);Spleen Carcinoma, NOS;1
+Patient;Transcriptome;Microarray (GSE2109);Spleen Follicular lymphoma;1
+Patient;Transcriptome;Microarray (GSE2109);Spleen Splenic marginal zone B-cell lymphoma;1
+Patient;Transcriptome;Microarray (GSE2109);Stomach (Gastroesophageal junction) Signet Ring Cell Carcinoma;1
+Patient;Transcriptome;Microarray (GSE2109);Stomach Adenocarcinoma;3
+Patient;Transcriptome;Microarray (GSE2109);Stomach Adenocarcinoma Diffuse Type;1
+Patient;Transcriptome;Microarray (GSE2109);stomach Adenocarcinoma, intestinal type;1
+Patient;Transcriptome;Microarray (GSE2109);Stomach Gastrointestinal stromal tumor;2
+Patient;Transcriptome;Microarray (GSE2109);Stomach Signet Ring Cell Carcinoma;2
+Patient;Transcriptome;Microarray (GSE2109);Stomach Solitary fibrous tumor, benign;1
+Patient;Transcriptome;Microarray (GSE2109);Stomach Spindle Cell Sarcoma;1
+Patient;Transcriptome;Microarray (GSE2109);Stomach Tubular adenocarcinoma;1
+Patient;Transcriptome;Microarray (GSE2109);Superior mediastinal lymph node Papillary carcinoma;1
+Patient;Transcriptome;Microarray (GSE2109);Supraclavicular Lymph Node Malignant lymphoma, small B-cell lymphocytic;1
+Patient;Transcriptome;Microarray (GSE2109);Supraclavicular Lymph Node Squamous cell carcinoma;1
+Patient;Transcriptome;Microarray (GSE2109);Testis Anaplastic seminoma;1
+Patient;Transcriptome;Microarray (GSE2109);Testis Malignant Lymphoma, Diffuse Large B-Cell Type;1
+Patient;Transcriptome;Microarray (GSE2109);Testis Mixed germ cell tumor;1
+Patient;Transcriptome;Microarray (GSE2109);Testis Seminoma, NOS;1
+Patient;Transcriptome;Microarray (GSE2109);Thyroid Carcinoma, anaplastic;1
+Patient;Transcriptome;Microarray (GSE2109);Thyroid Carcinoma, undifferentiated;1
+Patient;Transcriptome;Microarray (GSE2109);Thyroid Follicular adenocarcinoma;1
+Patient;Transcriptome;Microarray (GSE2109);Thyroid Hurthle cell adenocarcinoma;1
+Patient;Transcriptome;Microarray (GSE2109);Thyroid Medullary Carcinoma, NOS;1
+Patient;Transcriptome;Microarray (GSE2109);Thyroid Minimally invasive follicular carcinoma;1
+Patient;Transcriptome;Microarray (GSE2109);Thyroid Papillary adenocarcinoma;2
+Patient;Transcriptome;Microarray (GSE2109);Thyroid Papillary carcinoma;14
+Patient;Transcriptome;Microarray (GSE2109);Thyroid Papillary carcinoma, follicular variant;9
+Patient;Transcriptome;Microarray (GSE2109);Thyroid Papillary carcinoma, oncocytic variant;1
+Patient;Transcriptome;Microarray (GSE2109);Thyroid Papillary carcinoma, tall cell variant;1
+Patient;Transcriptome;Microarray (GSE2109);Tongue Squamous cell carcinoma;2
+Patient;Transcriptome;Microarray (GSE2109);Ureter Papillary transitional cell carcinoma;2
+Patient;Transcriptome;Microarray (GSE2109);Ureter Transitional cell carcinoma;1
+Patient;Transcriptome;Microarray (GSE2109);Ureter Urothelial (transitional cell) carcinoma;1
+Patient;Transcriptome;Microarray (GSE2109);Ureterovesicle junction Urothelial (transitional cell) carcinoma;1
+Patient;Transcriptome;Microarray (GSE2109);Urinary Bladder Keratinizing Squamous Cell Carcinoma;1
+Patient;Transcriptome;Microarray (GSE2109);Urinary Bladder Papillary carcinoma;7
+Patient;Transcriptome;Microarray (GSE2109);Urinary Bladder Urothelial (transitional cell) carcinoma;12
+Patient;Transcriptome;Microarray (GSE2109);Urinary Tract, NOS Papillary transitional cell carcinoma;1
+Patient;Transcriptome;Microarray (GSE2109);Uterine Cervix Squamous cell carcinoma;1
+Patient;Transcriptome;Microarray (GSE2109);Uterine Corpus Endometrioid carcinoma;3
+Patient;Transcriptome;Microarray (GSE2109);Uterus Adenocarcinoma;2
+Patient;Transcriptome;Microarray (GSE2109);Uterus Adenocarcinoma with squamous metaplasia;1
+Patient;Transcriptome;Microarray (GSE2109);Uterus Adenosquamous Carcinoma;4
+Patient;Transcriptome;Microarray (GSE2109);Uterus Carcinosarcoma;1
+Patient;Transcriptome;Microarray (GSE2109);Uterus Clear cell adenocarcinoma;1
+Patient;Transcriptome;Microarray (GSE2109);Uterus Endometrioid Adenocarcinoma;10
+Patient;Transcriptome;Microarray (GSE2109);Uterus Endometrioid carcinoma;79
+Patient;Transcriptome;Microarray (GSE2109);Uterus Leiomyosarcoma;4
+Patient;Transcriptome;Microarray (GSE2109);Uterus Malignant Mixed mesodermal tumor;1
+Patient;Transcriptome;Microarray (GSE2109);Uterus Malignant mixed muellerian tumor;11
+Patient;Transcriptome;Microarray (GSE2109);Uterus Mixed Cell Adenocarcinoma;1
+Patient;Transcriptome;Microarray (GSE2109);Uterus Mixed clear cell and endometrioid adenocarcinoma;1
+Patient;Transcriptome;Microarray (GSE2109);Uterus Mixed endometrioid and serous adenocarcinoma;4
+Patient;Transcriptome;Microarray (GSE2109);Uterus Papillary Serous Carcinoma;1
+Patient;Transcriptome;Microarray (GSE2109);Uterus Sarcoma, NOS;1
+Patient;Transcriptome;Microarray (GSE2109);Uterus Serous adenocarcinoma (papillary serous);2
+Patient;Transcriptome;Microarray (GSE2109);Uterus Serous cystadenocarcinoma;1
+Patient;Transcriptome;Microarray (GSE2109);Uterus Squamous cell carcinoma;1
+Patient;Transcriptome;Microarray (GSE2109);Uterus Undifferentiated Carcinoma;1
+Patient;Transcriptome;Microarray (GSE2109);Vagina Adenocarcinoma, mixed epithelial type;1
+Patient;Transcriptome;Microarray (GSE2109);Vaginal Muellerian adenosarcoma with rhabdomyosarcomatous ;1
+Patient;Transcriptome;Microarray (GSE2109);Vaginal Squamous cell carcinoma, non-keratinizing;1
+Patient;Transcriptome;Microarray (GSE2109);Vulva Basal Cell carcinoma, NOS;1
+Patient;Transcriptome;Microarray (GSE2109);Vulva Keratinizing Squamous Cell Carcinoma;6
+Patient;Transcriptome;Microarray (GSE2109);Vulva Nodular melanoma;1
+Patient;Transcriptome;Microarray (GSE2109);Vulva Squamous cell carcinoma;3
+Patient;Transcriptome;Microarray (GSE2109);Vulvar Malignant mixed muellerian tumor;1
+Patient;Proteome;Mass Spec (ProteomePatients);Breast Cancer ERPR;1
+Patient;Proteome;Mass Spec (ProteomePatients);Breast Cancer HER2;1
+Patient;Proteome;Mass Spec (ProteomePatients);Breast Cancer TN;1
+Patient;Proteome;Mass Spec (ProteomePatients);Breast Cancer;2
+Patient;Proteome;Mass Spec (ProteomePatients);Gastric Cancer;1
+Patient;Proteome;Mass Spec (ProteomePatients);Oral Cancer Front;1
+Patient;Proteome;Mass Spec (ProteomePatients);Oral Cancer Inner;1
+Patient;Proteome;Mass Spec (ProteomePatients);Prostate Cancer Acinar Adenocarcinoma;1
+Patient;Proteome;Mass Spec (ProteomePatients);Prostate Cancer Ductal Adenocarcinoma;1

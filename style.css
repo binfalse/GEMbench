@@ -1,4 +1,6 @@
-
+body {
+    font-family: "Open Sans", sans-serif !important;
+  }
 #header {
     height: 72px;
     transition: all 0.5s;
@@ -132,4 +134,23 @@ svg {
 
 #explore-controls {
   margin: 50px 0;
+}
+
+#sunburst {
+  position: relative;
+}
+#sunburst-explanation {
+  position: absolute;
+  top: 260px;
+  left: 305px;
+  width: 140px;
+  text-align: center;
+  color: #666;
+  z-index: -1;
+}
+#sunburst-bc {
+  height: 2em;
+}
+#percentage {
+  font-size: 2.5em;
 }
