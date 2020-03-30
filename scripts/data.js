@@ -12,17 +12,17 @@ var b = {
 
 // Mapping of step names to colors.
 var colors = {
-  "Patient": "#004697",
+  "Patient": "rgb(22,79,134)",
   
-  "Cell-line": "#d7191c",
+  "Cell-line": "rgb(142,0,0)",
   
-  "Microarray (EMTAB-37)": "#d7301f",
-  "RNA-Seq (HPA)": "#fc8d59",
-  "Mass Spec (ProteomeNCI60)": "#ffd288",
+  "Microarray (EMTAB-37)": "rgb(218,65,65)",
+  "RNA-Seq (HPA)": "rgb(244,91,91)",
+  "Mass Spec (ProteomeNCI60)": "rgb(255,161,161)",
   
-  "Microarray (GSE2109)": "#0570b0",
-  "RNA-Seq (TCGA)": "#74a9cf",
-  "Mass Spec (ProteomePatients)": "#bdc9e1"
+  "Microarray (GSE2109)": "rgb(73,130,185)",
+  "RNA-Seq (TCGA)": "rgb(99,156,211)",
+  "Mass Spec (ProteomePatients)": "rgb(166,223,255)"
 };
 var fgColors = {
   "Patient": "#fff",
@@ -30,12 +30,12 @@ var fgColors = {
   "Cell-line": "#fff",
   
   "Microarray (EMTAB-37)": "#fff",
-  "RNA-Seq (HPA)": "#000",
+  "RNA-Seq (HPA)": "#fff",
   "Mass Spec (ProteomeNCI60)": "#000",
   
   "Microarray (GSE2109)": "#fff",
   "RNA-Seq (TCGA)": "#000",
-  "Mass Spec (ProteomePatients)": "#bdc9e1"
+  "Mass Spec (ProteomePatients)": "#000"
 };
 
 
@@ -45,15 +45,15 @@ function colorMap (node) {
     return "#000";
   if (node.data.name == "Proteome") {
     if (node.parent.data.name == "Patient")
-      return "#1e91ca"
+      return "rgb(124,181,236)"
     else
-      return "#ff9a78"
+      return "rgb(255,119,119)"
   }
   if (node.data.name == "Transcriptome") {
     if (node.parent.data.name == "Patient")
-      return "#1e63ca"
+      return "rgb(48,105,160)"
     else
-      return "#e61500"
+      return "rgb(168,15,15)"
   }
   //console.log (colors[node.data.name])
   if (colors[node.data.name])
@@ -66,7 +66,7 @@ function fgColorMap (node) {
     return "#000";
   if (node.data.name == "Proteome") {
     if (node.parent.data.name == "Patient")
-      return "#fff"
+      return "#000"
     else
       return "#000"
   }
