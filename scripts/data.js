@@ -229,7 +229,14 @@ console.log (nodeArray);
 
 $("#sunburst-bc").empty ();
 for (var i = 0; i < nodeArray.length; i++) {
-  $("#sunburst-bc").append ("<span class='p-1 m-1' style='background-color:"+colorMap(nodeArray[i])+";color:"+fgColorMap(nodeArray[i])+"'>" + nodeArray[i].data.name + "</span>")
+  var arrow = "<span class='sbbcnoarrow' ></span>";
+  var ml = "";
+  if (i < nodeArray.length - 1)
+    arrow = "<span class='sbbcarrow' style='border-left-color:"+colorMap(nodeArray[i])+";' ></span>";
+  
+  if (i > 0)
+    ml = ";margin-left:-1em;"
+  $("#sunburst-bc").append ("<div class='my-2 sbbc' style='background-color:"+colorMap(nodeArray[i])+";color:"+fgColorMap(nodeArray[i])+ml+"'>" + nodeArray[i].data.name + arrow + "</div>");
 }
 
 

@@ -2,15 +2,16 @@
 <html>
 <head>
 <meta charset="utf-8">
-<link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
-<link rel="stylesheet" href="v2.1.7/fancybox-2.1.7/source/jquery.fancybox.css">
+<link rel="stylesheet" href="vendor/bootstrap/css/bootstrap.min.css">
+<link rel="stylesheet" href="vendor/v2.1.7/fancybox-2.1.7/source/jquery.fancybox.css">
 <!-- Load d3.js -->
-<script src="d3/d3.min.js"></script>
+<script src="vendor/d3/d3.min.js"></script>
 <script src="d3-tip.js"></script>
-<script src="jquery-3.4.1.min.js"></script>
-<script src="v2.1.7/fancybox-2.1.7/source/jquery.fancybox.pack.js"></script>
-<script src="v2.1.7/fancybox-2.1.7/lib/jquery.mousewheel.pack.js"></script>
-<link rel="stylesheet" href="style.css">
+<script src="vendor/jquery-3.4.1.min.js"></script>
+<script src="vendor/v2.1.7/fancybox-2.1.7/source/jquery.fancybox.pack.js"></script>
+<script src="vendor/v2.1.7/fancybox-2.1.7/lib/jquery.mousewheel.pack.js"></script>
+<link rel="stylesheet" href="scripts/style.css">
+<link rel="shortcut icon" type="image/png" href="art/gembench-boxed.png"/>
 <title>Explore the data @ GEMbench</title>
 </head>
 <body>
@@ -24,7 +25,9 @@
       <nav class="nav-menu d-none d-lg-block">
         <ul>
           <li><a href="/#header">Home</a></li>
-          <li class="active"><a href="/explore.html">Explore</a></li>
+          <li><a href="/data.html">Data</a></li>
+          <li><a href="/methods.html">Methods</a></li>
+          <li class="active"><a href="/explore.html">Findings</a></li>
           <li><a href="/imprint.html">Imprint</a></li>
           <li><a href="/imprint.html#privacy">Privacy</a></li>
         </ul>
@@ -99,6 +102,6 @@ Thus, it shows the disagreement between flux distributions of two models. If the
       <p class="">The <a href="/imprint#imprint">GEMbench</a> is a project of the <a href="https://www.sbi.uni-rostock.de/">Department of Systems Biology and Bioinformatics</a> at the <a href="http://www.uni-rostock.de/">University of Rostock</a></p>
     </div>
   </footer>
-<script src="explore.js"></script>
+<script src="scripts/explore.js"></script>
 </body>
 </html>

@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="scripts/style.css">
+<link rel="stylesheet" href="vendor/bootstrap/css/bootstrap.min.css">
+<title>GEMbench: Benchmark of Omics Data and Integration Methods</title>
+<!-- Load d3.js -->
+<script src="vendor/d3/d3.min.js"></script>
+<script src="vendor/jquery-3.4.1.min.js"></script>
+<link rel="shortcut icon" type="image/png" href="art/gembench-boxed.png"/>
+</head>
+<body>
+  <header id="header" class="fixed-top">
+    <div class="container-fluid d-flex">
+
+      <div class="logo mr-auto">
+        <a href="index.html"><img src="art/gembench.png" alt="" class="img-fluid"></a>
+      </div>
+
+      <nav class="nav-menu d-none d-lg-block">
+        <ul>
+          <li><a href="/#header">Home</a></li>
+          <li class="active"><a href="/data.html">Data</a></li>
+          <li><a href="/methods.html">Methods</a></li>
+          <li><a href="/explore.html">Findings</a></li>
+          <li><a href="/imprint.html">Imprint</a></li>
+          <li><a href="/imprint.html#privacy">Privacy</a></li>
+        </ul>
+      </nav><!-- .nav-menu -->
+
+    </div>
+  </header>
+  
+  <section id="data" class="d-flex align-items-center">
+    <div class="container">
+      <div class="section-title">
+        <h2>Data used for this Study</h2>
+      </div>
+      
+      
+      <div id="sunburst-bc" class="my-3"></div>
+    <div id="sunburst" class="m-5">
+      <div id="sunburst-explanation" style="visibility: hidden;">
+        <span id="percentage"></span><br/>
+        of the samples in this study
+      </div>
+    </div>
+      
+      <p>
+        The data for our study was obtained from the following sources:
+      </p>
+      <div class="container">
+      <div class="row">
+        <div class="col-sm">
+      <h4>EMTAB-37</h4>
+        <ul>
+          <li><strong>Source:</strong> Cell Line</li>
+          <li><strong>Data type:</strong> Microarray data</li>
+          <li><strong>Obtained:</strong> March 2019</li>
+          <li><strong>From:</strong> <a href="https://www.ebi.ac.uk/arrayexpress/experiments/E-MTAB-37/samples/">ebi.ac.uk/arrayexpress</a></li>
+          <li><strong>Number of Samples:</strong> 317</li>
+        </ul>
+      <p>
+        <a href="https://pubmed.ncbi.nlm.nih.gov/30357387">ArrayExpress</a> is an archive of functional genomics data that stores high-throughput functional genomics data and provides it for reuse to the research community.
+        The transcriptomics profiles of various cancer cell lines were downloaded from <a href="https://www.ebi.ac.uk/arrayexpress/experiments/E-MTAB-37/samples/">ebi.ac.uk/arrayexpress</a>.
+        The gene expression profiles of 317 different cancer cell lines, categorized into 57 different pathological states and 28 individual tissues for study.
+        In total 22&#x202f;012 unique genes exist in this dataset.
+      </p>
+      
+    </div>
+    <div class="col-sm">
+      
+      <h4>HPA</h4>
+        <ul>
+          <li><strong>Source:</strong> Cell Line</li>
+          <li><strong>Data type:</strong> RNA Seq data</li>
+          <li><strong>Obtained:</strong> March 2019</li>
+          <li><strong>From:</strong> <a href="https://www.proteinatlas.org/about/download"></a></li>
+          <li><strong>Number of Samples:</strong> 32</li>
+        </ul>
+      <p>
+        The <a href="https://pubmed.ncbi.nlm.nih.gov/25613900">Human Protein Atlas (HPA)</a> is a freely available database including Tissue Atlas, Cell Atlas and Pathology Atlas.
+        The Cell Atlas contains mRNA expression profiles of 64 cell lines which were characterized using deep RNA-sequencing.
+        After filtering the non-metastatic human cancer cell lines, 32 cell lines were selected and the data files were downloaded.
+      </p>
+      
+    </div>
+    <div class="col-sm">
+      
+      <h4>ProteomeNCI60 </h4>
+        <ul>
+          <li><strong>Source:</strong> Cell Line</li>
+          <li><strong>Data type:</strong> Mass Spec Proteomics data</li>
+          <li><strong>Obtained:</strong> March 2019</li>
+          <li><strong>From:</strong> <a href="https://www.proteomicsdb.org/#projects/35/256"></a></li>
+          <li><strong>Number of Samples:</strong> 59</li>
+        </ul>
+      <p>
+        <a href="https://www.proteomicsdb.org/">ProteomicsDB</a> is an effort of the Technische Universität München (TUM) that dedicated to expedite the identification of various proteomes and their use across the scientific community.
+        We used the results of the Global Proteome Analysis study.
+        <a href="https://pubmed.ncbi.nlm.nih.gov/23933261">Gholami et al.</a> employed an MS-based proteomics analysis and provided quantitative proteome profiles of all 59 cell lines of the NCI-60 panel.
+        The dataset contains 10&#x202f;350 identified proteins. 
+      </p>
+      
+    </div>
+  </div>
+  
+      <div class="row">
+        <div class="col-sm">
+      
+      <h4>GSE2109</h4>
+        <ul>
+          <li><strong>Source:</strong> Patient Data</li>
+          <li><strong>Data type:</strong> Microarray data</li>
+          <li><strong>Obtained:</strong> March 2019</li>
+          <li><strong>From:</strong> <a href="https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE2109">ncbi.nlm.nih.gov</a></li>
+          <li><strong>Number of Samples:</strong> 315</li>
+        </ul>
+      <p>
+        The <a href="https://pubmed.ncbi.nlm.nih.gov/11752295">Gene Expression Omnibus (GEO)</a> is a public functional genomics data repository that stores microarray- and sequence-based data.
+        The results of DNA microarray analysis of The Expression Project for Oncology (expO) from The International Genomics Consortium were downloaded from <a href="https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE2109">ncbi.nlm.nih.gov</a>.
+        From 2&#x202f;158 patient samples, the metastatic and ambiguous samples were removed and 1,895 samples in 315 different cancer types were selected.
+        In total, 24&#x202f;442 unique genes exist in this dataset. 
+      </p>
+      
+    </div>
+    <div class="col-sm">
+      
+      <h4>TCGA</h4>
+        <ul>
+          <li><strong>Source:</strong> Patient Data</li>
+          <li><strong>Data type:</strong> RNA Seq data</li>
+          <li><strong>Obtained:</strong> March 2019</li>
+          <li><strong>From:</strong> <a href="https://portal.gdc.cancer.gov/legacy-archive/search/f">portal.gdc.cancer.gov</a></li>
+          <li><strong>Number of Samples:</strong> 202</li>
+        </ul>
+      <p>
+        The <a href="https://www.cancer.gov/tcga">Cancer Genome Atlas (TCGA)</a> is a joint effort between the National Cancer Institute and the National Human Genome Research Institute that generated high-throughput data.
+        The RNA-seq data was obtained using the GDC Data Portal.
+        The portal has been searched for all RNA-seq cases and HTSeq-FPKM workflow type.
+        In total, 11&#x202f;571 files for 10&#x202f;672 cases were found.
+        The metadata file was downloaded and only files of primary tumour or primary blood derived cancer bone marrow or peripheral were selected.
+        Finally, 10&#x202f;322 files were downloaded through their API.
+        We combined the same disease types by averaging the expression values and obtained 202 samples of different cancer types for the current study.
+      </p>
+      
+    </div>
+    <div class="col-sm">
+      
+      <h4>ProteomePatients</h4>
+        <ul>
+          <li><strong>Source:</strong> Patient Data</li>
+          <li><strong>Data type:</strong> Mass Spec Proteomics data</li>
+          <li><strong>Obtained:</strong> March 2019</li>
+          <li><strong>From:</strong> <a href=""></a></li>
+          <li><strong>Number of Samples:</strong> 10</li>
+        </ul>
+      <p>
+        The <a href="http://www.proteomexchange.org">ProteomeXchange (PX) Consortium</a> provided a standard portal for submission and dissemination of mass spectrometry proteomics data.
+        We extracted 10 data sets of four different cancer types containing 11&#x202f;961 identified proteins.
+      </p>
+    </div>
+    
+    </div>
+    </div>
+  </div>
+  </section>
+    
+  <footer id="footer" class="text-center">
+    <div class="container py-4">
+      <p class="">The <a href="/imprint#imprint">GEMbench</a> is a project of the <a href="https://www.sbi.uni-rostock.de/">Department of Systems Biology and Bioinformatics</a> at the <a href="http://www.uni-rostock.de/">University of Rostock</a></p>
+    </div>
+  </footer>
+<script src="scripts/data.js"></script>
+</body>
+</html>

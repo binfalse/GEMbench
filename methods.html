@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="scripts/style.css">
+<link rel="stylesheet" href="vendor/bootstrap/css/bootstrap.min.css">
+<title>GEMbench: Benchmark of Omics Data and Integration Methods</title>
+<link rel="shortcut icon" type="image/png" href="art/gembench-boxed.png"/>
+</head>
+<body>
+  <header id="header" class="fixed-top">
+    <div class="container-fluid d-flex">
+
+      <div class="logo mr-auto">
+        <a href="index.html"><img src="art/gembench.png" alt="" class="img-fluid"></a>
+      </div>
+
+      <nav class="nav-menu d-none d-lg-block">
+        <ul>
+          <li><a href="/#header">Home</a></li>
+          <li><a href="/data.html">Data</a></li>
+          <li class="active"><a href="/methods.html">Methods</a></li>
+          <li><a href="/explore.html">Findings</a></li>
+          <li><a href="/imprint.html">Imprint</a></li>
+          <li><a href="/imprint.html#privacy">Privacy</a></li>
+        </ul>
+      </nav><!-- .nav-menu -->
+
+    </div>
+  </header>
+  
+  
+  
+  <section id="methods" class="d-flex align-items-center">
+    <div class="container">
+      <div class="section-title">
+        <h2>Integration Methods</h2>
+      </div>
+      <p>
+      From 2002 to now, more than fifty methods have been developed to investigate how gene expression integration into GEM could affect model content and predictive accuracy.
+      The first study, which tried to overcome this issue, was published in 2002 by <a href="https://www.ncbi.nlm.nih.gov/pubmed/12006566">Covert and Palsson</a>.
+      In 2004, <a href="https://www.ncbi.nlm.nih.gov/pubmed/15491858">Akesson et al.</a> used gene expression data as an additional constraint on the metabolic fluxes in yeast. Afterwards, different algorithms were devised for tackling this challenge <a href="https://www.ncbi.nlm.nih.gov/pubmed/18483554">GIMME</a>, <a href="https://www.ncbi.nlm.nih.gov/pubmed/19714220">E-Flux</a>, <a href="https://www.ncbi.nlm.nih.gov/pubmed/20823844">MBA</a>, <a href="https://www.ncbi.nlm.nih.gov/pubmed/19346491">Moxley</a>, <a href="https://www.ncbi.nlm.nih.gov/pubmed/21172910">MADE</a>, <a href="https://www.ncbi.nlm.nih.gov/pubmed/23013597">RELATCH</a>, <a href="https://www.ncbi.nlm.nih.gov/pubmed/22615553">INIT</a>, <a href="https://www.ncbi.nlm.nih.gov/pubmed/23234303">mCADRE</a>, <a href="https://www.ncbi.nlm.nih.gov/pubmed/24646661">tINIT</a>, <a href="https://www.ncbi.nlm.nih.gov/pubmed/26942765">CORDA</a>, <a href="https://www.ncbi.nlm.nih.gov/pubmed/27327084">E-Flux2</a>, <a href="https://www.ncbi.nlm.nih.gov/pubmed/27327084">SPOT</a> and <a href="https://www.ncbi.nlm.nih.gov/pubmed/29222750">FASTCORE</a>. These algorithms can be classified in many different ways on the basis of the underlying methodology.
+</p>
+      <p>
+ In 2014, <a href="https://www.ncbi.nlm.nih.gov/pubmed/24762745">Machado and Herrgård</a> classified methods by three main criteria: 1. how do they apply the gene expression levels (discrete vs continuous, absolute vs relative), 2. Model functionality regarding flux prediction or 3. Model building. 
+</p>
+      <p>
+<a href="https://www.ncbi.nlm.nih.gov/pubmed/25379144">Kim and Lun</a> considered four grouping criteria, regarding gene expression and model functionality: 1. Algorithms which require multiple gene expression datasets as input, 2. Requirement for gene expression threshold to define a gene's high and low expression, 3. Requirement of an appropriate objective function for a given GEM, and 4. Validation of predicted fluxes directly against measured intracellular fluxes.
+</p>
+      <p>
+In 2015, <a href="https://www.ncbi.nlm.nih.gov/pubmed/26158726">Estévez and Nikoloski</a> stratified the methods in three distinct groups:
+ <ul>
+   <li><strong>GIMME- and GIM<sup>3</sup>E-like methods.</strong> This group refers to the two-steps approaches with a metabolic functionality (<em>objective function</em>) being optimized through <abbr title="Flux Balance Analysis">FBA</abbr> in a first step. Then, the obtained optimal value is employed to minimize the discrepancies between fluxes and data.</li>
+   <li><strong>iMAT-and INIT-like methods.</strong>  This group of algorithms determines the binary reaction status (i.e., active or inactive) which are in good agreement with the associate data state.</li>
+   <li><strong>MBA-, mCADRE and FASTCORE-like methods.</strong>  This group defines a core set of active reactions and then finds the minimum essential set of reactions to satisfy the model consistency condition.</li>
+   </ul>
+</p>
+      <p>
+
+In this study we focus on the following integration methods:
+
+<ul>
+  <li><strong>FASTCORE</strong> takes a core set of active reactions in the context of interest as an input</li>
+  <li><strong>GIMME</strong> minimizes the utilization of inactive reactions</li>
+  <li><strong>INIT</strong> uses the relaxation strategy to prevent the removal of reactions that have a small net accumulation rate</li>
+  <li><strong>iMAT</strong> assumes gene expression into two groups: highly and lowly expressed and then maximizes the consistency with this classification</li>
+</ul>
+
+</p>
+
+
+    </div>
+  </section>
+    
+  <footer id="footer" class="text-center">
+    <div class="container py-4">
+      <p class="">The <a href="/imprint#imprint">GEMbench</a> is a project of the <a href="https://www.sbi.uni-rostock.de/">Department of Systems Biology and Bioinformatics</a> at the <a href="http://www.uni-rostock.de/">University of Rostock</a></p>
+    </div>
+  </footer>
+</body>
+</html>
