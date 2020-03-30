@@ -146,10 +146,10 @@ function createVisualization(json) {
       .sort(function(a, b) { return b.value - a.value; });
   
   // For efficiency, filter nodes to keep only those large enough to see.
-  var nodes = partition(root).descendants()
-      .filter(function(d) {
-          return (d.x1 - d.x0 > 0.005); // 0.005 radians = 0.29 degrees
-      });
+  var nodes = partition(root).descendants();
+      //.filter(function(d) {
+          //return (d.x1 - d.x0 > 0.0005); // 0.005 radians = 0.29 degrees
+      //});
       
       console.log (nodes);
 
