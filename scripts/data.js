@@ -189,7 +189,7 @@ function mouseover(d) {
 
   var sequenceArray = d.ancestors().reverse();
   sequenceArray.shift(); // remove root node from the array
-  updateBreadcrumbs(sequenceArray, percentageString);
+  updateBreadcrumbs(sequenceArray, d.value);
 
   // Fade all the segments.
   d3.selectAll("path")
@@ -224,19 +224,23 @@ function initializeBreadcrumbTrail() {
 
 
 // Update the breadcrumb trail to show the current sequence and percentage.
-function updateBreadcrumbs(nodeArray, percentageString) {
+function updateBreadcrumbs(nodeArray, nSamples) {
 console.log (nodeArray);
 
 $("#sunburst-bc").empty ();
 for (var i = 0; i < nodeArray.length; i++) {
   var arrow = "<span class='sbbcnoarrow' ></span>";
   var ml = "";
+  var numbers = "";
+  
   if (i < nodeArray.length - 1)
     arrow = "<span class='sbbcarrow' style='border-left-color:"+colorMap(nodeArray[i])+";' ></span>";
-  
   if (i > 0)
     ml = ";margin-left:-1em;"
-  $("#sunburst-bc").append ("<div class='my-2 sbbc' style='background-color:"+colorMap(nodeArray[i])+";color:"+fgColorMap(nodeArray[i])+ml+"'>" + nodeArray[i].data.name + arrow + "</div>");
+  if (i == nodeArray.length - 1)
+    numbers = "<div class='sbbcpc'>" + nSamples + " samples</div>";
+  
+  $("#sunburst-bc").append ("<div class='my-2 sbbc' style='background-color:"+colorMap(nodeArray[i])+";color:"+fgColorMap(nodeArray[i])+ml+"'>" + nodeArray[i].data.name + arrow + "</div>" + numbers);
 }
 
 
