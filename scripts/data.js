@@ -88,8 +88,9 @@ function fgColorMap (node) {
 var totalSize = 0; 
 
 var vis = d3.select("#sunburst").append("svg:svg")
-    .attr("width", width)
-    .attr("height", height)
+    //.attr("width", "100%")
+    //.attr("height", height)
+  .attr ("viewBox", "0 0 " + width + " " + height)
     .append("svg:g")
     .attr("id", "container")
     .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");

@@ -80,11 +80,6 @@ img {
 }
 #hero {
 
-/*
-    background: #fffbf0;
-    border-bottom: 2px solid #f6edd2;
-*/
-
 }
 a.btn {
 display: inline-block;
@@ -147,8 +142,10 @@ svg {
 }
 #sunburst-explanation {
   position: absolute;
-  top: 260px;
-  left: 305px;
+top: 50%;
+left: 50%;
+margin-top: -54px;
+margin-left: -70px;
   width: 140px;
   text-align: center;
   color: #666;
@@ -179,7 +176,7 @@ svg {
     line-height: 0;
     vertical-align: middle;
     width: 0;
-    background-color:#fff; /* change background color acc to bg color */ 
+    background-color:#fff; 
     border-left-style: solid;
   
 }
@@ -187,9 +184,6 @@ svg {
     margin-left:2px;
     }
 .sbbcpc {
-/*
-    margin-left:-1.5em;
-*/
     color: #888;
     display:inline-block;
   
