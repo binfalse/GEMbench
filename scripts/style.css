@@ -224,3 +224,9 @@ margin-left: -70px;
 .integration_details::after {
   content: "";
 }
+#privacy {
+    display: block;
+    position: relative;
+    top: -200px;
+    visibility: hidden;  
+}
