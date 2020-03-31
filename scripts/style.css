@@ -192,3 +192,35 @@ margin-left: -70px;
     display:inline-block;
   
 }
+
+
+.integration_prefs,
+.integration_details {
+  padding: 15px 20px 15px 45px;
+  margin: 0 0 20px;
+  position: relative;
+  
+}
+.integration_prefs::before,
+.integration_details::before {
+  font: normal normal normal 30px/1 ForkAwesome;
+  text-rendering: auto;
+  color: #999;
+  position: absolute;
+  left: 5px;
+  top:22px;
+  
+}
+
+
+.integration_prefs::before {
+  content: "\f090"; /*Unicode for Left Double Quote*/
+}
+.integration_details::before {
+  content: "\f085"; /*Unicode for Left Double Quote*/
+}
+
+.integration_prefs::after,
+.integration_details::after {
+  content: "";
+}
