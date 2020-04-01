@@ -38,107 +38,117 @@
         <h2 class="my-4">Integration Methods used in this Study</h2>
       </div>
       <p>
-      From 2002 to now, more than fifty methods have been developed to investigate how gene expression integration into GEM could affect model content and predictive accuracy.
-      The first study, which tried to overcome this issue, was published in 2002 by <a href="https://www.ncbi.nlm.nih.gov/pubmed/12006566">Covert and Palsson</a>.
-      In 2004, <a href="https://www.ncbi.nlm.nih.gov/pubmed/15491858">Akesson et al.</a> used gene expression data as an additional constraint on the metabolic fluxes in yeast. Afterwards, different algorithms were devised for tackling this challenge <a href="https://www.ncbi.nlm.nih.gov/pubmed/18483554">GIMME</a>, <a href="https://www.ncbi.nlm.nih.gov/pubmed/19714220">E-Flux</a>, <a href="https://www.ncbi.nlm.nih.gov/pubmed/20823844">MBA</a>, <a href="https://www.ncbi.nlm.nih.gov/pubmed/19346491">Moxley</a>, <a href="https://www.ncbi.nlm.nih.gov/pubmed/21172910">MADE</a>, <a href="https://www.ncbi.nlm.nih.gov/pubmed/23013597">RELATCH</a>, <a href="https://www.ncbi.nlm.nih.gov/pubmed/22615553">INIT</a>, <a href="https://www.ncbi.nlm.nih.gov/pubmed/23234303">mCADRE</a>, <a href="https://www.ncbi.nlm.nih.gov/pubmed/24646661">tINIT</a>, <a href="https://www.ncbi.nlm.nih.gov/pubmed/26942765">CORDA</a>, <a href="https://www.ncbi.nlm.nih.gov/pubmed/27327084">E-Flux2</a>, <a href="https://www.ncbi.nlm.nih.gov/pubmed/27327084">SPOT</a> and <a href="https://www.ncbi.nlm.nih.gov/pubmed/29222750">FASTCORE</a>. These algorithms can be classified in many different ways on the basis of the underlying methodology.
-</p>
+        Since <a href="https://www.ncbi.nlm.nih.gov/pubmed/12006566">Covert and Palsson</a> published their study on transcriptional regulation in constraints-based metabolic models in 2002, more than fifty methods have been developed to investigate how the integration of gene expression could affect the content and predictive accuracy of a GEM. In 2004, <a href="https://www.ncbi.nlm.nih.gov/pubmed/15491858">Akesson et al.</a> used gene expression data as an additional constraint on the metabolic fluxes in yeast. Afterwards, different algorithms were devised e.g., <a href="https://www.ncbi.nlm.nih.gov/pubmed/18483554">GIMME</a>, <a href="https://www.ncbi.nlm.nih.gov/pubmed/19714220">E-Flux</a>, <a href="https://www.ncbi.nlm.nih.gov/pubmed/20823844">MBA</a>, <a href="https://www.ncbi.nlm.nih.gov/pubmed/19346491">Moxley</a>, <a href="https://www.ncbi.nlm.nih.gov/pubmed/21172910">MADE</a>, <a href="https://www.ncbi.nlm.nih.gov/pubmed/23013597">RELATCH</a>, <a href="https://www.ncbi.nlm.nih.gov/pubmed/22615553">INIT</a>, <a href="https://www.ncbi.nlm.nih.gov/pubmed/23234303">mCADRE</a>, <a href="https://www.ncbi.nlm.nih.gov/pubmed/24646661">tINIT</a>, <a href="https://www.ncbi.nlm.nih.gov/pubmed/26942765">CORDA</a>, <a href="https://www.ncbi.nlm.nih.gov/pubmed/27327084">E-Flux2</a>, <a href="https://www.ncbi.nlm.nih.gov/pubmed/27327084">SPOT</a> and <a href="https://www.ncbi.nlm.nih.gov/pubmed/29222750">FASTCORE</a>. These algorithms differ in assumptions and mathematical formulations. However, they can be classified in different ways:
+        <ul>
+          <li>
+            In 2014, <a href="https://www.ncbi.nlm.nih.gov/pubmed/24762745">Machado and Herrgård</a> classified the methods regarding three main criteria: 
+            <ul>
+              <li>the gene expression levels (discrete vs continuous, absolute vs relative),</li>
+              <li>the model functionality (e.g. predicting the growth rate), and</li>
+              <li>the ability to build models.</li>
+            </ul>
+          </li>
+          <li>
+            In 2014, <a href="https://www.ncbi.nlm.nih.gov/pubmed/25379144">Kim and Lun</a> distinguished between algorithms that require
+            <ul>
+              <li>multiple gene expression datasets as input, </li>
+              <li>gene expression threshold, </li>
+              <li>an objective function, and </li>
+              <li>validation of predicted fluxes.</li>
+            </ul>
+          </li>
+          <li>
+            In 2015, <a href="https://www.ncbi.nlm.nih.gov/pubmed/26158726">Estévez and Nikoloski</a> grouped the methods in: 
+            <ul>
+              <li>GIMME- and GIM3E-like methods &mdash; methods with two-step approaches. First, a metabolic functionality (<em>objective function</em>) is optimized through <abbr title="Flux Balance Analysis">FBA</abbr>. Then, the obtained optimal value is employed to minimize the discrepancies between fluxes and data.</li>
+              <li>iMAT-and INIT-like methods &mdash; methods, that determine the binary reaction status (i.e., active or inactive) which is in good agreement with the associate data.</li>
+              <li>MBA-, mCADRE and fastCORE-like methods &mdash; methods, that define a core set of active reactions and then find the minimum essential set of reactions to satisfy the model consistency condition.</li>
+            </ul>
+          </li>
+        </ul>
+      </p>
       <p>
- In 2014, <a href="https://www.ncbi.nlm.nih.gov/pubmed/24762745">Machado and Herrgård</a> classified methods by three main criteria: 1. how do they apply the gene expression levels (discrete vs continuous, absolute vs relative), 2. Model functionality regarding flux prediction or 3. Model building. 
-</p>
-      <p>
-<a href="https://www.ncbi.nlm.nih.gov/pubmed/25379144">Kim and Lun</a> considered four grouping criteria, regarding gene expression and model functionality: 1. Algorithms which require multiple gene expression datasets as input, 2. Requirement for gene expression threshold to define a gene's high and low expression, 3. Requirement of an appropriate objective function for a given GEM, and 4. Validation of predicted fluxes directly against measured intracellular fluxes.
-</p>
-      <p>
-In 2015, <a href="https://www.ncbi.nlm.nih.gov/pubmed/26158726">Estévez and Nikoloski</a> stratified the methods in three distinct groups:
- <ul>
-   <li><strong>GIMME- and GIM<sup>3</sup>E-like methods.</strong> This group refers to the two-steps approaches with a metabolic functionality (<em>objective function</em>) being optimized through <abbr title="Flux Balance Analysis">FBA</abbr> in a first step. Then, the obtained optimal value is employed to minimize the discrepancies between fluxes and data.</li>
-   <li><strong>iMAT-and INIT-like methods.</strong>  This group of algorithms determines the binary reaction status (i.e., active or inactive) which are in good agreement with the associate data state.</li>
-   <li><strong>MBA-, mCADRE and FASTCORE-like methods.</strong>  This group defines a core set of active reactions and then finds the minimum essential set of reactions to satisfy the model consistency condition.</li>
-   </ul>
-</p>
-      <p>
 
-In this study we focus on the following integration methods:
+        In this study we focussed on the following integration methods:
 
-<h4>FASTCORE</h4>
+        <h4>FASTCORE</h4>
 
-<blockquote class="integration_prefs">
-  Requires a core set of reactions.
-</blockquote>
+        <blockquote class="integration_prefs">
+          Requires a core set of reactions.
+        </blockquote>
 
-<blockquote class="integration_details">
-  The FASTCORE algorithm starts with a core set of reactions that forced to be active in the final model.
-  Then, FACTCORE finds the minimum number of possible reactions to support this core.
-  Every iteration of the algorithm computes a new sparse mode that aim to maximize the support of the mode inside the core set and minimize that quantity outside the core set.
-</blockquote>
+        <blockquote class="integration_details">
+          The FASTCORE algorithm starts with a core set of reactions that forced to be active in the final model.
+          Then, FACTCORE finds the minimum number of possible reactions to support this core.
+          Every iteration of the algorithm computes a new sparse mode that aim to maximize the support of the mode inside the core set and minimize that quantity outside the core set.
+        </blockquote>
 
 
 
-<h4>GIMME</h4>
+        <h4>GIMME</h4>
 
-<blockquote class="integration_prefs">
-  Requires one set of expression data<br/>
-  Requires thresholding<br/>
-  Requires objective function
-</blockquote>
+        <blockquote class="integration_prefs">
+          Requires one set of expression data<br/>
+          Requires thresholding<br/>
+          Requires objective function
+        </blockquote>
 
-<blockquote class="integration_details">
-  The GIMME algorithm first runs FBA to calculate the maximum possible flux through the stated functionalities (Growth rate).
-  Then, GIMME eliminates reactions whose mRNA transcription levels are below a given threshold.
-  However, if the subsequent model is not functional (able to achieve the desired objective function), GIMME adds sets of the removed reactions back into the model to minimize deviation from the expression data. 
-</blockquote>
+        <blockquote class="integration_details">
+          The GIMME algorithm first runs FBA to calculate the maximum possible flux through the stated functionalities (Growth rate).
+          Then, GIMME eliminates reactions whose mRNA transcription levels are below a given threshold.
+          However, if the subsequent model is not functional (able to achieve the desired objective function), GIMME adds sets of the removed reactions back into the model to minimize deviation from the expression data. 
+        </blockquote>
 
 
 
-<h4>INIT</h4>
+        <h4>INIT</h4>
 
-<blockquote class="integration_prefs">
-  Requires discretization of data (lowly, and highly expressed)<br/>
-  Requires optional minimum flux threshold for "expressed" reactions
-</blockquote>
+        <blockquote class="integration_prefs">
+          Requires discretization of data (lowly, and highly expressed)<br/>
+          Requires optional minimum flux threshold for "expressed" reactions
+        </blockquote>
 
-<blockquote class="integration_details">
-  The INIT algorithm maximizes the activation of certain reactions associated with highly expressed genes, while minimizing the utilization of reactions associated with absent proteins.
-  One of the new features of INIT is the relaxation of the steady-state condition to allow the accumulation rate for internal species.
-  In fact, this accumulation avoids the removal of the reactions that are essential for its synthesis.
-</blockquote>
+        <blockquote class="integration_details">
+          The INIT algorithm maximizes the activation of certain reactions associated with highly expressed genes, while minimizing the utilization of reactions associated with absent proteins.
+          One of the new features of INIT is the relaxation of the steady-state condition to allow the accumulation rate for internal species.
+          In fact, this accumulation avoids the removal of the reactions that are essential for its synthesis.
+        </blockquote>
 
 
 
 
 
-<h4>iMAT</h4>
+        <h4>iMAT</h4>
 
-<blockquote class="integration_prefs">
-  Requires one set of expression data<br/>
-  Requires discretization of data (lowly, moderately, and highly expressed)<br/>
-  Does not require an objective function
-</blockquote>
+        <blockquote class="integration_prefs">
+          Requires one set of expression data<br/>
+          Requires discretization of data (lowly, moderately, and highly expressed)<br/>
+          Does not require an objective function
+        </blockquote>
 
-<blockquote class="integration_details">
-  The iMAT algorithm categorizes gene expression data into three classes: highly, moderately, and lowly expressed genes.
-  Then, iMAT solves a mixed integer linear programming (MILP) problem to maximize the reactions associated with the highly expressed genes and minimize the reactions associated with the lowly expressed genes.
-  Like GIMME, the presence of reactions is allowed to result in a functional model.
-  However, unlike GIMME, iMAT does not need an objective function.
-  Instead, iMAT requires that highly expressed reactions carry a minimum flux. 
-</blockquote>
+        <blockquote class="integration_details">
+          The iMAT algorithm categorizes gene expression data into three classes: highly, moderately, and lowly expressed genes.
+          Then, iMAT solves a mixed integer linear programming (MILP) problem to maximize the reactions associated with the highly expressed genes and minimize the reactions associated with the lowly expressed genes.
+          Like GIMME, the presence of reactions is allowed to result in a functional model.
+          However, unlike GIMME, iMAT does not need an objective function.
+          Instead, iMAT requires that highly expressed reactions carry a minimum flux. 
+        </blockquote>
 
 
-</p>
+      </p>
 
-<p>In a Nutshell:</p>
 
-<table class="table table-hover">
-  <thead>
-    <tr><th></th><th>FASTCORE</th><th>GIMME</th><th>INIT</th><th>iMAT</th></tr>
-  </thead>
-  <tbody>
-    <tr><th>Optimization</th><td>LP</td><td>LP</td><td>MILP</td><td>MILP</td></tr>
-    <tr><th>Function required</th><td><i class="fa fa-times" aria-hidden="true"></i></td><td><i class="fa fa-check" aria-hidden="true"></i></td><td><i class="fa fa-check" aria-hidden="true"></i></td><td><i class="fa fa-times" aria-hidden="true"></i></td></tr>
-    <tr><th>Omics required</th><td><i class="fa fa-times" aria-hidden="true"></i></td><td><i class="fa fa-check" aria-hidden="true"></i></td><td><i class="fa fa-check" aria-hidden="true"></i></td><td><i class="fa fa-check" aria-hidden="true"></i></td></tr>
-    <tr><th>Computational cost</th><td><i class="fa fa-usd" aria-hidden="true"></i></td><td><i class="fa fa-usd" aria-hidden="true"></i></td><td><i class="fa fa-btc" aria-hidden="true"></i><i class="fa fa-btc" aria-hidden="true"></i><i class="fa fa-btc" aria-hidden="true"></i></td><td><i class="fa fa-btc" aria-hidden="true"></i><i class="fa fa-btc" aria-hidden="true"></i><i class="fa fa-btc" aria-hidden="true"></i></td></tr>
-  </tbody>
-  </table>
+      <table class="table table-hover">
+        <thead>
+          <tr><td>In a Nutshell:</td><th class="text-center">FASTCORE</th><th class="text-center">GIMME</th><th class="text-center">INIT</th><th class="text-center">iMAT</th></tr>
+        </thead>
+        <tbody>
+          <tr><th>Optimization</th><td class="text-center"><abbr title="linear programming">LP</abbr></td><td class="text-center"><abbr title="linear programming">LP</abbr></td><td class="text-center"><abbr title="mixed-integer linear programming">MILP</abbr></td><td class="text-center"><abbr title="mixed-integer linear programming">MILP</abbr></td></tr>
+          <tr><th>Function required</th><td class="text-center"><i class="fa fa-times" aria-hidden="true"></i></td><td class="text-center"><i class="fa fa-check" aria-hidden="true"></i></td><td class="text-center"><i class="fa fa-check" aria-hidden="true"></i></td><td class="text-center"><i class="fa fa-times" aria-hidden="true"></i></td></tr>
+          <tr><th>Omics required</th><td class="text-center"><i class="fa fa-times" aria-hidden="true"></i></td><td class="text-center"><i class="fa fa-check" aria-hidden="true"></i></td><td class="text-center"><i class="fa fa-check" aria-hidden="true"></i></td><td class="text-center"><i class="fa fa-check" aria-hidden="true"></i></td></tr>
+          <tr><th>Computational cost</th><td class="text-center"><i class="fa fa-usd" aria-hidden="true"></i></td><td class="text-center"><i class="fa fa-usd" aria-hidden="true"></i></td><td class="text-center"><i class="fa fa-usd" aria-hidden="true"></i><i class="fa fa-usd" aria-hidden="true"></i><i class="fa fa-usd" aria-hidden="true"></i></td><td class="text-center"><i class="fa fa-usd" aria-hidden="true"></i><i class="fa fa-usd" aria-hidden="true"></i><i class="fa fa-usd" aria-hidden="true"></i></td></tr>
+        </tbody>
+      </table>
 
 
     </div>
