@@ -1,5 +1,31 @@
 // based on https://bl.ocks.org/kerryrodden/766f8f6d31f645c39f488a0befa1e3c8
 
+
+function hash (node) {
+  var s = node.data.name;
+  if (node.parent)
+    s += node.parent.data.name;
+    
+    var h = 0, i, chr;
+    for (i = 0; i < s.length; i++) {
+      chr   = s.charCodeAt(i);
+      h  = ((h << 5) - h) + chr;
+      h |= 0; // Convert to 32bit integer
+    }
+    return h;
+}
+
+function shortenLabel (label, arcsize) {
+  if (label == "root")
+    return "";
+  if (label.includes ("("))
+    label = label.replace (/ \(.*/, '')
+  if (label.length < arcsize*60)
+    return label;
+  return label.substring (0, Math.min (label.length, arcsize*65)) + "..."
+  //return arcsize + label;
+}
+
 // Dimensions of sunburst.
 var width = 750;
 var height = 600;
@@ -55,10 +81,8 @@ function colorMap (node) {
     else
       return "rgb(168,15,15)"
   }
-  //console.log (colors[node.data.name])
   if (colors[node.data.name])
     return colors[node.data.name];
-  //console.log ("not found: ", node.data.name)
   return colors[node.parent.data.name];
 }
 function fgColorMap (node) {
@@ -76,10 +100,8 @@ function fgColorMap (node) {
     else
       return "#fff"
   }
-  //console.log (colors[node.data.name])
   if (fgColors[node.data.name])
     return fgColors[node.data.name];
-  //console.log ("not found: ", node.data.name)
   return fgColors[node.parent.data.name];
 }
 
@@ -88,8 +110,6 @@ function fgColorMap (node) {
 var totalSize = 0; 
 
 var vis = d3.select("#sunburst").append("svg:svg")
-    //.attr("width", "100%")
-    //.attr("height", height)
   .attr ("viewBox", "0 0 " + width + " " + height)
     .append("svg:g")
     .attr("id", "container")
@@ -106,7 +126,6 @@ var arc = d3.arc()
 
   console.log ("test");
 d3.dsv(";","/data/data_viz_sunburst.csv", function(d) {
-    //return //Object.keys(d).map(function(key){return d[key];});
         return [
           d.Source,
           d.Location,
@@ -117,10 +136,6 @@ d3.dsv(";","/data/data_viz_sunburst.csv", function(d) {
    }).then (function(text) {
   console.log ("test2");
   console.log (text);
-  //var dsv = d3.dsvFormat(';')
-  //csv = dsv.parseRows(text)
-  ////var csv = d3.csvParseRows(text);
-  //console.log (csv);
   var json = buildHierarchy(text);
   console.log (json);
   createVisualization(json);
@@ -130,13 +145,6 @@ d3.dsv(";","/data/data_viz_sunburst.csv", function(d) {
 // Main function to draw and set up the visualization, once we have the data.
 function createVisualization(json) {
 
-  // Basic setup of page elements.
-  //initializeBreadcrumbTrail();
-  //drawLegend();
-  //d3.select("#togglelegend").on("click", toggleLegend);
-
-  // Bounding circle underneath the sunburst, to make it easier to detect
-  // when the mouse leaves the parent g.
   vis.append("svg:circle")
       .attr("r", radius)
       .style("opacity", 0);
@@ -148,22 +156,47 @@ function createVisualization(json) {
   
   // For efficiency, filter nodes to keep only those large enough to see.
   var nodes = partition(root).descendants();
-      //.filter(function(d) {
-          //return (d.x1 - d.x0 > 0.0005); // 0.005 radians = 0.29 degrees
-      //});
+  var labelled_nodes = partition(root).descendants()
+      .filter(function(d) {
+          return (d.x1 - d.x0 > 0.1); // 0.005 radians = 0.29 degrees
+      });
       
       console.log (nodes);
+
 
   var path = vis.data([json]).selectAll("path")
       .data(nodes)
       .enter().append("svg:path")
       .attr("display", function(d) { return d.depth ? null : "none"; })
       .attr("d", arc)
-      .attr("fill-rule", "evenodd")
-      //.style("fill", function(d) { return colors[d.data.name]; })
       .style("fill", function(d) { return colorMap (d); })
       .style("opacity", 1)
-      .on("mouseover", mouseover);
+      .on("mouseover", mouseover)
+    .each(function(d,i) {
+      // based on https://www.visualcinnamon.com/2015/09/placing-text-on-arcs.html
+        var firstArcSection = /(^.+?)L/;
+        var newArc = firstArcSection.exec( d3.select(this).attr("d") )[1];
+        newArc = newArc.replace(/,/g , " ");
+
+        //Create a new invisible arc that the text can flow along
+        vis.append("path")
+            .attr("class", "hiddenarcs")
+            .attr("id", "arc"+hash (d))
+            .attr("d", newArc)
+            .style("fill", "none");
+    });
+      
+  var path2 = vis.data([json]).selectAll("names")
+      .data(labelled_nodes)
+      .enter().append("text")
+      .attr("dy", 20)
+      .append("textPath")
+      .attr("stroke","hhhhhhh")
+      .attr("xlink:href",function(d) { return "#arc" + hash (d)})
+    .style("text-anchor","middle") 
+    .attr("startOffset", "50%")
+    .attr("font-size","8px")
+      .text(function(d) { return shortenLabel (d.data.name, d.x1 - d.x0)});
 
   // Add the mouseleave handler to the bounding circle.
   //d3.select("#container").on("mouseleave", mouseleave);
@@ -204,25 +237,6 @@ function mouseover(d) {
       .style("opacity", 1);
 }
 
-// Restore everything to full opacity when moving off the visualization.
-/*function mouseleave(d) {
-$("#sunburst-bc").empty ();
-  d3.select("#sunburst-explanation")
-      .style("visibility", "hidden");
-}*/
-/*
-function initializeBreadcrumbTrail() {
-  // Add the svg area.
-  var trail = d3.select("#sequence").append("svg:svg")
-      .attr("width", width)
-      .attr("height", 50)
-      .attr("id", "trail");
-  // Add the label at the end, for the percentage.
-  trail.append("svg:text")
-    .attr("id", "endlabel")
-    .style("fill", "#000");
-}*/
-
 
 // Update the breadcrumb trail to show the current sequence and percentage.
 function updateBreadcrumbs(nodeArray, nSamples) {
@@ -255,12 +269,6 @@ function buildHierarchy(csv) {
     var l = csv[i].length;
     var parts = csv[i].slice (0, l - 1);
     
-    //console.log ("row ", i)
-    //console.log (csv[i])
-    //console.log (csv[i].slice (0, l - 1))
-    //console.log (csv[i][l - 1])
-    //break;
-    //var sequence = csv[i][0];
     var size = +csv[i][l - 1];
     if (isNaN(size)) { // e.g. if this is a header row
       continue;
