@@ -191,11 +191,11 @@ function createVisualization(json) {
       .enter().append("text")
       .attr("dy", 20)
       .append("textPath")
-      .attr("stroke","hhhhhhh")
       .attr("xlink:href",function(d) { return "#arc" + hash (d)})
     .style("text-anchor","middle") 
     .attr("startOffset", "50%")
     .attr("font-size","8px")
+      .attr("fill",function(d) { return fgColorMap (d); })
       .text(function(d) { return shortenLabel (d.data.name, d.x1 - d.x0)});
 
   // Add the mouseleave handler to the bounding circle.
