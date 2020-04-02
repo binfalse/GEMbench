@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
+<link rel="stylesheet" href="vendor/fork-awesome/css/fork-awesome.min.css">
 <link rel="stylesheet" href="vendor/bootstrap/css/bootstrap.min.css">
 <link rel="stylesheet" href="vendor/v2.1.7/fancybox-2.1.7/source/jquery.fancybox.css">
 <!-- Load d3.js -->
@@ -81,7 +82,11 @@ Thus, it shows the disagreement between flux distributions of two models. If the
 
 
 <!-- Create a div where the graph will take place -->
-<div id="my_dataviz"></div>
+<div id="my_dataviz">
+  <div id="loading_findings" class="text-center">
+    <i class="fa fa-spinner fa-spin fa-5x" aria-hidden="true"></i>
+  </div>
+</div>
 <p class="my-5 p-2">Disclaimer: The boxplots where computed while neglecting infinite values. A wavy line indicates a lot of outliers. Drawing them would be a torture for your browser and probably wouldn't help much. Click any box to get a list of outliers.</p>
 <p class="my-5 p-2">barcodes are colored, what does it mean? where does the pca come from? which subsystems? how did we decide on subsystems?.</p>
 <a id="download" class="btn btn-block my-5 p-2" href="#">Download SVG</a>

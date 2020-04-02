@@ -1201,11 +1201,12 @@ function draw_analysis () {
   measure = metrics[measure.options[measure.selectedIndex].value]
 $(".metric_expl").hide ()
   $("#" + measure + "_expl").show ();
+  $("#loading_findings").hide ();
   //console.log (measure)
   if (measure == "Clusterability") {
-    draw_pca ()
+    draw_pca ();
   } else {
-    draw_boxplots (measure)
+    draw_boxplots (measure);
   }
 }
 
@@ -1311,6 +1312,8 @@ d3.csv("data/affects.csv").then (function( data ) {
     affected_subsystems[id][subsystems.indexOf(data[row]["subsystem"])]++
   }
   
+  if (!drawn)
+    draw_analysis ();
   //console.log (subsystems);
   //console.log (affected_subsystems);
 });
