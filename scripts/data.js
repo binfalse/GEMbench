@@ -124,7 +124,7 @@ var arc = d3.arc()
     .innerRadius(function(d) { return Math.sqrt(d.y0) + 1; })
     .outerRadius(function(d) { return Math.sqrt(d.y1) - 1; });
 
-  console.log ("test");
+  //console.log ("test");
 d3.dsv(";","/data/data_viz_sunburst.csv", function(d) {
         return [
           d.Source,
@@ -134,10 +134,10 @@ d3.dsv(";","/data/data_viz_sunburst.csv", function(d) {
           d.Samples
         ];
    }).then (function(text) {
-  console.log ("test2");
-  console.log (text);
+  //console.log ("test2");
+  //console.log (text);
   var json = buildHierarchy(text);
-  console.log (json);
+  //console.log (json);
   createVisualization(json);
 })
   .catch(error => console.log(error));;
@@ -161,7 +161,7 @@ function createVisualization(json) {
           return (d.x1 - d.x0 > 0.1); // 0.005 radians = 0.29 degrees
       });
       
-      console.log (nodes);
+      //console.log (nodes);
 
 
   var path = vis.data([json]).selectAll("path")
@@ -196,7 +196,8 @@ function createVisualization(json) {
     .attr("startOffset", "50%")
     .attr("font-size","8px")
       .attr("fill",function(d) { return fgColorMap (d); })
-      .text(function(d) { return shortenLabel (d.data.name, d.x1 - d.x0)});
+      .text(function(d) { return shortenLabel (d.data.name, d.x1 - d.x0)})
+      .on("mouseover", mouseover);
 
   // Add the mouseleave handler to the bounding circle.
   //d3.select("#container").on("mouseleave", mouseleave);
