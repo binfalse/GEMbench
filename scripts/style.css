@@ -14,6 +14,26 @@ body {
 #header img {
   height: 2em;
 }
+@media (max-device-width : 991px) {
+  .navbar ul {
+      background: #fffbf0;
+      border-bottom: 2px solid #f6edd2;
+  }
+}
+@media (min-device-width : 992px) {
+  .navbar ul {
+    float: right;
+    margin-right: 20px !important;
+  }
+  .navbar ul li {
+    float: left;
+  }
+#collapsibleNavbar {
+  width: 100%;
+  display: block !important;
+}
+}
+/*
 .nav-menu, .nav-menu * {
 
     margin: 0;
@@ -28,6 +48,7 @@ body {
     float: left;
 
 }
+*/
 
 h1, h2, h3, h4, h5, h6 {
   margin-bottom: 20px;
@@ -42,7 +63,8 @@ a:hover, a:active {
     text-decoration: none !important;
 }
 
-.nav-menu a {
+
+.navbar a {
 
     display: block;
     position: relative;
@@ -54,13 +76,14 @@ a:hover, a:active {
     font-weight: bold;
 
 }
-.nav-menu a:hover, .nav-menu .active > a, .nav-menu li:hover > a {
+.navbar a:hover, .navbar .active > a, .navbar li:hover > a {
 
     color: #1a5a3a !important;
     text-decoration: none !important;
     border-bottom: none !important;
 
 }
+
 img {
 
     vertical-align: middle;
@@ -230,3 +253,18 @@ margin-left: -70px;
     top: -200px;
     visibility: hidden;  
 }
+
+
+
+
+
+.navbar {
+  padding: 0 !important;
+}
+.navbar a {
+  padding-left: 10px !important;
+}
+
+
+
+

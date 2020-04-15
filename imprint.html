@@ -1,23 +1,27 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="utf-8">
-<link rel="stylesheet" href="scripts/style.css">
-<link rel="stylesheet" href="vendor/bootstrap/css/bootstrap.min.css">
-<title>GEMbench: Benchmark of Omics Data and Integration Methods</title>
-<link rel="shortcut icon" type="image/png" href="art/gembench-boxed.png"/>
-<link rel="stylesheet" href="vendor/fork-awesome/css/fork-awesome.min.css">
+  <meta charset="utf-8">
+  <title>GEMbench: Benchmark of Omics Data and Integration Methods</title>
+  <link rel="stylesheet" href="scripts/style.css">
+  <link rel="stylesheet" href="vendor/bootstrap/css/bootstrap.min.css">
+  <link rel="shortcut icon" type="image/png" href="art/gembench-boxed.png"/>
+  <link rel="stylesheet" href="vendor/fork-awesome/css/fork-awesome.min.css">
+  <script src="vendor/jquery-3.4.1.min.js"></script>
+  <script src="vendor/bootstrap/js/bootstrap.min.js"></script>
 </head>
 <body>
   <header id="header" class="fixed-top">
-    <div class="container-fluid d-flex">
+    <nav class="navbar navbar-expand-lg">
+      
+      <a class="navbar-brand" href="index.html"><img src="art/gembench.png" alt="" class="img-fluid"></a>
+      
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar" aria-controls="collapsibleNavbar" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"><i class="fa fa-bars"></i></span>
+      </button>
 
-      <div class="logo mr-auto">
-        <a href="index.html"><img src="art/gembench.png" alt="" class="img-fluid"></a>
-      </div>
-
-      <nav class="nav-menu d-none d-lg-block">
-        <ul>
+      <div class="collapse navbar-collapse" id="collapsibleNavbar">
+        <ul class="navbar-nav mr-auto">
           <li><a href="/#header">Home</a></li>
           <li><a href="/data.html">Data</a></li>
           <li><a href="/methods.html">Methods</a></li>
@@ -25,9 +29,9 @@
           <li class="active"><a href="/imprint.html">Imprint</a></li>
           <li class="active"><a href="/imprint.html#privacy">Privacy</a></li>
         </ul>
-      </nav><!-- .nav-menu -->
-
-    </div>
+      </div>
+      
+    </nav>
   </header>
   
   
