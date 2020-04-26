@@ -221,10 +221,10 @@ margin-left: -70px;
 
 
 .integration_prefs::before {
-  content: "\f090"; /*Unicode for Left Double Quote*/
+  content: "\f090";
 }
 .integration_details::before {
-  content: "\f085"; /*Unicode for Left Double Quote*/
+  content: "\f085";
 }
 
 .integration_prefs::after,
@@ -254,4 +254,10 @@ margin-left: -70px;
 
 #data .container ul {
   padding-left: 15px;
+}
+.im-description {
+  border: 1px solid;
+  border-radius: 10px;
+  margin: 5px;
+  padding: 15px;
 }
