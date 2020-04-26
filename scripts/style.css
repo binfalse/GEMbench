@@ -32,23 +32,7 @@ body {
   width: 100%;
   display: block !important;
 }
-}
-/*
-.nav-menu, .nav-menu * {
 
-    margin: 0;
-    padding: 0;
-    list-style: none;
-
-}
-.nav-menu > ul > li {
-
-    position: relative;
-    white-space: nowrap;
-    float: left;
-
-}
-*/
 
 h1, h2, h3, h4, h5, h6 {
   margin-bottom: 20px;
@@ -268,3 +252,6 @@ margin-left: -70px;
 
 
 
+#data .container ul {
+  padding-left: 15px;
+}
