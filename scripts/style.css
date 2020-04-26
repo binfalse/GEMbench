@@ -256,7 +256,8 @@ margin-left: -70px;
   padding-left: 15px;
 }
 .im-description {
-  border: 1px solid;
+  border: 2px solid #f6edd2;
+  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
   border-radius: 10px;
   margin: 5px;
   padding: 15px;
