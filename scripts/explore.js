@@ -249,6 +249,8 @@ const affected_subsystems = {}
 
 
 function draw_pca () {
+  
+  $("correlation-plots").hide ();
   //console.log (pca);
         
         
@@ -426,6 +428,12 @@ var pattern = svg.append("defs")
              .style("fill", c)
             .on('mouseover', subsystemtip.show)
             .on('mouseout', subsystemtip.hide)
+            .on("click", function(){
+				//console.log ("not too many outliers to draw")
+				//console.log (outlier_table)
+        overlay = "<div><h3>Random Forest Clustering of "+imeth+" applied on "+source+"</h3><img src='/data/pca/cluster-heatmaps/"+source+"/"+imeth+"/clusterFR-NA-Zero.png'><p>some explanation</p></div>"
+              $.fancybox( $(overlay) );
+            });
              
           cum += (1 + affected_subsystems[source + "_" + imeth][sub]) * unitl
         }
@@ -481,6 +489,7 @@ function draw_correlation (measure, sumstat, source, type, domnode) {
   //console.log (sumstat)
   //console.log (measure, source, type)
   //console.log (getDataFromSource (source, type))
+  
   var data_id = data_dict[getDataFromSource (source, type)]
   var measure_id = metric_dict[measure]
   
@@ -501,7 +510,7 @@ function draw_correlation (measure, sumstat, source, type, domnode) {
       cor_samples[sid]["values"][i] = values[j][0]
     }
   }
-  
+  $("correlation-plots").show ();
   $("#" + domnode).empty ();
   $("#" + domnode).append ("<p><a title='Correlation of "+measure+" scores for "+ source + " &mdash; " + type + "' id='"+domnode+"_a' href='#"+domnode+"_svg'>" + source + "<br>" + type + "</a></p>");
   
