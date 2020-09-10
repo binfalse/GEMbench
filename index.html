@@ -36,19 +36,49 @@
   
   
   
-  <section id="hero" class="d-flex align-items-center">
+  <section id="hero" class="d-flex align-items-center mt-5">
 
-    <div class="container">
+    <div class="container mt-5">
       <div class="row">
-        <div class="col-lg-12">
-          <h2 class="my-4">GEMbench: A comprehensive benchmark of omics data and integration methods for assessment of metabolic patterns in cancers</h2>
-        </div>
         <div class="col-lg-6 pt-5 pt-lg-0 order-2 order-lg-1">
-          <p>The cornerstone of metabolic research in oncology was laid by Otto Warburg in the 1920s when he discovered the main metabolic hallmark of cancer, aerobic glycolysis. Aerobic glycolysis (Warburg effect) refers to a common feature of cancer cell metabolism in which cancer cells take up glucose at high rates accompanied by lactate secretion in the presence of oxygen. Since then, a large quantity of high-throughput data has unravelled other metabolic hallmarks of cancer which contribute to better cancer stratification and personalized treatment. Aided by metabolic modelling approaches, in particular, genome-scale metabolic modelling (GEM), studies in cancer cell metabolism have expanded our understanding of the underlying mechanisms of cancer development, as well as identification of diagnostic biomarkers, potential drug targets, and prognosis biomarker. Using omics-data integration approaches, GEMs can be tailored to a specific context. These context-specific GEMs facilitate the unveiling of the genotype-phenotype relationship by calculating the flux states and extracting physiologically relevant information from high-quality data.</p>
-          <p>Since 2002 to now, more than fifty methods have been developed to investigate how gene expression integration into GEMs could affect model content and predictive accuracy. These methods differ in assumptions and mathematical formulation, use different gene expression datasets (e.g. microarray data or RNA-sequencing data) and various GEMs of organisms from bacteria to human. These heterogeneous datasets and diverse algorithms are difficult to compare and to benchmark.</p>
-          <p>Here, we performed a comprehensive benchmark to assess the influence of omics-data (regarding the data sources, types and platforms) and integration methods on the metabolic patterns in cancers. We collected different types of omics data (transcriptome and proteome) from different sources (cell-lines and patients), as well as different platforms (RNA-Seq and microarray) and integrated them into Recon3D (the generic GEM of Humans) by four integration algorithms (GIMME, iMAT, INIT, and FASTCORE).</p>
+<!--         <div class="col-lg-6 pt-5 pt-lg-0"> -->
+          <h2 class="">GEMbench: A benchmark of context-specific models for the assessment of cancer metabolic heterogeneity</h2>
+<!--         </div> -->
+<!--         <div class="col-lg-6 pt-5 pt-lg-0"> -->
+<!--         </div> -->
+
+          <div class="py-5 hero-img text-center d-lg-none d-xl-none">
+            <img src="art/gembench-boxed.png" class="img-fluid mb-5" alt="">
+          </div>
+
+        
+          <p>
+            Despite considerable efforts to identify "how" and "why" cancer cells are metabolically distinct from their normal counterparts, there are only very few studies analysing the metabolic pattern of cancer cells. Context-specific models facilitate the unveiling of the genotype-phenotype relationship by calculating the flux states and extracting physiologically relevant information from high-quality data, thanks to the use of omics - data integration approaches. Here, we performed a benchmark to assess the influence of omics-data and integration methods on the metabolic patterns in cancers. We collected different types of omics data (transcriptome and proteome) from different sources (cell-lines and patients), as well as different platforms (RNA-Seq and microarray) and integrated them into Recon3D (the generic GEM of Humans) by four integration algorithms (GIMME, iMAT, INIT, and FASTCORE).
+          </p>
+
+          
+          <div class="py-5 hero-img text-center d-lg-none d-xl-none">
+            <p>Go ahead and interactively explore the data and methods that we used for our study and check our results:</p>
+            
+            <div class="row">
+              <div class="col-sm">
+                <a href="/data.html" class="btn"><i class="fa fa-files-o" aria-hidden="true"></i> Data</a>
+              </div>
+              <div class="col-sm">
+                <a href="/methods.html" class="btn"><i class="fa fa-cogs" aria-hidden="true"></i> Methods</a>
+              </div>
+              <div class="col-sm">
+                <a href="/explore.html" class="btn"><i class="fa fa-line-chart" aria-hidden="true"></i> Findings</a>
+              </div>
+            </div>
+          </div>
+          
+          
+          
         </div>
-        <div class="col-lg-6 order-1 order-lg-2 hero-img text-center p-5">
+        
+        
+        <div class="col-lg-6 order-1 order-lg-2 hero-img text-center px-5 d-none d-lg-block .d-print-none">
           <img src="art/gembench-boxed.png" class="img-fluid mb-5" alt="">
           <p>Go ahead and interactively explore the data and methods that we used for our study and check our results:</p>
           
@@ -64,6 +94,7 @@
             </div>
           </div>
         </div>
+        
       </div>
     </div>
 
@@ -73,7 +104,7 @@
     
   <footer id="footer" class="text-center">
     <div class="container py-4">
-      <p class="">The <a href="/imprint.html">GEMbench</a> is a project of the <a href="https://www.sbi.uni-rostock.de/">Department of Systems Biology and Bioinformatics</a> at the <a href="http://www.uni-rostock.de/">University of Rostock</a></p>
+      <p class="">The <a href="/imprint.html">GEMbench</a> is a joint project of the <a href="https://www.sbi.uni-rostock.de/">Department of Systems Biology and Bioinformatics</a> at the <a href="http://www.uni-rostock.de/">University of Rostock</a><br/>and the Hematology, Oncology and SCT Research Center at the <a href="http://en.tums.ac.ir/en">Tehran University of Medical Sciences</a>.</p>
     </div>
   </footer>
 </body>

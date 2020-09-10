@@ -262,3 +262,37 @@ margin-left: -70px;
   margin: 5px;
   padding: 15px;
 }
+
+#correlation-plots,
+#barcode_disclaimer,
+#boxplot_disclaimer {
+  display: none;
+}
+
+
+#barcodeColorExplanation {
+/*   display: block; */
+  margin: 15px 0;
+}
+.rotated-header {
+ height: 300px;
+ margin: auto;
+}
+
+
+.rotated-header th {
+  height: 240px;
+  vertical-align: bottom;
+  text-align: left;
+  line-height: 1;
+}
+.rotated-header-container {
+  width: 25px;
+}
+.rotated-header-content {
+  width: 300px;
+  transform-origin: bottom left;
+  transform: rotate(-90deg);
+  padding: 4px 15px;
+  color: #fff;
+}

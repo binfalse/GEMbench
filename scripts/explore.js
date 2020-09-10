@@ -250,7 +250,7 @@ const affected_subsystems = {}
 
 function draw_pca () {
   
-  $("correlation-plots").hide ();
+  $("#correlation-plots").hide ();
   //console.log (pca);
         
         
@@ -320,6 +320,12 @@ var pattern = svg.append("defs")
   var colorBackground = d3.scaleLinear()
     .domain([...Array(nBarcodeColors).keys()])
     .range(["#aaa", "#eee", "#ccc", "#ddd", "#bbb"])
+  
+  if ($("#barcodeColorExplanation").children ().length < 1) {
+    for (var sub = 0; sub < subsystems.length; sub++) {
+      $("#barcodeColorExplanation").append ("<th><div class='rotated-header-container'><div class='rotated-header-content' style='background-color:"+color (sub % nBarcodeColors)+"'>" + subsystems[sub] + "</div></div></th>");
+    }
+  }
   
   var padding_x = 30
   var padding_y = 80
@@ -431,7 +437,93 @@ var pattern = svg.append("defs")
             .on("click", function(){
 				//console.log ("not too many outliers to draw")
 				//console.log (outlier_table)
-        overlay = "<div><h3>Random Forest Clustering of "+imeth+" applied on "+source+"</h3><img src='/data/pca/cluster-heatmaps/"+source+"/"+imeth+"/clusterFR-NA-Zero.png'><p>some explanation</p></div>"
+        var overlayExplanation  = "";
+        if (imeth == "GIMME" && source == "HPA")
+          overlayExplanation = `The heatmap shows the flux clustering of reactions determined by random forest (RF) analysis.<br>The flux values ranged from -1000 (blue) to 1000 (red).<br>In total, 15 reactions in 3 different subsystems show significant differences in the flux among the clusters:
+          <ul>
+            <li>Exchange/demand reaction<ul><li><a href="https://www.vmh.life/#reaction/EX_glypro[e]">Exchange of Glypro</a></li><li><a href="https://www.vmh.life/#reaction/EX_tyrglu[e]">Exchange of TyrGlu</a></li><li><a href="https://www.vmh.life/#reaction/EX_lysargleu[e]">Exchange of LysArgLeu</a></li><li><a href="https://www.vmh.life/#reaction/EX_glntyrleu[e]">Exchange of GlntyrLeu</a></li><li><a href="https://www.vmh.life/#reaction/EX_tyralaphe[e]">Exchange of TyrAlaPhe</a></li></ul></li>
+            <li>Peptide metabolism<ul><li><a href="https://www.vmh.life/#reaction/TYRGLUr">Metabolism (Formation/Degradation) of TyrGlu</a></li><li><a href="https://www.vmh.life/#reaction/ARGARGLYSr">Metabolism (Formation/Degradation) of ArgArgLys</a></li><li><a href="https://www.vmh.life/#reaction/GLNTYRLEUr">Metabolism (Formation/Degradation) of GlntyrLeu</a></li><li><a href="https://www.vmh.life/#reaction/LYSARGLEUr">Metabolism (Formation/Degradation) of LysArgLeu</a></li></ul></li>
+            <li>Transport, extracellular<ul><li><a href="https://www.vmh.life/#reaction/GLYPROt">Transport of Glycylproline</a></li><li><a href="https://www.vmh.life/#reaction/TYRGLUt">Transport of TyrGlu, Extracellular</a></li><li><a href="https://www.vmh.life/#reaction/TRPTHRGLUt">Transport of TrpThrGlu, Extracellular</a></li><li><a href="https://www.vmh.life/#reaction/ARGARGLYSt">Transport of ArgArgLys, Extracellular</a></li><li><a href="https://www.vmh.life/#reaction/PHEPHETHRt">Transport of PhePheThr, Extracellular</a></li><li><a href="https://www.vmh.life/#reaction/TYRALAPHEt">Transport of TyrAlaPhe, Extracellular</a></li></ul></li>
+        </ul>The reactions are named in accordance with <a href="https://www.vmh.life/">Recon3</a>.`;
+        if (imeth == "iMAT" && source == "HPA")
+          overlayExplanation = `The heatmap shows the flux clustering of reactions determined by random forest (RF) analysis.<br>The flux values ranged from -1000 (blue) to 1000 (red).<br>In total, 15 reactions in 3 different subsystems show significant differences in the flux among the clusters:
+          <ul>
+            <li>Exchange/demand reaction<ul><li><a href="https://www.vmh.life/#reaction/EX_hishislys[e]">Exchange of HisHisLys</a></li><li><a href="https://www.vmh.life/#reaction/EX_trpproleu[e]">Exchange of TrpProLeu</a></li><li><a href="https://www.vmh.life/#reaction/EX_phepheasn[e]">Exchange of PhePheAsn</a></li><li><a href="https://www.vmh.life/#reaction/EX_proglnpro[e]">Exchange of ProGlnPro</a></li><li><a href="https://www.vmh.life/#reaction/EX_provalgln[e]">Exchange of ProValGln</a></li><li><a href="https://www.vmh.life/#reaction/EX_argalathr[e]">Exchange of ArgAlaThr</a></li></ul></li>
+            <li>Transport, extracellular<ul><li><a href="https://www.vmh.life/#reaction/LYSLYSLYSt">Transport of LysLysLys, Extracellular</a></li><li><a href="https://www.vmh.life/#reaction/PROLYSPROt">Transport of ProLysPro, Extracellular</a></li><li><a href="https://www.vmh.life/#reaction/PROGLNPROt">Transport of ProGlnPro, Extracellular</a></li></ul></li>
+            <li>Peptide metabolism<ul><li><a href="https://www.vmh.life/#reaction/ARGALATHRr">Metabolism (Formation/Degradation) of ArgAlaThr</a></li><li><a href="https://www.vmh.life/#reaction/ARGCYSGLYr">Metabolism (Formation/Degradation) of ArgCysGly</a></li><li><a href="https://www.vmh.life/#reaction/PROGLNPROr">Metabolism (Formation/Degradation) of ProGlnPro</a></li><li><a href="https://www.vmh.life/#reaction/ARGLEUPHEr">Metabolism (Formation/Degradation) of ArgLeuPhe</a></li><li><a href="https://www.vmh.life/#reaction/TRPPROLEUr">Metabolism (Formation/Degradation) of TrpProLeu</a></li><li><a href="https://www.vmh.life/#reaction/GLULEUr">Metabolism (Formation/Degradation) of GluLeu</a></li></ul></li>
+          </ul>The reactions are named in accordance with <a href="https://www.vmh.life/">Recon3</a>.`;
+        if (imeth == "GIMME" && source == "TCGA")
+          overlayExplanation = `The heatmap shows the flux clustering of reactions determined by random forest (RF) analysis.<br>The flux values ranged from -1000 (blue) to 1000 (red).<br>In total, 15 reactions in 5 different subsystems show significant differences in the flux among the clusters:
+           <ul>
+            <li>Transport, extracellular<ul><li><a href="https://www.vmh.life/#reaction/ALAARGGLYt">Transport of AlaArgGly, Extracellular</a></li><li><a href="https://www.vmh.life/#reaction/ASPGLUt">Transport of AspGlu, Extracellular</a></li><li><a href="https://www.vmh.life/#reaction/ASPHISCYSt">Transport of AspHisCys, Extracellular</a></li><li><a href="https://www.vmh.life/#reaction/LEUTRPARGt">Transport of LeuTrpArg, Extracellular</a></li><li><a href="https://www.vmh.life/#reaction/PROCYSt">Transport of ProCys, Extracellular</a></li><li><a href="https://www.vmh.life/#reaction/PROLYSPROt">Transport of ProLysPro, Extracellular</a></li><li><a href="https://www.vmh.life/#reaction/TRPLYSt">Transport of TrpLys, Extracellular</a></li></ul></li>
+            <li>Exchange/demand reaction<ul><li><a href="https://www.vmh.life/#reaction/EX_lysglnphe[e]">Exchange of LysGlnPhe</a></li></ul></li>
+            <li>Glycerophospholipid metabolism<ul><li><a href="https://www.vmh.life/#reaction/HDL_HSDEG">Degradation of HDL</a></li></ul></li>
+            <li>Peptide metabolism<ul><li><a href="https://www.vmh.life/#reaction/LEUTRPARGr">Metabolism (Formation/Degradation) of LeuTrpArg</a></li><li><a href="https://www.vmh.life/#reaction/LYSARGLEUr">Metabolism (Formation/Degradation) of LysArgLeu</a></li><li><a href="https://www.vmh.life/#reaction/LYSGLNPHEr">Metabolism (Formation/Degradation) of LysGlnPhe</a></li><li><a href="https://www.vmh.life/#reaction/TYRGLUr">Metabolism (Formation/Degradation) of TyrGlu</a></li></ul></li>
+            <li>Vitamin A metabolism<ul><li><a href="https://www.vmh.life/#reaction/RE2651R">RE2651R</a></li><li><a href="https://www.vmh.life/#reaction/RE2655R">RE2655R</a></li></ul></li>
+          </ul>The reactions are named in accordance with <a href="https://www.vmh.life/">Recon3</a>.`;
+        if (imeth == "iMAT" && source == "TCGA")
+          overlayExplanation = `The heatmap shows the flux clustering of reactions determined by random forest (RF) analysis.<br>The flux values ranged from -1000 (blue) to 1000 (red).<br>In total, 15 reactions in 3 different subsystems show significant differences in the flux among the clusters:
+          <ul>
+            <li>Transport, extracellular<ul><li><a href="https://www.vmh.life/#reaction/ALAARGGLYt">Transport of AlaArgGly, Extracellular</a></li><li><a href="https://www.vmh.life/#reaction/LYSGLUGLUt">Transport of LysGluGlu, Extracellular</a></li><li><a href="https://www.vmh.life/#reaction/PHEGLNPHEt">Transport of PheGlnPhe, Extracellular</a></li><li><a href="https://www.vmh.life/#reaction/TRPASPASPt">Transport of TrpAspAsp, Extracellular</a></li><li><a href="https://www.vmh.life/#reaction/VALTRPVALt">Transport of ValTrpVal, Extracellular</a></li></ul></li>
+            <li>Peptide metabolism<ul><li><a href="https://www.vmh.life/#reaction/ALAASNLEUr">Metabolism (Formation/Degradation) of AlaAsnLeu</a></li><li><a href="https://www.vmh.life/#reaction/ALAHISALAr">Metabolism (Formation/Degradation) of AlaHisAla</a></li><li><a href="https://www.vmh.life/#reaction/ARGGLUGLUr">Metabolism (Formation/Degradation) of ArgGluGlu</a></li><li><a href="https://www.vmh.life/#reaction/LYSLYSLYSr">Metabolism (Formation/Degradation) of LysLysLys</a></li><li><a href="https://www.vmh.life/#reaction/METMETILEr">Metabolism (Formation/Degradation) of MetMetIle</a></li><li><a href="https://www.vmh.life/#reaction/VALTRPVALr">Metabolism (Formation/Degradation) of ValTrpVal</a></li></ul></li>
+            <li>Exchange/demand reaction<ul><li><a href="https://www.vmh.life/#reaction/EX_arggluglu[e]">Exchange of ArgGluGlu</a></li><li><a href="https://www.vmh.life/#reaction/EX_leuleutrp[e]">Exchange of LeuLeuTrp</a></li><li><a href="https://www.vmh.life/#reaction/EX_lyslyslys[e]">Exchange of LysLysLys</a></li><li><a href="https://www.vmh.life/#reaction/EX_propropro[e]">Exchange of ProProPro</a></li></ul></li>
+          </ul>The reactions are named in accordance with <a href="https://www.vmh.life/">Recon3</a>.`;
+        if (imeth == "INIT" && source == "TCGA")
+          overlayExplanation = `The heatmap shows the flux clustering of reactions determined by random forest (RF) analysis.<br>The flux values ranged from -1000 (blue) to 1000 (red).<br>In total, 15 reactions in 5 different subsystems show significant differences in the flux among the clusters:
+          <ul>
+            <li>Exchange/demand reaction<ul><li><a href="https://www.vmh.life/#reaction/EX_M01238[e]">EX_M01238[e]</a></li><li><a href="https://www.vmh.life/#reaction/EX_proglnpro[e]">Exchange of ProGlnPro</a></li><li><a href="https://www.vmh.life/#reaction/EX_prolyspro[e]">Exchange of ProLysPro</a></li><li><a href="https://www.vmh.life/#reaction/EX_trpglngln[e]">Exchange of TrpGlnGln</a></li></ul></li>
+            <li>Fatty acid synthesis<ul><li><a href="https://www.vmh.life/#reaction/HMR_0301">Long-Chain-Fatty-Acid Coenzyme A Ligase</a></li><li><a href="https://www.vmh.life/#reaction/HMR_2361">Very-Long-Chain 3-Oxoacyl Coenzyme A Synthase</a></li><li><a href="https://www.vmh.life/#reaction/HMR_2362">Very-Long-Chain 3-Oxoacyl Coenzyme A Reductase</a></li><li><a href="https://www.vmh.life/#reaction/HMR_2363">Very-Long-Chain (3R)-3-Hydroxyacyl Coenzyme A Dehydratase</a></li><li><a href="https://www.vmh.life/#reaction/HMR_2364">Very-Long-Chain Enoyl Coenzyme A Reductase</a></li><li><a href="https://www.vmh.life/#reaction/RE3245C">RE3245C</a></li></ul></li>
+            <li>Transport, extracellular<ul><li><a href="https://www.vmh.life/#reaction/LYSARGLEUt">Transport of LysArgLeu, Extracellular</a></li><li><a href="https://www.vmh.life/#reaction/PROGLNPROt">Transport of ProGlnPro, Extracellular</a></li><li><a href="https://www.vmh.life/#reaction/XYLUDte">Assumed Passive Diffusion into Extracellular Space</a></li></ul></li>
+            <li>Peptide metabolism<ul><li><a href="https://www.vmh.life/#reaction/PROGLNPROr">Metabolism (Formation/Degradation) of ProGlnPro</a></li></ul></li>
+            <li>Pentose phosphate pathway<ul><li><a href="https://www.vmh.life/#reaction/XYLTD_Dr">Xylitol Dehydrogenase (D-Xyulose-Forming)</a></li></ul></li>
+          </ul>The reactions are named in accordance with <a href="https://www.vmh.life/">Recon3</a>.`;
+        if (imeth == "GIMME" && source == "GSE2109")
+          overlayExplanation = `The heatmap shows the flux clustering of reactions determined by random forest (RF) analysis.<br>The flux values ranged from -1000 (blue) to 1000 (red).<br>In total, 16 reactions in 3 different subsystems show significant differences in the flux among the clusters:
+          <ul>
+            <li>Transport, extracellular<ul><li><a href="https://www.vmh.life/#reaction/ASPGLUt">Transport of AspGlu, Extracellular</a></li><li><a href="https://www.vmh.life/#reaction/PROCYSt">Transport of ProCys, Extracellular</a></li><li><a href="https://www.vmh.life/#reaction/PROLYSPROt">Transport of ProLysPro, Extracellular</a></li><li><a href="https://www.vmh.life/#reaction/TYRGLUt">Transport of TyrGlu, Extracellular</a></li></ul></li>
+            <li>Exchange/demand reaction<ul><li><a href="https://www.vmh.life/#reaction/EX_aspglu[e]">Exchange of AspGlu</a></li><li><a href="https://www.vmh.life/#reaction/EX_HC00004[e]">Exchange of Apoa1</a></li><li><a href="https://www.vmh.life/#reaction/EX_HC00006[e]">Exchange of Apo C1</a></li><li><a href="https://www.vmh.life/#reaction/EX_HC00007[e]">Exchange of Apo C2</a></li><li><a href="https://www.vmh.life/#reaction/EX_hdl_hs[e]">Exchange of HDL_Hs</a></li><li><a href="https://www.vmh.life/#reaction/EX_prolyspro[e]">Exchange of ProLysPro</a></li><li><a href="https://www.vmh.life/#reaction/EX_trplys[e]">Exchange of TrpLys</a></li><li><a href="https://www.vmh.life/#reaction/EX_tyrglu[e]">Exchange of TyrGlu</a></li><li><a href="https://www.vmh.life/#reaction/EX_xylu_L[e]">Exchange of L-Xylulose</a></li></ul></li>
+            <li>Peptide metabolism<ul><li><a href="https://www.vmh.life/#reaction/LYSARGLEUr">Metabolism (Formation/Degradation) of LysArgLeu</a></li><li><a href="https://www.vmh.life/#reaction/PROLYSPROr">Metabolism (Formation/Degradation) of ProLysPro</a></li><li><a href="https://www.vmh.life/#reaction/TYRGLUr">Metabolism (Formation/Degradation) of TyrGlu</a></li></ul></li>
+          </ul>The reactions are named in accordance with <a href="https://www.vmh.life/">Recon3</a>.`;
+        if (imeth == "iMAT" && source == "GSE2109")
+          overlayExplanation = `The heatmap shows the flux clustering of reactions determined by random forest (RF) analysis.<br>The flux values ranged from -1000 (blue) to 1000 (red).<br>In total, 15 reactions in 3 different subsystems show significant differences in the flux among the clusters:
+          <ul>
+            <li>Peptide metabolism<ul><li><a href="https://www.vmh.life/#reaction/GLNHISHISr">Metabolism (Formation/Degradation) of GlnHisHis</a></li><li><a href="https://www.vmh.life/#reaction/ASPMETASPr">Metabolism (Formation/Degradation) of AspMetAsp</a></li><li><a href="https://www.vmh.life/#reaction/TRPILETRPr">Metabolism (Formation/Degradation) of TrpIleTrp</a></li><li><a href="https://www.vmh.life/#reaction/TRPASPASPr">Metabolism (Formation/Degradation) of TrpAspAsp</a></li><li><a href="https://www.vmh.life/#reaction/ASNCYSCYSr">Metabolism (Formation/Degradation) of AsnCysCys</a></li></ul></li>
+            <li>Exchange/demand reaction<ul><li><a href="https://www.vmh.life/#reaction/EX_trpaspasp[e]">Exchange of TrpAspAsp</a></li><li><a href="https://www.vmh.life/#reaction/EX_hishislys[e]">Exchange of HisHisLys</a></li><li><a href="https://www.vmh.life/#reaction/EX_glnhishis[e]">Exchange of GlnHisHis</a></li><li><a href="https://www.vmh.life/#reaction/EX_trpiletrp[e]">Exchange of TrpIleTrp</a></li><li><a href="https://www.vmh.life/#reaction/EX_leutyrtyr[e]">Exchange of Leutyrtyr</a></li><li><a href="https://www.vmh.life/#reaction/EX_ileargile[e]">Exchange of IleArgIle</a></li></ul></li>
+            <li>Transport, extracellular<ul><li><a href="https://www.vmh.life/#reaction/GLNHISHISt">Transport of GlnHisHis, Extracellular</a></li><li><a href="https://www.vmh.life/#reaction/ALAARGGLYt">Transport of AlaArgGly, Extracellular</a></li><li><a href="https://www.vmh.life/#reaction/TRPGLNGLNt">Transport of TrpGlnGln, Extracellular</a></li><li><a href="https://www.vmh.life/#reaction/TRPTYRTYRt">Transport of Trptyrtyr, Extracellular</a></li></ul></li>
+          </ul>The reactions are named in accordance with <a href="https://www.vmh.life/">Recon3</a>.`;
+        if (imeth == "INIT" && source == "GSE2109")
+          overlayExplanation = `The heatmap shows the flux clustering of reactions determined by random forest (RF) analysis.<br>The flux values ranged from -1000 (blue) to 1000 (red).<br>In total, 15 reactions in 7 different subsystems show significant differences in the flux among the clusters:
+          <ul>
+            <li>Exchange/demand reaction<ul><li><a href="https://www.vmh.life/#reaction/EX_prolyspro[e]">Exchange of ProLysPro</a></li><li><a href="https://www.vmh.life/#reaction/EX_lysgluglu[e]">Exchange of LysGluGlu</a></li></ul></li>
+            <li>Fatty acid synthesis<ul><li><a href="https://www.vmh.life/#reaction/HMR_2363">Very-Long-Chain (3R)-3-Hydroxyacyl Coenzyme A Dehydratase</a></li><li><a href="https://www.vmh.life/#reaction/HMR_2353">Very-Long-Chain 3-Oxoacyl Coenzyme A Synthase</a></li><li><a href="https://www.vmh.life/#reaction/HMR_2543">Very-Long-Chain Enoyl Coenzyme A Reductase</a></li><li><a href="https://www.vmh.life/#reaction/HMR_2347">Very-Long-Chain 3-Oxoacyl Coenzyme A Synthase</a></li><li><a href="https://www.vmh.life/#reaction/HMR_2364">Very-Long-Chain Enoyl Coenzyme A Reductase</a></li></ul></li>
+            <li>Pentose phosphate pathway<ul><li><a href="https://www.vmh.life/#reaction/XYLTD_Dr">Xylitol Dehydrogenase (D-Xyulose-Forming)</a></li></ul></li>
+            <li>Transport, extracellular<ul><li><a href="https://www.vmh.life/#reaction/PROLYSPROt">Transport of ProLysPro, Extracellular</a></li><li><a href="https://www.vmh.life/#reaction/XYLUDte">Assumed Passive Diffusion into Extracellular Space</a></li></ul></li>
+            <li>Citric acid cycle<ul><li><a href="https://www.vmh.life/#reaction/ACONTm">Aconitate Hydratase</a></li></ul></li>
+            <li>Peptide metabolism<ul><li><a href="https://www.vmh.life/#reaction/PROLYSPROr">Metabolism (Formation/Degradation) of ProLysPro</a></li><li><a href="https://www.vmh.life/#reaction/ARGSERSERr">Metabolism (Formation/Degradation) of ArgSerSer</a></li><li><a href="https://www.vmh.life/#reaction/ALAARGGLYr">Metabolism (Formation/Degradation) of AlaArgGly</a></li></ul></li>
+            <li>Nucleotide interconversion<ul><li><a href="https://www.vmh.life/#reaction/ADK3m">Adentylate Kinase (GTP)</a></li></ul></li>
+          </ul>The reactions are named in accordance with <a href="https://www.vmh.life/">Recon3</a>.`;
+        if (imeth == "GIMME" && source == "EMTAB-37")
+          overlayExplanation = `The heatmap shows the flux clustering of reactions determined by random forest (RF) analysis.<br>The flux values ranged from -1000 (blue) to 1000 (red).<br>In total, 15 reactions in 5 different subsystems show significant differences in the flux among the clusters:
+          <ul>
+            <li>Triacylglycerol synthesis<ul><li><a href="https://www.vmh.life/#reaction/DHAPA">Dihydroxyacetone Phosphate Acyltransferase</a></li></ul></li>
+            <li>Exchange/demand reaction<ul><li><a href="https://www.vmh.life/#reaction/EX_HC00006[e]">Exchange of Apo C1</a></li><li><a href="https://www.vmh.life/#reaction/EX_M01238[e]">EX_M01238[e]</a></li><li><a href="https://www.vmh.life/#reaction/EX_HC00009[e]">Exchange of Apo E</a></li><li><a href="https://www.vmh.life/#reaction/EX_2h3mv[e]">Exchange of 2-Hydroxy-3-Methyl-Valerate</a></li><li><a href="https://www.vmh.life/#reaction/DM_ts3[c">Demand for Tachysterol 3</a></li><li><a href="https://www.vmh.life/#reaction/EX_HC00008[e]">Exchange of Apo C3</a></li><li><a href="https://www.vmh.life/#reaction/EX_hdl_hs[e]">Exchange of HDL_Hs</a></li><li><a href="https://www.vmh.life/#reaction/EX_asn_L[e]">Exchange of L-Asparagine</a></li></ul></li>
+            <li>Transport, extracellular<ul><li><a href="https://www.vmh.life/#reaction/r0942">Neurotransmitter:Sodium Symporter (Nss) Tcdb:2.</a></li><li><a href="https://www.vmh.life/#reaction/2H3MVte">Transport of 2-Hydroxy-3-Methyl-Valerate</a></li><li><a href="https://www.vmh.life/#reaction/2H3MVte">Transport of 2-Hydroxy-3-Methyl-Valerate (reverse)</a></li><li><a href="https://www.vmh.life/#reaction/HMR_0240">HMR_0240</a></li></ul></li>
+            <li>Transport, peroxisomal<ul><li><a href="https://www.vmh.life/#reaction/ALPA_HStc">Intracellular Transport of Lysophosphatidic Acid</a></li></ul></li>
+            <li>Transport, mitochondrial<ul><li><a href="https://www.vmh.life/#reaction/q10h2tc">Transport of Ubiquinol into Cytosol</a></li></ul></li>
+          </ul>The reactions are named in accordance with <a href="https://www.vmh.life/">Recon3</a>.`;
+        if (imeth == "INIT" && source == "EMTAB-37")
+          overlayExplanation = `The heatmap shows the flux clustering of reactions determined by random forest (RF) analysis.<br>The flux values ranged from -1000 (blue) to 1000 (red).<br>In total, 16 reactions in 8 different subsystems show significant differences in the flux among the clusters:
+          <ul>
+            <li>Transport, extracellular<ul><li><a href="https://www.vmh.life/#reaction/ARACHDFATPtc">Arachidonate (N-C18:1) Transport by FATP</a></li><li><a href="https://www.vmh.life/#reaction/LNLCt">Linoleic Acid (N-C18:2) Transport in via Diffusion</a></li><li><a href="https://www.vmh.life/#reaction/5OXPROt">Transport of 5-Oxoprolinate</a></li><li><a href="https://www.vmh.life/#reaction/XYLUDte">Assumed Passive Diffusion into Extracellular Space</a></li></ul></li>
+            <li>Exchange/demand reaction<ul><li><a href="https://www.vmh.life/#reaction/EX_5oxpro[e]">Exchange of 5-Oxoprolinate</a></li><li><a href="https://www.vmh.life/#reaction/EX_M01238[e]">EX_M01238[e]</a></li></ul></li>
+            <li>Glutathione metabolism<ul><li><a href="https://www.vmh.life/#reaction/GGLUCT">Gamma-Glutamylcyclotransferase</a></li></ul></li>
+            <li>Fatty acid synthesis<ul><li><a href="https://www.vmh.life/#reaction/HMR_2347">Very-Long-Chain 3-Oxoacyl Coenzyme A Synthase</a></li><li><a href="https://www.vmh.life/#reaction/HMR_2349">Very-Long-Chain (3R)-3-Hydroxyacyl Coenzyme A Dehydratase</a></li><li><a href="https://www.vmh.life/#reaction/HMR_2350">Very-Long-Chain Enoyl Coenzyme A Reductase (HMR_2356)</a></li><li><a href="https://www.vmh.life/#reaction/HMR_2356">Very-Long-Chain Enoyl Coenzyme A Reductase (HMR_2350)</a></li><li><a href="https://www.vmh.life/#reaction/RE0570C">RE0570C</a></li></ul></li>
+            <li>Fatty acid oxidation<ul><li><a href="https://www.vmh.life/#reaction/HMR_2702">Carnitine O-Palmitoyltransferase</a></li></ul></li>
+            <li>Arginine and proline metabolism<ul><li><a href="https://www.vmh.life/#reaction/P5CR">Pyrroline-5-Carboxylate Reductase</a></li></ul></li>
+            <li>Transport, mitochondrial<ul><li><a href="https://www.vmh.life/#reaction/q10h2tc">Transport of Ubiquinol into Cytosol</a></li></ul></li>
+            <li>Cholesterol metabolism<ul><li><a href="https://www.vmh.life/#reaction/r0463">(S)-3-Hydroxy-3-Methylglutaryl Coenzyme A Acetoacetyl Coenzyme A-Lyase (Coa-Acetylating) Synthesis And Degradation of Ketone Bodies Valine, Leucine And Isoleucine Degradation</a></li></ul></li>
+          </ul>The reactions are named in accordance with <a href="https://www.vmh.life/">Recon3</a>.`;
+        overlay = "<div><h3>Random Forest Clustering of "+imeth+" applied on "+source+"</h3><img src='/data/pca/cluster-heatmaps/"+source+"/"+imeth+"/clusterFR-NA-Zero.png'><p>"+overlayExplanation+"</p></div>";
               $.fancybox( $(overlay) );
             });
              
@@ -510,7 +602,8 @@ function draw_correlation (measure, sumstat, source, type, domnode) {
       cor_samples[sid]["values"][i] = values[j][0]
     }
   }
-  $("correlation-plots").show ();
+  $("#correlation-plots").show ();
+  $("#correlation-metric").text (measure+" scores");
   $("#" + domnode).empty ();
   $("#" + domnode).append ("<p><a title='Correlation of "+measure+" scores for "+ source + " &mdash; " + type + "' id='"+domnode+"_a' href='#"+domnode+"_svg'>" + source + "<br>" + type + "</a></p>");
   
@@ -1208,13 +1301,20 @@ function draw_analysis () {
   var measure = document.getElementById("metric")
   //console.log (measure)
   measure = metrics[measure.options[measure.selectedIndex].value]
-$(".metric_expl").hide ()
+  $(".metric_expl").hide ();
+  
   $("#" + measure + "_expl").show ();
-  $("#loading_findings").hide ();
+  $("#loading_findings").remove ();
   //console.log (measure)
   if (measure == "Clusterability") {
+    $("#barcode_disclaimer").show ();
+    $("#boxplot_disclaimer").hide ();
+    $("#correlation-plots").hide ();
     draw_pca ();
   } else {
+    $("#boxplot_disclaimer").show ();
+    $("#correlation-plots").show ();
+    $("#barcode_disclaimer").hide ();
     draw_boxplots (measure);
   }
 }

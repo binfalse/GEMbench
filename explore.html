@@ -42,10 +42,10 @@
   
   
       
-  <section id="analyses" class="d-flex align-items-center">
-    <div class="container">
+  <section id="analyses" class="d-flex align-items-center mt-5">
+    <div class="container mt-5">
       <div class="section-title">
-        <h2 class="my-4">Comparison of Methods for Data Integration</h2>
+        <h2 class="">Comparison of Methods for Data Integration</h2>
       </div>
 
 
@@ -70,15 +70,13 @@
   It is a collection of 197 genes proposed by <a href="https://pubmed.ncbi.nlm.nih.gov/26771021-the-molecular-signatures-database-msigdb-hallmark-gene-set-collection/">
 Liberzon et al. in 2015</a>.
  Accordingly, a Hallmark score of 144 means that the used integration methods reports that 144 of these genes are active (i.e. the reactions facilitated by these genes have a non-zero flux).
-<!--
-If the integration method reports a non-zero flux on a reaction facilitated by one of the Hallmark genes, the Hallmark score increases by one.
--->
- </p>
+</p>
 <p id="BlandAltman_expl" class="metric_expl"><strong>BlandAltman represents the (dis-)agreement between two quantitative measurements.</strong> 
 Here, the BlandAltman represents the p-value of two models reporting the same flux.
 Thus, it shows the disagreement between flux distributions of two models. If the value for two models is &lt;0.05, these two models can be considered in disagreement.</p>
 <p id="Jaccard_expl" class="metric_expl"><strong>The Jaccard index measures the similarity between finite sample sets.</strong> It is defined as the size of the intersection divided by the size of the union of the sample sets, see <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3959882/">Fuxman Bass et al. 2013</a>.</p>
-
+<p id="Clusterability_expl" class="metric_expl"><strong>The Clusterability analyses the similarity of CGEMs: Can we distinguish groups of similar CGEMs?</strong> The plots below arrange the CGEMs according to the first two principal components, as reported by PCA applied on the FBA results.
+We used random forests to identify significant changes in the flux of reactions among the clusters and classified the reactions in cellular subsystems, as shown in the colored bar codes.</p>
 </div>
         </div>
         </div>
@@ -90,11 +88,32 @@ Thus, it shows the disagreement between flux distributions of two models. If the
     <i class="fa fa-spinner fa-spin fa-5x" aria-hidden="true"></i>
   </div>
 </div>
-<p class="my-5 p-2">Disclaimer: The boxplots where computed while neglecting infinite values. A wavy line indicates a lot of outliers. Drawing them would be a torture for your browser and probably wouldn't help much. Click any box to get a list of outliers.</p>
-<p class="my-5 p-2">barcodes are colored, what does it mean? where does the pca come from? which subsystems? how did we decide on subsystems?.</p>
-<a id="download" class="btn btn-block my-5 p-2" href="#">Download SVG</a>
+<div class="mt-5 p-2" id="boxplot_disclaimer"><p>Disclaimer: The boxplots where computed while neglecting infinite values. A wavy line indicates a lot of outliers. Drawing them would be a torture for your browser and probably wouldn't help much. Click any box to get a list of outliers.</p></div>
+
+<a id="download" class="btn btn-block mb-5 p-2" href="#">Download SVG</a>
+
+
+<div class="mb-5 p-2" id="barcode_disclaimer"><p>
+
+The barcodes below the plots represent the metabolic subsystems of Recon3.
+Colored segments show subsystems with significantly different fluxes among the clusters of CGEMs, as reported by the random forest analyses.
+The segments are in the following order:</p>
+  <table class="rotated-header">
+    <thead>
+      <tr id="barcodeColorExplanation">
+      </tr>
+    </thead>
+  </table>
+  <p>
+The width of a colored segment in a barcode corresponds to the number of reactions with different fluxes. Grey segments represent subsystems that do not show significant changes between clusters of CGEMs.
+<br>
+Click one of the barcodes to get more details about the random forest results.
+</p>
+</div>
+
+
 <div id="correlation-plots">
-<h3>Correlation of integration methods.</h3>
+<h3>Correlation of <span id='correlation-metric'></span></h3>
 <p>Click the title to get a larger version of the plot. Infinities were not considered in the correlation plots. scales from green to green over yellow. NaNs are white</p>
 <div class="row" id="cor">
   <div id="cor1" class="col-md-2"></div>
@@ -112,7 +131,7 @@ Thus, it shows the disagreement between flux distributions of two models. If the
     
   <footer id="footer" class="text-center">
     <div class="container py-4">
-      <p class="">The <a href="/imprint.html">GEMbench</a> is a project of the <a href="https://www.sbi.uni-rostock.de/">Department of Systems Biology and Bioinformatics</a> at the <a href="http://www.uni-rostock.de/">University of Rostock</a></p>
+      <p class="">The <a href="/imprint.html">GEMbench</a> is a project of the <a href="https://www.sbi.uni-rostock.de/">Department of Systems Biology and Bioinformatics</a> at the <a href="http://www.uni-rostock.de/">University of Rostock</a><br/>and the Hematology, Oncology and SCT Research Center at the <a href="http://en.tums.ac.ir/en">Tehran University of Medical Sciences</a>.</p>
     </div>
   </footer>
 <script src="scripts/explore.js"></script>
