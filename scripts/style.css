@@ -275,8 +275,11 @@ margin-left: -70px;
   margin: 15px 0;
 }
 .rotated-header {
- height: 300px;
+ /*height: 300px;*/
  margin: auto;
+}
+.barcodetable {
+ margin-top: 100px;
 }
 
 

@@ -3,7 +3,9 @@ const sources = ["Cell Line","Patient Data"];
 const types = ["Microarray","RNA Seq","MS Proteomics"];
 const imethods = ["FASTCORE","GIMME","INIT","iMAT"];
 const metrics = ["AFR","EOR","Hallmark","BlandAltman","Jaccard","Clusterability"]
-const data_sources = ["EMTAB-37","GSE2109","HPA","ProteomeNCI60","ProteomePatients","TCGA"]
+// const data_sources = ["EMTAB-37","GSE2109","HPA","ProteomeNCI60","ProteomePatients","TCGA"]
+const data_sources = ["ProteomeNCI60", "EMTAB-37", "HPA", "ProteomePatients", "GSE2109", "TCGA"]
+//EMTAB-37","GSE2109","HPA","ProteomeNCI60","ProteomePatients","TCGA"]
 metric_dict = {
   "AFR": 0,
   "EOR": 1,
