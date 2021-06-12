@@ -32,6 +32,7 @@ body {
   width: 100%;
   display: block !important;
 }
+}
 
 
 h1, h2, h3, h4, h5, h6 {
@@ -110,6 +111,19 @@ footer {
     padding: 60px 0;
     margin-top: 98px;
 }
+.logos img {
+  max-width: 90%;
+  max-height: 9vw;
+}
+
+@media (max-device-width : 992px) {
+  .logos img {
+  max-width: 90%;
+  max-height: 100vh;
+  margin-top: 25px;
+}
+}
+
 #analyses {
   
 }
